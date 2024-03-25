@@ -128,18 +128,18 @@ export default function Header() {
   return (
     <HeaderFrame>
       <RowBetween style={{ alignItems: 'flex-start' }} padding="1rem 1rem 0 1rem">
-        <HeaderElement>
+        {/* <HeaderElement>
           <Title href=".">
             <UniIcon>
-              {/*<img style={{ height: 50 }} src={Logo} alt="logo" />*/}
+              <img style={{ height: 50 }} src={Logo} alt="logo" />
             </UniIcon>
           </Title>
-        </HeaderElement>
+        </HeaderElement> */}
         <HeaderControls>
           <HeaderElement>
-            <TestnetWrapper>
+            {/* <TestnetWrapper>
               {!isMobile && chainId && NETWORK_LABELS[chainId] && <NetworkCard>{NETWORK_LABELS[chainId]}</NetworkCard>}
-            </TestnetWrapper>
+            </TestnetWrapper> */}
             <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
               {account && userEthBalance ? (
                 <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
@@ -151,8 +151,8 @@ export default function Header() {
           </HeaderElement>
           <HeaderElementWrap>
             {/* <VersionSwitch /> */}
-            <Settings />
-            <Menu />
+            {/* <Settings /> */}
+            {/* <Menu /> */}
           </HeaderElementWrap>
         </HeaderControls>
       </RowBetween>

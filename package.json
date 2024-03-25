@@ -1,5 +1,6 @@
 {
   "name": "@uniswap/interface",
+  "proxy": "https://campaign.artela.network/api/goplus",
   "description": "Uniswap Interface",
   "homepage": ".",
   "private": true,
@@ -35,6 +36,7 @@
     "@web3-react/walletconnect-connector": "^6.1.1",
     "@web3-react/walletlink-connector": "^6.0.9",
     "ajv": "^6.12.3",
+    "artswap": "1.0.6",
     "cids": "^1.0.0",
     "copy-to-clipboard": "^3.2.0",
     "cross-env": "^7.0.2",
@@ -50,7 +52,6 @@
     "inter-ui": "^3.13.1",
     "jazzicon": "^1.5.0",
     "lodash.flatmap": "^4.5.0",
-    "artswap": "1.0.6",
     "multicodec": "^2.0.0",
     "multihashes": "^3.0.1",
     "polished": "^3.3.2",
@@ -104,5 +105,8 @@
       "last 1 safari version"
     ]
   },
-  "license": "GPL-3.0-or-later"
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "react-icons": "^5.0.1"
+  }
 }

@@ -171,7 +171,6 @@ export default function Swap() {
     deadline,
     recipient
   )
-console.log('********',swapCallback)
   const { priceImpactWithoutFee } = computeTradePriceBreakdown(trade)
 
   const handleSwap = useCallback(() => {
