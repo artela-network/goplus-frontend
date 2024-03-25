@@ -18,19 +18,9 @@ import Swap from './Swap'
 import RemoveLiquidity from './RemoveLiquidity'
 import { RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
 import { RedirectOldRemoveLiquidityPathStructure } from './RemoveLiquidity/redirects'
+import Layout from '../layout'
 
-const AppWrapper = styled.div`
-  display: flex;
-  flex-flow: column;
-  align-items: flex-start;
-  overflow-x: hidden;
-`
 
-const HeaderWrapper = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  width: 100%;
-  justify-content: space-between;
-`
 
 const BodyWrapper = styled.div`
   display: flex;
@@ -60,10 +50,7 @@ export default function App() {
       <HashRouter>
         <Route component={GoogleAnalyticsReporter} />
         <Route component={DarkModeQueryParamReader} />
-        <AppWrapper>
-          <HeaderWrapper>
-            <Header />
-          </HeaderWrapper>
+          <Layout>
           <BodyWrapper>
             <Popups />
             <Web3ReactManager>
@@ -84,7 +71,7 @@ export default function App() {
             </Web3ReactManager>
             <Marginer />
           </BodyWrapper>
-        </AppWrapper>
+          </Layout>
       </HashRouter>
     </Suspense>
   )
