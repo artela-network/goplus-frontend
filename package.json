@@ -1,5 +1,8 @@
 {
   "name": "@uniswap/interface",
+  "engines": {
+    "node": "16.x"
+  },
   "proxy": "https://campaign.artela.network/api/goplus",
   "description": "Uniswap Interface",
   "homepage": ".",
