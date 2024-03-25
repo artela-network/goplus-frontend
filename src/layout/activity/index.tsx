@@ -15,7 +15,7 @@ export default function Activity({ children }: Props) {
     const [taskInfos, setTaskInfos] = useState([])
     const getTaskListByAccount = () => {
         if (account) {
-            fetch(`/tasks/${account}`)
+            fetch(`https://campaign.artela.network/api/goplus/tasks/${account}`)
                 .then(r => r.json())
                 .then((data: any) => {
                     if (data.success) {
