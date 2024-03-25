@@ -16,27 +16,6 @@ body {
     height: 200px;
 }
 
-.header {
-    display: flex;
-    width: 100%;
-    height: 90px;
-    align-items: center;
-    position: fixed;
-    /* border-bottom: 1px solid gray; */
-    z-index: 99;
-    --border-bottom-width: 1px;
-    --border-color: rgba(0, 0, 0, 0);
-    --border-left-width: 0px;
-    --border-right-width: 0px;
-    --border-style: solid;
-    --border-top-width: 0px;
-    backdrop-filter: blur(40px);
-    background-color: rgba(0, 0, 0, 0.75);
-    width: 100%;
-    transform: none;
-    transform-origin: 50% 50% 0px;
-    opacity: 1;
-}
 
 .my_card {
     width: 100%;
