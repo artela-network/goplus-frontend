@@ -27,8 +27,16 @@
 
 .subDescribe {
   margin: 20px 0;
+  font-size: 20px;
+  color: #7683A1;
 }
-
+.subTitle {
+  margin: 20px 0;
+  font-size: 20px;
+}
+.subDescribe:hover {
+  color: #F7F8F8;
+}
 .describeContainer {
   width: 600px;
   margin-left: 50px;

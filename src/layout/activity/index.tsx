@@ -3,6 +3,7 @@ import './activity.css'
 import Introduce from '../components/introduce/index';
 import Swap from '../../pages/Swap'
 import Pool from '../../pages/Pool'
+import Video from '../components/video';
 import { useActiveWeb3React } from '../../hooks'
 
 interface Props {
@@ -21,12 +22,12 @@ export default function Activity({ children }: Props) {
                         setTaskStatus(data.data.status)
                         if (data.data.taskInfos) {
                             setTaskInfos(data.data.taskInfos)
-                        }else{
+                        } else {
                             setTaskInfos([])
                         }
                     }
                 })
-        }else{
+        } else {
             setTaskInfos([])
         }
     }
@@ -100,9 +101,9 @@ export default function Activity({ children }: Props) {
                             <Pool />
                         </div>
                         <div className='describeContainer text-24px'>
-                            <div className='subDescribe'>Step1: 在左边的DEX里，添加1 $ART 的流动性吧！</div>
-                            <div className='subDescribe'>Status: 已完成</div>
-                            <div className='subDescribe'>
+                            <div className='subTitle'>Step1: 在左边的DEX里，添加1 $ART 的流动性吧！</div>
+                            <div className='subTitle'>Status: 已完成</div>
+                            <div className='subTitle'>
                                 Alice在这个池子里的资产
                                 <div>$ART: 1</div>
                                 <div>$RUG: 2</div>
@@ -118,15 +119,15 @@ export default function Activity({ children }: Props) {
                             <Swap />
                         </div>
                         <div className='describeContainer text-24px'>
-                            <div className='subDescribe'>进行RugPull,仅需要2步！</div>
-                            <div className='subDescribe'>Step1: 点击下面这个按钮，增发$Rug代币</div>
-                            <div className='subDescribe'>Step2: 点击左边的swap，输入xxx$代币,倾销资产，卷走所有的$ART</div>
-                            <div className='subDescribe'>
+                            <div className='subTitle'>进行RugPull,仅需要2步！</div>
+                            <div className='subTitle'>Step1: 点击下面这个按钮，增发$Rug代币</div>
+                            <div className='subTitle'>Step2: 点击左边的swap，输入xxx$代币,倾销资产，卷走所有的$ART</div>
+                            <div className='subTitle'>
                                 Alice在这个池子里的资产
                                 <div>$ART: 1</div>
                                 <div>$RUG: 2</div>
                             </div>
-                            <div className='subDescribe'>Status: 已完成</div>
+                            <div className='subTitle'>Status: 已完成</div>
                         </div>
                     </div>
                     <div className='text-56px mt-20 text-center'>
@@ -138,27 +139,22 @@ export default function Activity({ children }: Props) {
                             {children}
                         </div>
                         <div className='describeContainer text-24px'>
-                            <div className='subDescribe'>Step1: 点击下面这个按钮，增发$Rug代币</div>
-                            <div className='subDescribe'>Step2: 点击左边的swap，输入xxx$代币,倾销资产，卷走所有的$ART</div>
-                            <div className='subDescribe'>
+                            <div className='subTitle'>Step1: 点击下面这个按钮，增发$Rug代币</div>
+                            <div className='subTitle'>Step2: 点击左边的swap，输入xxx$代币,倾销资产，卷走所有的$ART</div>
+                            <div className='subTitle'>
                                 你会发现，项目方在step2的tx失败了，它被Artela的风控模块拦截了！
                             </div>
-                            <div className='subDescribe'>Status: 已完成</div>
+                            <div className='subTitle'>Status: 已完成</div>
                         </div>
                     </div>
                     <div className='text-56px mt-20 text-center'>
                         How do Artela and RamenSwap achieve this?
                     </div>
                     <div ref={thirdTaskRef} className="task_item my_card mt-20">
-
-                        <div className='video_card'>
-                            {/* <div className='bkimg-overlay'></div> */}
-                            <video autoPlay loop muted src="https://framerusercontent.com/assets/thoVJI505450y1BDDWkUogY7o5U.mp4">
-                            </video>
-                        </div>
-
-                        <div className='describeContainer text-24px'>
-                            <div className='subDescribe'>Aspect Programming offers an SDK and a WASM runtime environment for building native extensions on Artela blockchain. To add Aspects to your dApp:</div>
+                        <Video></Video>
+                        <div style={{ flex:'1' }}></div>
+                        <div style={{ flex:'1' }} className='describeContainer text-24px'>
+                            <div className='subTitle'>Aspect Programming offers an SDK and a WASM runtime environment for building native extensions on Artela blockchain. To add Aspects to your dApp:</div>
                             <div className='subDescribe'>
                                 1. Develop Aspects and compile to WASM bytecode.
                             </div>

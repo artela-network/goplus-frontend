@@ -1,18 +1,21 @@
-body {  
-    font-family: 'Inter', sans-serif;  
+body {
+    font-family: 'Inter', sans-serif;
 }
+
 .main_box {
     width: 100%;
     background-color: #020B13;
     display: flex;
-    flex-direction: column;    
-    justify-content: center;   
-    align-items: center; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
 .footer {
     background-color: #020B13;
     height: 200px;
 }
+
 .header {
     display: flex;
     width: 100%;
@@ -34,12 +37,13 @@ body {
     transform-origin: 50% 50% 0px;
     opacity: 1;
 }
+
 .my_card {
     width: 100%;
     height: 567px;
     align-content: center;
     align-items: center;
-    background: radial-gradient(48.1% 69.39999999999999% at 49.3% 0%,#1a203d 0%,rgb(6,15,23) 100%);
+    background: radial-gradient(48.1% 69.39999999999999% at 49.3% 0%, #1a203d 0%, rgb(6, 15, 23) 100%);
     border-radius: 28px;
     display: flex;
     flex: none;
@@ -51,59 +55,81 @@ body {
     padding: 60px;
     position: sticky;
     z-index: 2;
-    border: 1px solid rgba(255,255,255,.1);
+    border: 1px solid rgba(255, 255, 255, .1);
 }
+
 .video_card {
-    position: relative;  
-    width: 100%;  
-    height: 100%;  
-    overflow: hidden;  
-    border-radius: 20px;  
+    --border-bottom-width: 1px;
+    --border-color: rgba(255, 255, 255, .1);
+    --border-left-width: 1px;
+    --border-right-width: 1px;
+    --border-style: solid;
+    --border-top-width: 1px;
+    align-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #070912 0%, rgb(15, 21, 33) 100%);
+    border-radius: 25px;
+    box-shadow: 0 10px 20px #080b17cf;
+    display: flex;
+    flex: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    height: 450px;
+    justify-content: center;
+    left: -60px;
+    overflow: hidden;
+    padding: 20px;
+    position: absolute;
+    top: calc(50.088183421516774% - 450px / 2);
+    width: 630px;
+    will-change: var(--framer-will-change-override, transform);
+    z-index: 1;
 }
-.bkimg-overlay {  
-    position: absolute;  
-    top: 0;  
-    left: 0;  
-    width: 100%;  
-    height: 100%;  
-    /* 使用RGBA颜色，设置透明度 */  
-    background:  rgb(111, 242, 3);  
-    /* background:  linear-gradient(180deg,#070912 0%,rgb(15,21,33) 100%);   */
-    z-index: 0; /* 确保背景渐变在视频之上 */  
-    pointer-events: none; /* 允许视频接收点击事件 */  
-} 
-.video_card video {
+
+.bkimg-screen {
+    aspect-ratio: 1.4 / 1;
+    flex: none;
+    height: var(--framer-aspect-ratio-supported, 450px);
+    mix-blend-mode: screen;
+    position: relative;
+    width: 630px;
+}
+
+.video_card .bkimg-screen video {
+    cursor: auto;
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+    display: block;
+    object-fit: cover;
     background-color: rgba(0, 0, 0, 0);
-    position: absolute;  
-    top: 0;  
-    left: 0;  
-    width: 100%;  
-    height: 100%;  
-    object-fit: cover;  
-    z-index: 1; /* 确保视频在背景渐变之下 */ 
+    object-position: 50% 50%;
 }
+
 .link-style {
     color: white;
     text-decoration: underline;
-  }
-  
-  .link-disabled {
+}
+
+.link-disabled {
     color: grey;
     cursor: not-allowed;
     text-decoration: none;
-  }
-  
-  .link-style:hover {
+}
+
+.link-style:hover {
     color: grey;
     text-decoration: none;
     cursor: pointer;
-  }
-  
-  .link-icon {
+}
+
+.link-icon {
     font-size: 1.5em;
     vertical-align: middle;
     margin-right: 10px;
-  }
+}
+
 /* 基础设置 */
 .flex {
     display: flex;
@@ -122,11 +148,13 @@ body {
 }
 
 .gap-12 {
-    gap: 3rem; /* Tailwind 的 gap-12 大约等于 3rem */
+    gap: 3rem;
+    /* Tailwind 的 gap-12 大约等于 3rem */
 }
 
 .p-4 {
-    padding: 1rem; /* Tailwind 的 p-4 */
+    padding: 1rem;
+    /* Tailwind 的 p-4 */
 }
 
 .m-auto {
@@ -159,6 +187,7 @@ body {
 .text-48px {
     font-size: 48px;
 }
+
 .text-56px {
     font-size: 56px;
 }
@@ -247,8 +276,9 @@ body {
 .task-list-row {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;    /* 垂直居中子元素 */  
-    align-items: center; 
+    justify-content: space-between;
+    /* 垂直居中子元素 */
+    align-items: center;
 }
 
 .task-item {
