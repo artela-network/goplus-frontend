@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { useActiveWeb3React } from '../../hooks'
 import { useETHBalances } from '../../state/wallet/hooks'
-import Web3Status from '../Web3Status'
+import Web3Status from '../Web3StatusX'
 
 
 const AccountElement = styled.div<{ active: boolean }>`
