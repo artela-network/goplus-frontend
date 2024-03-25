@@ -1,0 +1,50 @@
+.introduce {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 1200px;
+}
+
+.bkimg {  
+    margin-top: 100px;
+    background-image: url('https://framerusercontent.com/images/psUNd1YkdgM7aJ8yZzb55obuug.jpg');  
+    background-size: cover;  
+    background-position: center;
+    background-repeat: no-repeat;  
+    width: 100%;  
+    height: 100%;  
+    position: relative;
+
+    border-radius: 20px;
+} 
+
+.img_container{
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: #000000b3;
+}
+.introduce_text{
+    color:rgb(152, 160, 179);
+    display: flex;
+    margin: 0 45px;
+    font-size: 20px;
+    justify-content: center;
+    line-height: 35px;
+}
+
+.claim_box {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.account_wallet{
+   max-width: 1200px;
+   display: flex;
+   justify-content: center;
+}

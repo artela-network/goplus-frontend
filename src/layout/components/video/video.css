@@ -1,0 +1,54 @@
+:root {
+    --border-color: rgba(255, 255, 255, .1);
+    --framer-will-change-override: transform;
+  }
+  
+.video-background {
+    cursor: auto;
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+    display: block;
+    object-fit: cover;
+    background-color: rgba(0, 0, 0, 0);
+    object-position: 50% 50%;
+}
+
+.framer-1bdorgc {
+    border-bottom-width: 1px;
+    border-color: rgba(255, 255, 255, .1);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-style: solid;
+    border-top-width: 1px;
+    align-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #070912 0%, rgb(15, 21, 33) 100%);
+    border-radius: 25px;
+    box-shadow: 0 10px 20px #080b17cf;
+    display: flex;
+    flex: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    height: 450px;
+    justify-content: center;
+    left: -60px;
+    overflow: hidden;
+    padding: 20px;
+    position: absolute;
+    top: calc(50.088183421516774% - 450px / 2);
+    width: 630px;
+    will-change: transform;
+    z-index: 1;
+}
+
+
+.b {
+    aspect-ratio: 1.4 / 1;
+    flex: none;
+    height: var(--framer-aspect-ratio-supported, 450px);
+    mix-blend-mode: screen;
+    position: relative;
+    width: 630px;
+}
