@@ -10,9 +10,9 @@ const ThirdTask = ({ children }: Props) => {
                 Reall experience:RamenSwap prevents rug pulls
             </div>
             <div className="task_item my_card mt-20">
-                <div className='swapContainer'>
+                {/* <div className='swapContainer'> */}
                     {children}
-                </div>
+                {/* </div> */}
                 <div className='describeContainer text-24px'>
                     <div className='subTitle'>Step1: 点击下面这个按钮，增发$Rug代币</div>
                     <div className='subTitle'>Step2: 点击左边的swap，输入xxx$代币,倾销资产，卷走所有的$ART</div>

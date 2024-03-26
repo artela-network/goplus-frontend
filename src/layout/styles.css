@@ -19,7 +19,7 @@ body {
 
 .my_card {
     width: 100%;
-    height: 567px;
+    /* height: 567px; */
     align-content: center;
     align-items: center;
     background: radial-gradient(48.1% 69.39999999999999% at 49.3% 0%, #1a203d 0%, rgb(6, 15, 23) 100%);

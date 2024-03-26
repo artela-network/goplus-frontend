@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from './Header'
-import AccountWallet from '../components/AccountWallet';
-import Activity from './Activity'
+import Activity from './Activity/index'
 import './styles.css'
 
 interface LayoutProps {
