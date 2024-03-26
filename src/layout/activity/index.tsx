@@ -1,11 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './activity.css'
 import Introduce from '../components/Introduce/index';
-import TaskList from '../components/TaskList';
-import FirstTask from '../components/FirstTask';
-import SecondTask from '../components/SecondTask';
-import ThirdTask from '../components/ThirdTask';
-import Explain from '../components/Explain';
+import TaskList from '../components/TaskList/index';
+import FirstTask from '../components/FirstTask/index';
+import SecondTask from '../components/SecondTask/index';
+import ThirdTask from '../components/ThirdTask/index';
+import Explain from '../components/Explain/index';
 import { useActiveWeb3React } from '../../hooks'
 
 interface Props {

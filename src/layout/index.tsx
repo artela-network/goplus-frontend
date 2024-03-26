@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Header from './Header'
+import Header from './Header/index'
 import Activity from './Activity/index'
 import './styles.css'
 
