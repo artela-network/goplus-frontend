@@ -31,7 +31,7 @@ export default function Introduce({ getTaskList }: IntroduceProps) {
             },
             body: JSON.stringify({
                 accountAddress: account,
-                channelTaskId: '1'
+                taskId: '1'
             })
         }).then(r => r.json())
             .then((r: any) => {

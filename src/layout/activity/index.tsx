@@ -6,18 +6,26 @@ import FirstTask from '../components/FirstTask/index';
 import SecondTask from '../components/SecondTask/index';
 import ThirdTask from '../components/ThirdTask/index';
 import Explain from '../components/Explain/index';
+import constructGetUrl from '../../utils/constructGetUrl'
 import { useActiveWeb3React } from '../../hooks'
 
 interface Props {
     children: React.ReactNode;
 }
 export default function Activity({ children }: Props) {
+
     const { account } = useActiveWeb3React()
     const [taskStatus, setTaskStatus] = useState(0)
     const [taskInfos, setTaskInfos] = useState([])
     const getTaskListByAccount = () => {
         if (account) {
-            fetch(`https://campaign.artela.network/api/goplus/tasks/${account}`)
+            fetch(constructGetUrl(`https://campaign.artela.network/api/goplus/tasks`, { accountAddress: account }), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+
+            })
                 .then(r => r.json())
                 .then((data: any) => {
                     if (data.success) {
