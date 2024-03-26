@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Header from './Header/index'
-import Activity from './Activity/index'
+import Header from './header/index'
+import Activity from './activity/index'
 import './styles.css'
 
 interface LayoutProps {
