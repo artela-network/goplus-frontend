@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './activity.css'
-import Introduce from '../components/Introduce/index';
+import Introduce from '../components/introduce/index';
 import TaskList from '../components/TaskList/index';
 import FirstTask from '../components/FirstTask/index';
 import SecondTask from '../components/SecondTask/index';
