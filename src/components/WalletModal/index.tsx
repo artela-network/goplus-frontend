@@ -10,7 +10,7 @@ import Modal from '../Modal'
 import AccountDetails from '../AccountDetails'
 import PendingView from './PendingView'
 import Option from './Option'
-import { SUPPORTED_WALLETS } from '../../constants'
+import { SUPPORTED_WALLETS, TEST_NET_CONFIG } from '../../constants'
 import { ExternalLink } from '../../theme'
 import MetamaskIcon from '../../assets/images/metamask.png'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
@@ -183,13 +183,37 @@ export default function WalletModal({
       connector.walletConnectProvider = undefined
     }
 
-    connector &&
-      activate(connector, undefined, true).catch(error => {
-        if (error instanceof UnsupportedChainIdError) {
-          activate(connector) // a little janky...can't use setError because the connector isn't set
-        } else {
-          setPendingError(true)
+    const switchNetwork = async () => {
+      console.log('switch network')
+      const provider = await connector?.getProvider()
+      try {
+        await provider.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: TEST_NET_CONFIG.chainId }]
+        })
+      } catch (switchError) {
+        if (switchError.code === 4902) {
+          await provider.request({
+            method: 'wallet_addEthereumChain',
+            params: [TEST_NET_CONFIG]
+          })
         }
+      }
+    }
+
+    switchNetwork()
+      .catch(() => {
+        setPendingError(true)
+      })
+      .then(() => {
+        connector &&
+          activate(connector, undefined, true).catch(error => {
+            if (error instanceof UnsupportedChainIdError) {
+              activate(connector) // a little janky...can't use setError because the connector isn't set
+            } else {
+              setPendingError(true)
+            }
+          })
       })
   }
 
