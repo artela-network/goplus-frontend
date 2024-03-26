@@ -36,14 +36,33 @@ body {
     z-index: 2;
     border: 1px solid rgba(255, 255, 255, .1);
 }
+.my_card_fixed {
+    width: 100%;
+    height: 567px;
+    align-content: center;
+    align-items: center;
+    background: radial-gradient(48.1% 69.39999999999999% at 49.3% 0%, #1a203d 0%, rgb(6, 15, 23) 100%);
+    border-radius: 28px;
+    display: flex;
+    flex: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 60px;
+    justify-content: center;
+    overflow: visible;
+    padding: 60px;
+    position: sticky;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, .1);
+}
 
 .video_card {
-    --border-bottom-width: 1px;
-    --border-color: rgba(255, 255, 255, .1);
-    --border-left-width: 1px;
-    --border-right-width: 1px;
-    --border-style: solid;
-    --border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-color: rgba(255, 255, 255, .1);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-style: solid;
+    border-top-width: 1px;
     align-content: center;
     align-items: center;
     background: linear-gradient(180deg, #070912 0%, rgb(15, 21, 33) 100%);

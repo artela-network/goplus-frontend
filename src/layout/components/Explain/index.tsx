@@ -7,7 +7,7 @@ const Explain = ()=> {
             <div className='text-56px mt-20 text-center'>
                 How do Artela and RamenSwap achieve this?
             </div>
-            <div className="task_item my_card mt-20">
+            <div className="task_item my_card_fixed mt-20">
                 <Video></Video>
                 <div style={{ flex: '1' }}></div>
                 <div style={{ flex: '1' }} className='describeContainer text-24px'>
