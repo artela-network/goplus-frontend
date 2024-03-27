@@ -19,7 +19,7 @@ import RemoveLiquidity from './RemoveLiquidity'
 import { RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
 import { RedirectOldRemoveLiquidityPathStructure } from './RemoveLiquidity/redirects'
 import Layout from '../layout'
-
+import 'antd/dist/antd.css'; 
 
 
 const BodyWrapper = styled.div`

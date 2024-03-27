@@ -1,5 +1,6 @@
 import React from "react";
 import Swap from '../../../pages/Swap'
+import TaskBox from "../Common/TaskBox";
 
 const SecondTask = () => {
     return (
@@ -9,19 +10,23 @@ const SecondTask = () => {
                 Simulated experience rug pull
             </div>
             <div className="task_item  my_card mt-20">
+                {/* <div className='describeContainer text-24px'>
+                    <div className="status_title">
+                        <div className="task_status"> Task status: onging</div>
+                       <div className="task_guide">
+                            <a href="">任务指南 </a> | <a href="">Task guide</a>
+                        </div> 
+                       </div>
+                    <div className='subTitle'>Step1: Increase 2B $RUG</div>
+                    <button> Increase</button>
+                    <div className='subTitle'>{`Total supply: 1B -> 2B`} </div>
+                    <div className='subTitle'>Step2: Swap 3B $RUG</div>
+                    <div className='subTitle'>Click swap button to sell all $Rug</div>
+
+                </div> */}
+                <TaskBox/>
                 <div className='swapContainer'>
                     <Swap />
-                </div>
-                <div className='describeContainer text-24px'>
-                    <div className='subTitle'>进行RugPull,仅需要2步！</div>
-                    <div className='subTitle'>Step1: 点击下面这个按钮，增发$Rug代币</div>
-                    <div className='subTitle'>Step2: 点击左边的swap，输入xxx$代币,倾销资产，卷走所有的$ART</div>
-                    <div className='subTitle'>
-                        Alice在这个池子里的资产
-                        <div>$ART: 1</div>
-                        <div>$RUG: 2</div>
-                    </div>
-                    <div className='subTitle'>Status: 已完成</div>
                 </div>
             </div>
         </>
