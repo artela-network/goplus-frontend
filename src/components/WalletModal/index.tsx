@@ -18,6 +18,7 @@ import { injected, fortmatic, portis } from '../../connectors'
 import { OVERLAY_READY } from '../../connectors/Fortmatic'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { AbstractConnector } from '@web3-react/abstract-connector'
+import { CampaignClient } from '../../utils/campaignClient'
 
 const CloseIcon = styled.div`
   position: absolute;
@@ -182,6 +183,16 @@ export default function WalletModal({
     if (connector instanceof WalletConnectConnector && connector.walletConnectProvider?.wc?.uri) {
       connector.walletConnectProvider = undefined
     }
+
+    connector?.getAccount().then(account => {
+      if (!account) {
+        console.log('NO ACCOUNT')
+        return
+      }
+      CampaignClient.initTask(account).then(data => {
+        console.log(data)
+      })
+    })
 
     const switchNetwork = async () => {
       console.log('switch network')
