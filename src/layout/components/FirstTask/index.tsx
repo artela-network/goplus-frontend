@@ -1,28 +1,66 @@
-import React from "react";
-import Pool from '../../../pages/Pool'
+import React, { useEffect, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
+import { getEtherscanLink } from '../../../utils'
+import { ExternalLink } from '../../../theme'
+import { ChainId } from 'artswap'
+import { TaskInfo } from '../../../utils/campaignClient'
 
-const FirstTask = () => {
-    return (
-        <>
-            <div className='text-56px mt-20 text-center'>
-                Task 1<br />
-                Act as Alice and add liquidity
-            </div>
-            <div className="task_item my_card mt-20">
-                <div className='swapContainer'>
-                    <Pool />
-                </div>
-                <div className='describeContainer text-24px'>
-                    <div className='subTitle'>Step1: 在左边的DEX里，添加1 $ART 的流动性吧！</div>
-                    <div className='subTitle'>Status: 已完成</div>
-                    <div className='subTitle'>
-                        Alice在这个池子里的资产
-                        <div>$ART: 1</div>
-                        <div>$RUG: 2</div>
-                    </div>
-                </div>
-            </div>
-        </>
-    )
+interface Props {
+  children: React.ReactNode
+  taskInfo: TaskInfo
 }
-export default FirstTask;
+
+const FirstTask = ({ children, taskInfo }: Props) => {
+  const firstTaskRef = useRef<HTMLDivElement>(null)
+  const history = useHistory()
+  const taskStatus = ['❌', '⏳', '✅']
+
+  const handleScroll = () => {
+    if (firstTaskRef.current) {
+      const rect = firstTaskRef.current.getBoundingClientRect()
+      const scrolled = window.scrollY
+      if (scrolled >= rect.top - 105) {
+        // when scrolled to certain position, redirect to add liquidity page
+        history.push('/add/ETH/0x058dDd9339F3cecDb7662e2130Bd1cB1f03672D2')
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  return (
+    <>
+      <div className="text-56px mt-20 text-center">
+        Task 1<br />
+        Act as Alice and add liquidity
+      </div>
+      <div className="task_item my_card mt-20" ref={firstTaskRef}>
+        <div className="swapContainer">{children}</div>
+        <div className="describeContainer text-24px">
+          <div>Step1: Add liquidity</div>
+          <div>
+            <li className="subTitle">1. Select ART/RUG pair</li>
+            <li className="subTitle">2. Add 1 $ART liquidity to the pool</li>
+          </div>
+          <div className="subTitle">Transaction</div>
+          <div className="subTitle">
+            {taskInfo.txHash ? (
+              <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, taskInfo.txHash, 'transaction')}>
+                {taskInfo.txHash}
+              </ExternalLink>
+            ) : (
+              ''
+            )}
+            {taskStatus[taskInfo.taskStatus]}
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+export default FirstTask
