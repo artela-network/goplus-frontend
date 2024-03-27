@@ -103,7 +103,7 @@ export default function AddressInputPanel({
               </TYPE.black>
               {address && chainId && (
                 <ExternalLink href={getEtherscanLink(chainId, name ?? address, 'address')} style={{ fontSize: '14px' }}>
-                  (View on Moonbeam explorer)
+                  (View on explorer)
                 </ExternalLink>
               )}
             </RowBetween>

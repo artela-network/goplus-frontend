@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { TransactionResponse } from '@ethersproject/providers'
 import { Currency, currencyEquals, DEV, TokenAmount, WDEV } from 'artswap'
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Plus } from 'react-feather'
 import ReactGA from 'react-ga'
 import { RouteComponentProps } from 'react-router-dom'
@@ -37,6 +37,7 @@ import { Dots, Wrapper } from '../Pool/styleds'
 import { ConfirmAddModalBottom } from './ConfirmAddModalBottom'
 import { currencyId } from '../../utils/currencyId'
 import { PoolPriceBar } from './PoolPriceBar'
+import { CampaignClient, TaskInfo } from '../../utils/campaignClient'
 
 export default function AddLiquidity({
   match: {
@@ -182,7 +183,7 @@ export default function AddLiquidity({
         method(...args, {
           ...(value ? { value } : {}),
           gasLimit: calculateGasMargin(estimatedGasLimit)
-        }).then(response => {
+        }).then(async response => {
           setAttemptingTxn(false)
 
           addTransaction(response, {
@@ -198,6 +199,15 @@ export default function AddLiquidity({
           })
 
           setTxHash(response.hash)
+
+          console.log('update task')
+
+          // const taskInfo = SharedStateContext.taskInfos[1] as TaskInfo
+          await CampaignClient.updateTask({
+            id: 0,
+            accountAddress: account,
+            txs: response.hash
+          })
 
           ReactGA.event({
             category: 'Liquidity',
