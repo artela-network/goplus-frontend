@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useActiveWeb3React } from '../../../hooks'
 import Swap from '../../../pages/SwapForTask2'
 import TaskBox from "../Common/TaskBox";
@@ -12,7 +12,7 @@ enum TaskStatus {
 }
 interface PropsType {
   getTaskList?: () => void;
-  taskInfo?: TaskInfoType;
+  taskInfo: TaskInfoType;
 }
 const SecondTask = ({ taskInfo }: PropsType) => {
   const { account } = useActiveWeb3React()
@@ -26,12 +26,17 @@ const SecondTask = ({ taskInfo }: PropsType) => {
       const res = await updateTask(account, taskInfo.id, '2')
       if (res.success) {
         const taskInfoRes = await getTaskListByAccount(account, taskInfo.id)
-        if(taskInfoRes.success){
+        if (taskInfoRes.success) {
           setTaskStatus(taskInfoRes.data.taskInfos[0].taskStatus)
         }
       }
     }
   }
+  useEffect(() => {
+    if (taskInfo) {
+      setTaskStatus(taskInfo.taskStatus)
+    }
+  }, [taskInfo])
   return (
     <>
       <div className="text-56px mt-20 text-center">
@@ -47,7 +52,7 @@ const SecondTask = ({ taskInfo }: PropsType) => {
           <div className='subTitle'>Click swap button to sell all $Rug 👉</div>
         </div>
         <div className="task_swap">
-          <Swap taskStatus={taskStatus} updateTaskStatus={updateTaskStatus}/>
+          <Swap taskStatus={taskStatus} updateTaskStatus={updateTaskStatus} />
         </div>
 
       </TaskBox>
