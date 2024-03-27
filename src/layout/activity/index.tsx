@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
 import './activity.css'
 import Introduce from '../components/introduce/index'
 import TaskList from '../components/TaskList/index'
@@ -14,6 +15,16 @@ export default function Activity() {
     const { account } = useActiveWeb3React()
     const [taskStatus, setTaskStatus] = useState(0)
     const [taskInfos, setTaskInfos] = useState([])
+    const location = useLocation();
+    const getQueryParams = () => {
+        const queryParams = new URLSearchParams(location.search);
+        const taskId = queryParams.get('taskId');
+        if (taskId !== null) {
+            return taskId; 
+        } else {
+            return ''; 
+        }
+      };
     const getTaskList = async (attempt = 0) => {
         if (account) {
             const res = await getTaskListByAccount(account);
@@ -22,7 +33,7 @@ export default function Activity() {
                 if (res.data.taskInfos) {
                     setTaskInfos(res.data.taskInfos);
                 } else if (attempt < 2) {
-                    const initRes = await initTaskListByAccount(account);
+                    const initRes = await initTaskListByAccount(account, getQueryParams());
                     if (initRes.success) {
                         await getTaskList(attempt + 1);
                     }
@@ -41,9 +52,9 @@ export default function Activity() {
         <div className='activity'>
             <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} />
             <TaskList />
-            <FirstTask  taskInfo={taskInfos[1]} />
+            <FirstTask taskInfo={taskInfos[1]} />
             <SecondTask taskInfo={taskInfos[2]} />
-            <ThirdTask taskInfo={taskInfos[3]}/>
+            <ThirdTask taskInfo={taskInfos[3]} />
             <Explain />
         </div>
     );

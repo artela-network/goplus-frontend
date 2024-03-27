@@ -3,6 +3,10 @@ import './introduce.css'
 import { useActiveWeb3React } from '../../../hooks'
 import { updateTask, getTaskListByAccount } from '../../../api/activity'
 import AccountWallet from '../../../components/AccountWallet';
+import { ChainId } from 'artswap'
+import { getEtherscanLink } from '../../../utils'
+import { ExternalLink } from '../../../theme'
+
 export interface TaskInfoType {
     id: number;
     memo: string;
@@ -18,7 +22,20 @@ interface IntroduceProps {
 }
 export default function Introduce({ getTaskList, taskInfo }: IntroduceProps) {
     const { account } = useActiveWeb3React()
-
+    const ongoing = () => {
+        return (
+            <>
+                <text style={{ color: 'orange' }}> ⏳ Procesing</text>
+            </>
+        )
+    }
+    const finish = () => {
+        return (
+            <>
+                <text style={{ color: 'green' }}> ✅ Finish</text>
+            </>
+        )
+    }
     const formatAddress = (address: string | undefined | null): string => {
         if (!address) {
             return ''
@@ -41,7 +58,7 @@ export default function Introduce({ getTaskList, taskInfo }: IntroduceProps) {
             }
         }
     }
- 
+
     return (
         <div className="introduce">
             <div className='bkimg'>
@@ -59,18 +76,22 @@ export default function Introduce({ getTaskList, taskInfo }: IntroduceProps) {
             </div>
             <div className='my_card mt-20'>
                 <div className='claim_box'>
-                    <div>Step1: Connect to Artela Testnet</div>
+                    <div className='subTitle'>Step1: Connect to Artela Testnet</div>
                     <AccountWallet />
-                    <div>Step2: Claim test tokens</div>
+                    <div className='subTitle'>Step2: Claim test tokens</div>
                     <div>
                         <button onClick={() => getFaucet()} className='my_button bg-blue-500 rounded-md text-white p-2 hover:bg-blue-700'>claim tokens</button>
                     </div>
+
                 </div>
                 <div className='claim_res'>
-                    <div className='subTitle'>Claim transactions</div>
-                    <div className='text-24px'> {formatAddress(account)} <text style={{ color: '#2F9E44' }}>Finish</text></div>
-                    <div className='text-24px'> {formatAddress(account)} <text style={{ color: '#F08C00' }}>Procesing</text></div>
-
+                    {
+                        account && (<>
+                            <div className='subTitle'>Claim transactions</div>
+                            <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, account, 'transaction')}> {formatAddress(account)} </ExternalLink><text style={{ color: '#2F9E44' }}>{finish()}</text><br />
+                            <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, account, 'transaction')}> {formatAddress(account)} </ExternalLink><text style={{ color: '#F08C00' }}>{ongoing()}</text>
+                        </>)
+                    }
                 </div>
             </div>
         </div>

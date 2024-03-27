@@ -52,7 +52,11 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
       }
     }
   }
-
+  useEffect(() => {
+    if (taskInfo) {
+      setTaskStatus(taskInfo.taskStatus)
+    }
+  }, [taskInfo])
   return (
     <>
       <div className="text-56px mt-20 text-center">
