@@ -7,55 +7,44 @@ import SecondTask from '../components/SecondTask/index'
 import ThirdTask from '../components/ThirdTask/index'
 import Explain from '../components/Explain/index'
 import { useActiveWeb3React } from '../../hooks'
-import { CampaignClient, TaskInfo } from '../../utils/campaignClient'
+import { getTaskListByAccount, initTaskListByAccount } from '../../api/activity'
 
-interface Props {
-  children: React.ReactNode
-}
 
-export default function Activity({ children }: Props) {
-  const { account } = useActiveWeb3React()
-  const [taskStatus, setTaskStatus] = useState(0)
-  const [taskInfos, setTaskInfos] = useState<TaskInfo[]>([])
-  const defaultTaskInfo: TaskInfo = {
-    id: 0,
-    taskName: '',
-    taskStatus: 0,
-    memo: '',
-    title: '',
-    txHash: ''
-  }
-
-  const getTaskListByAccount = () => {
-    if (account) {
-      CampaignClient.getTasksByAccount(account).then(data => {
-        console.log(data)
-        if (data.success && data.data) {
-          setTaskStatus(data.data.status)
-          if (data.data.taskInfos) {
-            setTaskInfos(data.data.taskInfos)
-          } else {
-            setTaskInfos([])
-          }
+export default function Activity() {
+    const { account } = useActiveWeb3React()
+    const [taskStatus, setTaskStatus] = useState(0)
+    const [taskInfos, setTaskInfos] = useState([])
+    const getTaskList = async (attempt = 0) => {
+        if (account) {
+            const res = await getTaskListByAccount(account);
+            if (res.success) {
+                setTaskStatus(res.data.status);
+                if (res.data.taskInfos) {
+                    setTaskInfos(res.data.taskInfos);
+                } else if (attempt < 2) {
+                    const initRes = await initTaskListByAccount(account);
+                    if (initRes.success) {
+                        await getTaskList(attempt + 1);
+                    }
+                }
+            }
+        } else {
+            setTaskInfos([]);
         }
-      })
-    } else {
-      setTaskInfos([])
-    }
-  }
+    };
 
-  useEffect(() => {
-    getTaskListByAccount()
-  }, [account])
+    useEffect(() => {
+        getTaskList()
+    }, [account])
 
-  return (
-    <div className="activity">
-      <Introduce getTaskList={getTaskListByAccount} />
-      <TaskList />
-      <FirstTask children={children} taskInfo={taskInfos ? defaultTaskInfo : taskInfos[1]} />
-      <SecondTask />
-      <ThirdTask>{children}</ThirdTask>
-      <Explain />
-    </div>
-  )
+    return (
+        <div className='activity'>
+            <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} />
+            <TaskList />
+            <FirstTask  taskInfo={taskInfos[1]} />
+            <SecondTask taskInfo={taskInfos[2]} />
+            <ThirdTask taskInfo={taskInfos[3]}/>
+            <Explain />
+        </div>
+    );
 }

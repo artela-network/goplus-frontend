@@ -1,12 +1,22 @@
 import React from 'react';
 import './introduce.css'
 import { useActiveWeb3React } from '../../../hooks'
-
+import { updateTask, getTaskListByAccount } from '../../../api/activity'
 import AccountWallet from '../../../components/AccountWallet';
-interface IntroduceProps {
-    getTaskList: () => void; // 假设这个函数不接受任何参数并且没有返回值
+export interface TaskInfoType {
+    id: number;
+    memo: string;
+    taskName: string;
+    taskStatus: number;
+    title: string;
+    txs: string;
 }
-export default function Introduce({ getTaskList }: IntroduceProps) {
+
+interface IntroduceProps {
+    getTaskList: () => void;
+    taskInfo?: TaskInfoType;
+}
+export default function Introduce({ getTaskList, taskInfo }: IntroduceProps) {
     const { account } = useActiveWeb3React()
 
     const formatAddress = (address: string | undefined | null): string => {
@@ -23,21 +33,15 @@ export default function Introduce({ getTaskList }: IntroduceProps) {
         // 返回格式化后的字符串  
         return `${first11}...${last9}`;
     }
-    const getFaucet = () => {
-        fetch('https://campaign.artela.network/api/goplus/new-task', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                accountAddress: account,
-                taskId: '1'
-            })
-        }).then(r => r.json())
-            .then((r: any) => {
-                getTaskList()
-            })
+    const getFaucet = async () => {
+        if (account && taskInfo) {
+            const res = await updateTask(account, taskInfo.id, '2')
+            if (res.success) {
+                const taskInfoRes = await getTaskListByAccount(account, taskInfo.id)
+            }
+        }
     }
+ 
     return (
         <div className="introduce">
             <div className='bkimg'>
@@ -50,22 +54,24 @@ export default function Introduce({ getTaskList }: IntroduceProps) {
                     So as a liquidity provider,who can protect you?On the Artela Network,there's an on-chain risk control module to safeguard you!It identifies rug-pull transactions and blocks them in real-time.
                 </div>
             </div>
-            <div className='account_wallet mt-20'>
-                <AccountWallet />
-            </div>
             <div className='text-56px mt-20 text-center'>
                 Connect Artela Testnet & Claim test tokens
             </div>
             <div className='my_card mt-20'>
                 <div className='claim_box'>
-
+                    <div>Step1: Connect to Artela Testnet</div>
+                    <AccountWallet />
+                    <div>Step2: Claim test tokens</div>
                     <div>
                         <button onClick={() => getFaucet()} className='my_button bg-blue-500 rounded-md text-white p-2 hover:bg-blue-700'>claim tokens</button>
                     </div>
-                    <div className='text-24px'>claim $ART {formatAddress(account)} <text style={{ color: '#2F9E44' }}>Finish</text></div>
-                    <div className='text-24px'>claim $RUG {formatAddress(account)} <text style={{ color: '#F08C00' }}>Procesing</text></div>
                 </div>
+                <div className='claim_res'>
+                    <div className='subTitle'>Claim transactions</div>
+                    <div className='text-24px'> {formatAddress(account)} <text style={{ color: '#2F9E44' }}>Finish</text></div>
+                    <div className='text-24px'> {formatAddress(account)} <text style={{ color: '#F08C00' }}>Procesing</text></div>
 
+                </div>
             </div>
         </div>
     );

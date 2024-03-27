@@ -1,37 +1,57 @@
-import React, { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import { getEtherscanLink } from '../../../utils'
 import { ExternalLink } from '../../../theme'
 import { ChainId } from 'artswap'
+import { useActiveWeb3React } from '../../../hooks'
+
 import { TaskInfo } from '../../../utils/campaignClient'
+import TaskBox from '../Common/TaskBox'
+import RedirectDuplicateTokenIds from '../../../pages/AddLiquidity/redirectsForTask1'
+
+import { updateTask, getTaskListByAccount } from '../../../api/activity'
 
 interface Props {
-  children: React.ReactNode
   taskInfo: TaskInfo
 }
-
-const FirstTask = ({ children, taskInfo }: Props) => {
-  const firstTaskRef = useRef<HTMLDivElement>(null)
-  const history = useHistory()
-  const taskStatus = ['❌', '⏳', '✅']
-
-  const handleScroll = () => {
-    if (firstTaskRef.current) {
-      const rect = firstTaskRef.current.getBoundingClientRect()
-      const scrolled = window.scrollY
-      if (scrolled >= rect.top - 105) {
-        // when scrolled to certain position, redirect to add liquidity page
-        history.push('/add/ETH/0x058dDd9339F3cecDb7662e2130Bd1cB1f03672D2')
+const defaultTaskInfo: TaskInfo = {
+  id: 0,
+  taskName: '',
+  taskStatus: 0,
+  memo: '',
+  title: '',
+  txHash: ''
+}
+const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
+  const { account } = useActiveWeb3React()
+  const taskStatusList = ['❌', '⏳', '✅']
+  const [taskStatus, setTaskStatus] = useState(0)
+  const [txHash, setTxHash] = useState('')
+  const formatAddress = (address: string | undefined | null): string => {
+    if (!address) {
+        return ''
+    }
+    if (address.length < 20) {
+        return ''
+    }
+    // 提取前11位  
+    const first11 = address.substr(0, 11);
+    // 提取后9位  
+    const last9 = address.substr(address.length - 9);
+    // 返回格式化后的字符串  
+    return `${first11}...${last9}`;
+}
+  const updateTaskStatus = async (txs:string) => {
+    if (account && taskInfo) {
+      const res = await updateTask(account, taskInfo.id, '1',txs)
+      if (res.success) {
+        const taskInfoRes = await getTaskListByAccount(account, taskInfo.id)
+        if (taskInfoRes.success) {
+          setTaskStatus(taskInfoRes.data.taskInfos[0].taskStatus)
+          setTxHash(taskInfoRes.data.taskInfos[0].txs)
+        }
       }
     }
   }
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
 
   return (
     <>
@@ -39,9 +59,8 @@ const FirstTask = ({ children, taskInfo }: Props) => {
         Task 1<br />
         Act as Alice and add liquidity
       </div>
-      <div className="task_item my_card mt-20" ref={firstTaskRef}>
-        <div className="swapContainer">{children}</div>
-        <div className="describeContainer text-24px">
+      <TaskBox taskStatus={taskStatus}>
+        <div className="task_guide">
           <div>Step1: Add liquidity</div>
           <div>
             <li className="subTitle">1. Select ART/RUG pair</li>
@@ -49,17 +68,25 @@ const FirstTask = ({ children, taskInfo }: Props) => {
           </div>
           <div className="subTitle">Transaction</div>
           <div className="subTitle">
-            {taskInfo.txHash ? (
-              <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, taskInfo.txHash, 'transaction')}>
-                {taskInfo.txHash}
+            {txHash ? (
+              <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, txHash, 'transaction')}>
+                {formatAddress(txHash)}
               </ExternalLink>
             ) : (
               ''
             )}
-            {taskStatus[taskInfo.taskStatus]}
+            {taskStatusList[taskStatus]}
           </div>
+
         </div>
-      </div>
+        <div className="task_swap">
+          <RedirectDuplicateTokenIds
+            currencyIdA={'ETH'}
+            currencyIdB={'0x058dDd9339F3cecDb7662e2130Bd1cB1f03672D2'}
+            updateTaskStatus={updateTaskStatus}
+          />
+        </div>
+      </TaskBox>
     </>
   )
 }

@@ -1,27 +1,46 @@
-import React from "react";
-interface Props {
-    children: React.ReactNode;
+import React, { useState } from "react";
+import Video from "../Common/RugPullVideo"
+import TaskBox from "../Common/TaskBox";
+import { Button } from "antd";
+import { TaskInfoType } from "../introduce";
+interface PropsType {
+    getTaskList?: () => void;
+    taskInfo?: TaskInfoType;
 }
-const ThirdTask = ({ children }: Props) => {
+const ThirdTask = ({ taskInfo }: PropsType) => {
+    const doRugPull = () => {
+
+    }
+    const [taskStatus, setTaskStatus] = useState(0)
+
     return (
         <>
             <div className='text-56px mt-20 text-center'>
                 Task 3<br />
                 Reall experience:RamenSwap prevents rug pulls
             </div>
-            <div className="task_item my_card_fixed mt-20">
-                <div className='swapContainer'>
-                    {children}
-                </div>
-                <div className='describeContainer text-24px'>
-                    <div className='subTitle'>Step1: 点击下面这个按钮，增发$Rug代币</div>
-                    <div className='subTitle'>Step2: 点击左边的swap，输入xxx$代币,倾销资产，卷走所有的$ART</div>
+            <TaskBox taskStatus={taskStatus}>
+                <div className="task_guide">
                     <div className='subTitle'>
-                        你会发现，项目方在step2的tx失败了，它被Artela的风控模块拦截了！
+                        Step1: Click 👇 button to send a real Rug-pull transaction
                     </div>
-                    <div className='subTitle'>Status: 已完成</div>
+                    <Button type="primary" onClick={doRugPull}> Do Rug-pull</Button>
+                    <div className='subTitle mt-20'>Rug-pull transaction:</div>
+                    <div className='subTitle'>
+                        0xCAFEefefefefef…bebebeDACE   View on Explore
+                    </div>
+                    <div className='subTitle'>
+                        Status: Processing | Fail
+                    </div>
+                    <div className='subTitle mt-20'>
+                        Anti-rug Aspect has prevented this rug transaction.
+                    </div>
                 </div>
-            </div>
+                <div className="task_swap">
+                    <Video />
+                </div>
+
+            </TaskBox>
         </>
     )
 }

@@ -19,7 +19,7 @@ import RemoveLiquidity from './RemoveLiquidity'
 import { RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
 import { RedirectOldRemoveLiquidityPathStructure } from './RemoveLiquidity/redirects'
 import Layout from '../layout'
-
+import 'antd/dist/antd.css'; 
 
 
 const BodyWrapper = styled.div`
@@ -50,8 +50,8 @@ export default function App() {
       <HashRouter>
         <Route component={GoogleAnalyticsReporter} />
         <Route component={DarkModeQueryParamReader} />
-          <Layout>
-          <BodyWrapper>
+          <Layout/>
+          {/* <BodyWrapper>
             <Popups />
             <Web3ReactManager>
               <Switch>
@@ -70,8 +70,8 @@ export default function App() {
               </Switch>
             </Web3ReactManager>
             <Marginer />
-          </BodyWrapper>
-          </Layout>
+          </BodyWrapper> */}
+         
       </HashRouter>
     </Suspense>
   )
