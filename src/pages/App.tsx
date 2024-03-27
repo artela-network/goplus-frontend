@@ -51,7 +51,7 @@ export default function App() {
         <Route component={GoogleAnalyticsReporter} />
         <Route component={DarkModeQueryParamReader} />
           <Layout>
-          <BodyWrapper>
+          {/* <BodyWrapper>
             <Popups />
             <Web3ReactManager>
               <Switch>
@@ -70,7 +70,7 @@ export default function App() {
               </Switch>
             </Web3ReactManager>
             <Marginer />
-          </BodyWrapper>
+          </BodyWrapper> */}
           </Layout>
       </HashRouter>
     </Suspense>

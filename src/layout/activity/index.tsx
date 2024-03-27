@@ -8,20 +8,9 @@ import ThirdTask from '../components/ThirdTask/index'
 import Explain from '../components/Explain/index'
 import { useActiveWeb3React } from '../../hooks'
 import { getTaskListByAccount, initTaskListByAccount } from '../../api/activity'
-import { CampaignClient, TaskInfo } from '../../utils/campaignClient'
 
-interface Props {
-    children: React.ReactNode
-}
-export default function Activity({ children }: Props) {
-    const defaultTaskInfo: TaskInfo = {
-        id: 0,
-        taskName: '',
-        taskStatus: 0,
-        memo: '',
-        title: '',
-        txHash: ''
-    }
+
+export default function Activity() {
     const { account } = useActiveWeb3React()
     const [taskStatus, setTaskStatus] = useState(0)
     const [taskInfos, setTaskInfos] = useState([])
