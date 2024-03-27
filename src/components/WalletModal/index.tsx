@@ -184,15 +184,15 @@ export default function WalletModal({
       connector.walletConnectProvider = undefined
     }
 
-    connector?.getAccount().then(account => {
-      if (!account) {
-        console.log('NO ACCOUNT')
-        return
-      }
-      CampaignClient.initTask(account).then(data => {
-        console.log(data)
-      })
-    })
+    // connector?.getAccount().then(account => {
+    //   if (!account) {
+    //     console.log('NO ACCOUNT')
+    //     return
+    //   }
+    //   CampaignClient.initTask(account).then(data => {
+    //     console.log(data)
+    //   })
+    // })
 
     const switchNetwork = async () => {
       console.log('switch network')

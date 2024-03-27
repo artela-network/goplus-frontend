@@ -11,18 +11,18 @@ import { getTaskListByAccount, initTaskListByAccount } from '../../api/activity'
 import { CampaignClient, TaskInfo } from '../../utils/campaignClient'
 
 interface Props {
-  children: React.ReactNode
+    children: React.ReactNode
 }
 export default function Activity({ children }: Props) {
-  const defaultTaskInfo: TaskInfo = {
-    id: 0,
-    taskName: '',
-    taskStatus: 0,
-    memo: '',
-    title: '',
-    txHash: ''
-  }
-  const { account } = useActiveWeb3React()
+    const defaultTaskInfo: TaskInfo = {
+        id: 0,
+        taskName: '',
+        taskStatus: 0,
+        memo: '',
+        title: '',
+        txHash: ''
+    }
+    const { account } = useActiveWeb3React()
     const [taskStatus, setTaskStatus] = useState(0)
     const [taskInfos, setTaskInfos] = useState([])
     const getTaskList = async (attempt = 0) => {
@@ -51,12 +51,10 @@ export default function Activity({ children }: Props) {
     return (
         <div className='activity'>
             <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} />
-            {/* <TaskList /> */}
-            {/* <FirstTask children={children} taskInfo={taskInfos ? defaultTaskInfo : taskInfos[1]} /> */}
-            <SecondTask taskInfo={taskInfos[2]}/>
-            <ThirdTask>
-                {children}
-            </ThirdTask>
+            <TaskList />
+            <FirstTask  taskInfo={taskInfos[1]} />
+            <SecondTask taskInfo={taskInfos[2]} />
+            <ThirdTask taskInfo={taskInfos[3]}/>
             <Explain />
         </div>
     );

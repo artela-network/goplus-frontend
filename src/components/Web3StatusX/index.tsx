@@ -65,7 +65,7 @@ const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
   font-weight: 500;
   font-size: 2.8em; /* 调整字体大小 */
   padding: 12px 24px; /* 调整内间距以增大整体大小，略微增加以适应更大的高度和宽度 */
-  width: 250px; 
+  width: 200px; 
   height: 60px; 
   display: inline-flex; /* 使用flex布局，以便内容居中 */
   align-items: center; /* 垂直居中对齐 */

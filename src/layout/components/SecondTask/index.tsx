@@ -5,7 +5,6 @@ import TaskBox from "../Common/TaskBox";
 import { Button } from 'antd';
 import { updateTask, getTaskListByAccount } from '../../../api/activity'
 import { TaskInfoType } from '../introduce'
-import { set } from 'lodash';
 enum TaskStatus {
   Init = 0,
   Ongoing = 1,
@@ -41,11 +40,11 @@ const SecondTask = ({ taskInfo }: PropsType) => {
       </div>
       <TaskBox taskStatus={taskStatus}>
         <div className="task_guide">
-          <div className='subTitle'>Step1: Increase 2B $RUG</div>
+          <div className='subTitle'>Step1: Click 👇 button to Increase 2B $RUG</div>
           <Button type="primary" onClick={inreaseRUG}> Increase</Button>
           <div className='subTitle'>{supplyWords} </div>
           <div className='subTitle mt-20'>Step2: Swap 3B $RUG</div>
-          <div className='subTitle'>Click swap button to sell all $Rug</div>
+          <div className='subTitle'>Click swap button to sell all $Rug 👉</div>
         </div>
         <div className="task_swap">
           <Swap taskStatus={taskStatus} updateTaskStatus={updateTaskStatus}/>
