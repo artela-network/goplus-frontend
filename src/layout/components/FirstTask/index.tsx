@@ -40,7 +40,6 @@ const FirstTask = ({ children, taskInfo }: Props) => {
         Act as Alice and add liquidity
       </div>
       <div className="task_item my_card mt-20" ref={firstTaskRef}>
-        <div className="swapContainer">{children}</div>
         <div className="describeContainer text-24px">
           <div>Step1: Add liquidity</div>
           <div>
@@ -59,6 +58,7 @@ const FirstTask = ({ children, taskInfo }: Props) => {
             {taskStatus[taskInfo.taskStatus]}
           </div>
         </div>
+        <div className="swapContainer">{children}</div>
       </div>
     </>
   )

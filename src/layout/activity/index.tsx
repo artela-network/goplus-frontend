@@ -51,9 +51,9 @@ export default function Activity({ children }: Props) {
     return (
         <div className='activity'>
             <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} />
-            <TaskList />
-            <FirstTask children={children} taskInfo={taskInfos ? defaultTaskInfo : taskInfos[1]} />
-            <SecondTask />
+            {/* <TaskList /> */}
+            {/* <FirstTask children={children} taskInfo={taskInfos ? defaultTaskInfo : taskInfos[1]} /> */}
+            <SecondTask taskInfo={taskInfos[2]}/>
             <ThirdTask>
                 {children}
             </ThirdTask>

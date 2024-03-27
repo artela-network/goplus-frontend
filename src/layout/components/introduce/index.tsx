@@ -3,7 +3,7 @@ import './introduce.css'
 import { useActiveWeb3React } from '../../../hooks'
 import { updateTask, getTaskListByAccount } from '../../../api/activity'
 import AccountWallet from '../../../components/AccountWallet';
-interface TaskInfoType {
+export interface TaskInfoType {
     id: number;
     memo: string;
     taskName: string;

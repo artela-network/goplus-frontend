@@ -1,0 +1,48 @@
+.task_box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    align-content: center;
+    align-items: center;
+    background: radial-gradient(48.1% 69.39999999999999% at 49.3% 0%, #1a203d 0%, rgb(6, 15, 23) 100%);
+    border-radius: 28px;
+    gap: 60px;
+    justify-content: center;
+    overflow: visible;
+    padding: 60px;
+    position: sticky;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, .1);
+}
+
+.task_box .task_header {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    /* width: 80%; */
+    justify-content: start;
+}
+.task_box .task_header .task_status{
+    font-size: 24px;
+   line-height: 26px;
+}
+.task_box .task_main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+}
+
+.task_swap {
+    flex: 1;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.task_guide {
+    flex:1;
+    height: 100%;
+}
