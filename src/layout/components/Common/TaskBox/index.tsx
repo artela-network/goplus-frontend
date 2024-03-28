@@ -26,25 +26,23 @@ const TaskBox = ({ children, taskStatus }: Props) => {
     )
   }
 
-    const notStarted = () => {
-        return (
-          <>
-              <text style={{ color: 'grey' }}> 👷 Not Started</text>
-          </>
-        )
-    }
+  const notStarted = () => {
+    return (
+      <>
+        <text style={{ color: 'grey' }}> 👷 Not Started</text>
+      </>
+    )
+  }
 
-    const failed = () => {
-        return (
-          <>
-              <text style={{ color: 'grey' }}> ❌ Failed</text>
-          </>
-        )
-    }
+  const failed = () => {
+    return (
+      <>
+        <text style={{ color: 'grey' }}> ❌ Failed</text>
+      </>
+    )
+  }
 
-    console.log('✈️️️' + taskStatus)
-
-    const statusList = [notStarted, ongoing, ongoing, finish, failed];
+  const statusList = [notStarted, ongoing, ongoing, finish, failed]
   return (
     <>
       <div className="task_box mt-20">
