@@ -98,7 +98,7 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
           </div>
           {account && pair ? (
             <AutoColumn style={{ minWidth: '20rem', marginTop: '1rem', marginRight: '1rem'}}>
-              <MinimalPositionCard showUnwrapped={true} pair={pair} />
+              <MinimalPositionCard showUnwrapped={false} pair={pair} />
             </AutoColumn>
           ) : null}
         </div>
