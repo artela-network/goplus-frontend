@@ -14,9 +14,10 @@ export default function Activity() {
   const { account } = useActiveWeb3React()
   const [taskStatus, setTaskStatus] = useState(0)
   const [taskInfos, setTaskInfos] = useState([])
+  const location = useLocation();
   const getQueryParams = () => {
-    const queryParams = new URLSearchParams(window.location.search)
-    const taskId = queryParams.get('taskid')
+    const queryParams = new URLSearchParams(location.search);
+    const taskId = queryParams.get('taskId');
     if (taskId !== null) {
       return taskId.split('/')[0]
     } else {
@@ -58,7 +59,7 @@ export default function Activity() {
       <TaskList />
       <FirstTask taskInfo={taskInfos[1]} />
       <SecondTask taskInfo={taskInfos[2]} />
-      <ThirdTask taskInfo={taskInfos[3]} />
+      <ThirdTask getTaskList={getTaskList}  taskInfo={taskInfos[3]} />
       <Explain />
     </div>
   )

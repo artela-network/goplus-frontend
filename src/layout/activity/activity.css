@@ -32,7 +32,7 @@
 }
 .subTitle {
   margin: 20px 0;
-  font-size: 20px;
+  font-size: 24px;
 }
 .subDescribe:hover {
   color: #F7F8F8;
@@ -41,7 +41,6 @@
   width: 600px;
   margin-left: 50px;
 }
-
 .my_button {
   display: inline-block;
   padding: 10px 20px;

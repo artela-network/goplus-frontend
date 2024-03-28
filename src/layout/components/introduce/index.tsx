@@ -7,8 +7,9 @@ import { ChainId } from 'artswap'
 import { getEtherscanLink } from '../../../utils'
 import { ExternalLink } from '../../../theme'
 import { TaskInfo } from '../../../utils/campaignClient';
-
-
+import { Button } from 'antd';
+import { failed, ongoing, finish } from '../Common/StatusIcon';
+import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
 const defaultTaskInfo: TaskInfo = {
     id: 0,
     taskName: '',
@@ -24,21 +25,8 @@ interface IntroduceProps {
 export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo }: IntroduceProps) {
     const { account } = useActiveWeb3React()
     const [taskStatus, setTaskStatus] = useState(0)
+    const [loading, setLoading] = useState(false)
 
-    const ongoing = () => {
-        return (
-            <>
-                <text style={{ color: 'orange' }}> ⏳ Procesing</text>
-            </>
-        )
-    }
-    const finish = () => {
-        return (
-            <>
-                <text style={{ color: 'green' }}> ✅ Finish</text>
-            </>
-        )
-    }
     const formatAddress = (address: string | undefined | null): string => {
         if (!address) {
             return ''
@@ -59,7 +47,7 @@ export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo }: I
             if (res.success) {
                 const taskInfoRes = await getTaskListByAccount(account, taskInfo.id)
                 if (taskInfoRes.success) {
-                    // setTaskStatus(taskInfoRes.data.taskInfos[0].taskStatus)
+                    setTaskStatus(taskInfoRes.data.taskInfos[0].taskStatus)
                     fetchTaskInfo()
                 }
             }
@@ -73,15 +61,21 @@ export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo }: I
                 setTaskStatus(newTaskStatus);
                 if (newTaskStatus === 1 || newTaskStatus === 2) {
                     setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
+                    setLoading(true)
+                } else if (newTaskStatus === 3) {
+                    getTaskList()
+                    setLoading(false)
                 }
             }
         }
 
     };
 
-    // useEffect(() => {
-    //     fetchTaskInfo(); // 初始调用
-    // }, []);
+    useEffect(() => {
+        if (taskInfo) {
+            setTaskStatus(taskInfo.taskStatus)
+        }
+    }, [taskInfo])
     return (
         <div className="introduce">
             <div className='bkimg'>
@@ -103,14 +97,16 @@ export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo }: I
                     <AccountWallet />
                     <div className='subTitle'>Step2: Claim test tokens</div>
                     <div>
-                        <button onClick={() => getFaucet()} className='my_button'>claim tokens</button>
+                        <Button type='primary' disabled={taskStatus === 3} style={taskStatus !== 3 ? buttonStyle : buttonDisabledStyle} loading={loading} onClick={() => getFaucet()} className='my_button' >claim tokens</Button>
                     </div>
                     <div className='claim_res'>
                         {
-                            account && (<>
+                            taskInfo.txs && (<>
                                 <div className='subTitle'>Claim transactions<br />
+                                <div className='subDescribe'>
                                     <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, taskInfo?.txs?.split(',')[0], 'transaction')}> {formatAddress(taskInfo?.txs?.split(',')[0])} </ExternalLink><text style={{ color: '#2F9E44' }}>{finish()}</text><br />
-                                    <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, (taskInfo?.txs?.split(',').length>=2?taskInfo?.txs?.split(',')[1]:''), 'transaction')}> {formatAddress((taskInfo?.txs?.split(',').length>=2?taskInfo?.txs?.split(',')[1]:''))} </ExternalLink><text style={{ color: '#F08C00' }}>{ongoing()}</text>
+                                    <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, (taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''), 'transaction')}> {formatAddress((taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''))} </ExternalLink><text style={{ color: '#F08C00' }}>{finish()}</text>
+                                </div>
                                 </div>
                             </>)
                         }
