@@ -47,7 +47,7 @@ export default function Activity() {
 
     const interval = setInterval(async () => {
       await getTaskList()
-    }, 2000)
+    }, 8000)
 
     return () => clearInterval(interval)
   }, [account])
