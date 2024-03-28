@@ -7,7 +7,7 @@ import { ChainId } from 'artswap'
 import { getEtherscanLink } from '../../../utils'
 import { ExternalLink } from '../../../theme'
 import { TaskInfo } from '../../../utils/campaignClient';
-
+import { Button } from 'antd';
 
 const defaultTaskInfo: TaskInfo = {
     id: 0,
@@ -24,6 +24,20 @@ interface IntroduceProps {
 export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo }: IntroduceProps) {
     const { account } = useActiveWeb3React()
     const [taskStatus, setTaskStatus] = useState(0)
+    const [loading, setLoading] = useState(false)
+    const buttonStyle = {
+        display: 'inline-block',
+        padding: '10px 20px',
+        fontSize: '20px',
+        color: '#ffffff',
+        background: '#2172E5',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        transition: 'background 0.3s ease',
+        height: '50px',
+        // lineHeight: '50px'
+    };
 
     const ongoing = () => {
         return (
@@ -73,6 +87,10 @@ export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo }: I
                 setTaskStatus(newTaskStatus);
                 if (newTaskStatus === 1 || newTaskStatus === 2) {
                     setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
+                    setLoading(true)
+                } else if (newTaskStatus === 3) {
+                    getTaskList()
+                    setLoading(false)
                 }
             }
         }
@@ -103,14 +121,14 @@ export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo }: I
                     <AccountWallet />
                     <div className='subTitle'>Step2: Claim test tokens</div>
                     <div>
-                        <button onClick={() => getFaucet()} className='my_button'>claim tokens</button>
+                        <Button style={buttonStyle} loading={loading} type='primary' onClick={() => getFaucet()} className='my_button' >claim tokens</Button>
                     </div>
                     <div className='claim_res'>
                         {
-                            account && (<>
+                            taskInfo.txs && (<>
                                 <div className='subTitle'>Claim transactions<br />
                                     <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, taskInfo?.txs?.split(',')[0], 'transaction')}> {formatAddress(taskInfo?.txs?.split(',')[0])} </ExternalLink><text style={{ color: '#2F9E44' }}>{finish()}</text><br />
-                                    <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, (taskInfo?.txs?.split(',').length>=2?taskInfo?.txs?.split(',')[1]:''), 'transaction')}> {formatAddress((taskInfo?.txs?.split(',').length>=2?taskInfo?.txs?.split(',')[1]:''))} </ExternalLink><text style={{ color: '#F08C00' }}>{ongoing()}</text>
+                                    <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, (taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''), 'transaction')}> {formatAddress((taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''))} </ExternalLink><text style={{ color: '#F08C00' }}>{finish()}</text>
                                 </div>
                             </>)
                         }

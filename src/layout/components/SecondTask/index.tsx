@@ -15,7 +15,10 @@ const SecondTask = ({ taskInfo }: PropsType) => {
   const { account } = useActiveWeb3React()
   const [supplyWords, setSupplyWords] = useState('Total supply: 1B')
   const [taskStatus, setTaskStatus] = useState<number>(0)
-  const inreaseRUG = () => {
+  const inreaseRUG = async () => {
+    if (account && taskInfo) {
+      await updateTask(account, taskInfo.id, '1')
+    }
     setSupplyWords('Total supply: 1B -> 3B')
   }
   const updateTaskStatus = async () => {
@@ -32,8 +35,8 @@ const SecondTask = ({ taskInfo }: PropsType) => {
   useEffect(() => {
     if (taskInfo) {
       setTaskStatus(taskInfo.taskStatus)
-      if(taskInfo.taskStatus==3){
-        inreaseRUG()
+      if (taskInfo.taskStatus == 3) {
+        setSupplyWords('Total supply: 1B -> 3B')
       }
     }
   }, [taskInfo])
