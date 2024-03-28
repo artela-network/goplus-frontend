@@ -9,6 +9,10 @@ import TaskBox from '../Common/TaskBox'
 import RedirectDuplicateTokenIds from '../../../pages/AddLiquidity/redirectsForTask1'
 
 import { updateTask, getTaskListByAccount } from '../../../api/activity'
+import { MinimalPositionCard } from '../../../components/PositionCard'
+import { AutoColumn } from '../../../components/Column'
+import { useCurrency } from '../../../hooks/Tokens'
+import { useDerivedMintInfo } from '../../../state/mint/hooks'
 
 interface Props {
   taskInfo: TaskInfo
@@ -25,6 +29,19 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
   const { account } = useActiveWeb3React()
   const [taskStatus, setTaskStatus] = useState(0)
   const [txHash, setTxHash] = useState(taskInfo.txs)
+
+  const currencyIdA = 'ETH'
+  const currencyIdB = '0x058dDd9339F3cecDb7662e2130Bd1cB1f03672D2'
+
+  const currencyA = useCurrency(currencyIdA)
+  const currencyB = useCurrency(currencyIdB)
+
+  const { pair } = useDerivedMintInfo(currencyA ?? undefined, currencyB ?? undefined)
+
+  useEffect(() => {
+    setTxHash(taskInfo.txs)
+  }, [taskInfo])
+
   const formatAddress = (address: string | undefined | null): string => {
     if (!address) {
       return ''
@@ -79,11 +96,16 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
               ''
             )}
           </div>
+          {account && pair ? (
+            <AutoColumn style={{ minWidth: '20rem', marginTop: '1rem', marginRight: '1rem'}}>
+              <MinimalPositionCard showUnwrapped={true} pair={pair} />
+            </AutoColumn>
+          ) : null}
         </div>
         <div className="task_swap">
           <RedirectDuplicateTokenIds
-            currencyIdA={'ETH'}
-            currencyIdB={'0x058dDd9339F3cecDb7662e2130Bd1cB1f03672D2'}
+            currencyIdA={currencyIdA}
+            currencyIdB={currencyIdB}
             updateTaskStatus={updateTaskStatus}
           />
         </div>
