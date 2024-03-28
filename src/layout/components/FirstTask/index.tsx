@@ -9,6 +9,10 @@ import TaskBox from '../Common/TaskBox'
 import RedirectDuplicateTokenIds from '../../../pages/AddLiquidity/redirectsForTask1'
 
 import { updateTask, getTaskListByAccount } from '../../../api/activity'
+import { MinimalPositionCard } from '../../../components/PositionCard'
+import { AutoColumn } from '../../../components/Column'
+import { useCurrency } from '../../../hooks/Tokens'
+import { useDerivedMintInfo } from '../../../state/mint/hooks'
 
 interface Props {
   taskInfo: TaskInfo
@@ -23,26 +27,38 @@ const defaultTaskInfo: TaskInfo = {
 }
 const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
   const { account } = useActiveWeb3React()
-  const taskStatusList = ['❌', '⏳', '✅']
   const [taskStatus, setTaskStatus] = useState(0)
-  const [txHash, setTxHash] = useState('')
+  const [txHash, setTxHash] = useState(taskInfo.txs)
+
+  const currencyIdA = 'ETH'
+  const currencyIdB = '0x058dDd9339F3cecDb7662e2130Bd1cB1f03672D2'
+
+  const currencyA = useCurrency(currencyIdA)
+  const currencyB = useCurrency(currencyIdB)
+
+  const { pair } = useDerivedMintInfo(currencyA ?? undefined, currencyB ?? undefined)
+
+  useEffect(() => {
+    setTxHash(taskInfo.txs)
+  }, [taskInfo])
+
   const formatAddress = (address: string | undefined | null): string => {
     if (!address) {
-        return ''
+      return ''
     }
     if (address.length < 20) {
-        return ''
+      return ''
     }
-    // 提取前11位  
-    const first11 = address.substr(0, 11);
-    // 提取后9位  
-    const last9 = address.substr(address.length - 9);
-    // 返回格式化后的字符串  
-    return `${first11}...${last9}`;
-}
-  const updateTaskStatus = async (txs:string) => {
+    // 提取前11位
+    const first11 = address.substr(0, 11)
+    // 提取后9位
+    const last9 = address.substr(address.length - 9)
+    // 返回格式化后的字符串
+    return `${first11}...${last9}`
+  }
+  const updateTaskStatus = async (txs: string) => {
     if (account && taskInfo) {
-      const res = await updateTask(account, taskInfo.id, '1',txs)
+      const res = await updateTask(account, taskInfo.id, '1', txs)
       if (res.success) {
         const taskInfoRes = await getTaskListByAccount(account, taskInfo.id)
         if (taskInfoRes.success) {
@@ -62,7 +78,7 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
     <>
       <div className="text-56px mt-20 text-center">
         Task 1<br />
-        Act as Alice and add liquidity
+        Add liquidity for ART/RUG pair
       </div>
       <TaskBox taskStatus={taskStatus}>
         <div className="task_guide">
@@ -80,14 +96,17 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
             ) : (
               ''
             )}
-            {taskStatusList[taskStatus]}
           </div>
-
+          {account && pair ? (
+            <AutoColumn style={{ minWidth: '20rem', marginTop: '1rem', marginRight: '1rem'}}>
+              <MinimalPositionCard showUnwrapped={false} pair={pair} />
+            </AutoColumn>
+          ) : null}
         </div>
         <div className="task_swap">
           <RedirectDuplicateTokenIds
-            currencyIdA={'ETH'}
-            currencyIdB={'0x058dDd9339F3cecDb7662e2130Bd1cB1f03672D2'}
+            currencyIdA={currencyIdA}
+            currencyIdB={currencyIdB}
             updateTaskStatus={updateTaskStatus}
           />
         </div>

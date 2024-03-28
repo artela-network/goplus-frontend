@@ -23,7 +23,7 @@ import { useActiveWeb3React } from '../../hooks'
 import { useCurrency } from '../../hooks/Tokens'
 import { ApprovalState, useApproveCallback } from '../../hooks/useApproveCallback'
 import { useWalletModalToggle } from '../../state/application/hooks'
-import { Field } from '../../state/mint/actions'
+import { Field, typeInput } from '../../state/mint/actions'
 import { useDerivedMintInfo, useMintActionHandlers, useMintState } from '../../state/mint/hooks'
 
 import { useTransactionAdder } from '../../state/transactions/hooks'
@@ -38,23 +38,25 @@ import { ConfirmAddModalBottom } from './ConfirmAddModalBottom'
 import { currencyId } from '../../utils/currencyId'
 import { PoolPriceBar } from './PoolPriceBar'
 import { CampaignClient, TaskInfo } from '../../utils/campaignClient'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../../state'
 interface AddLiquidityProps {
-  currencyIdA?: string;
-  currencyIdB?: string;
-  updateTaskStatus: (txs: string) => void;
+  currencyIdA?: string
+  currencyIdB?: string
+  updateTaskStatus: (txs: string) => void
 }
 
 export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatus }: AddLiquidityProps) {
-  const { account, chainId, library } = useActiveWeb3React();
-  const theme = useContext(ThemeContext);
+  const { account, chainId, library } = useActiveWeb3React()
+  const theme = useContext(ThemeContext)
 
-  const currencyA = useCurrency(currencyIdA);
-  const currencyB = useCurrency(currencyIdB);
+  const currencyA = useCurrency(currencyIdA)
+  const currencyB = useCurrency(currencyIdB)
 
   const oneCurrencyIsWDEV = Boolean(
     chainId &&
-    ((currencyA && currencyEquals(currencyA, WDEV[chainId])) ||
-      (currencyB && currencyEquals(currencyB, WDEV[chainId])))
+      ((currencyA && currencyEquals(currencyA, WDEV[chainId])) ||
+        (currencyB && currencyEquals(currencyB, WDEV[chainId])))
   )
 
   const toggleWalletModal = useWalletModalToggle() // toggle wallet when disconnected
@@ -76,7 +78,9 @@ export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatu
     poolTokenPercentage,
     error
   } = useDerivedMintInfo(currencyA ?? undefined, currencyB ?? undefined)
-  console.log(currencies,'------------------------------')
+
+  const dispatch = useDispatch<AppDispatch>()
+
   const { onFieldAInput, onFieldBInput } = useMintActionHandlers(noLiquidity)
 
   const isValid = !error
@@ -203,13 +207,6 @@ export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatu
 
           console.log('update task')
 
-          // const taskInfo = SharedStateContext.taskInfos[1] as TaskInfo
-          // await CampaignClient.updateTask({
-          //   id: 0,
-          //   accountAddress: account,
-          //   txs: response.hash
-          // })
-          console.log(1111111111111)
           updateTaskStatus(response.hash)
 
           ReactGA.event({
@@ -227,6 +224,10 @@ export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatu
         }
       })
   }
+
+  useEffect(() => {
+    dispatch(typeInput({ field: Field.CURRENCY_A, typedValue: '0.5', noLiquidity: noLiquidity === true }))
+  }, [])
 
   const modalHeader = () => {
     return noLiquidity ? (
@@ -282,8 +283,9 @@ export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatu
     )
   }
 
-  const pendingText = `Supplying ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)} ${currencies[Field.CURRENCY_A]?.symbol
-    } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)} ${currencies[Field.CURRENCY_B]?.symbol}`
+  const pendingText = `Supplying ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)} ${
+    currencies[Field.CURRENCY_A]?.symbol
+  } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)} ${currencies[Field.CURRENCY_B]?.symbol}`
 
   const handleCurrencyASelect = useCallback(
     (currencyA: Currency) => {
@@ -460,12 +462,6 @@ export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatu
           </AutoColumn>
         </Wrapper>
       </AppBody>
-
-      {pair && !noLiquidity && pairState !== PairState.INVALID ? (
-        <AutoColumn style={{ minWidth: '20rem', marginTop: '1rem' }}>
-          <MinimalPositionCard showUnwrapped={oneCurrencyIsWDEV} pair={pair} />
-        </AutoColumn>
-      ) : null}
     </>
   )
 }
