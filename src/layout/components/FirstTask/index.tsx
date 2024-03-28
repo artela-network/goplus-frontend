@@ -71,6 +71,7 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
   useEffect(() => {
     if (taskInfo) {
       setTaskStatus(taskInfo.taskStatus)
+      setTxHash(taskInfo.txs)
     }
   }, [taskInfo])
   return (

@@ -38,9 +38,9 @@
 .claim_box {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 20px;
     justify-content: space-around;
-    align-items: center;
+    align-items: start;
 }
 
 .account_wallet{

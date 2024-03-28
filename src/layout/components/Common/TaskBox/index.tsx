@@ -1,14 +1,9 @@
 import React from 'react'
 import { Button } from 'antd'
 import './taskBox.css'
-enum TaskStatus {
-  Init = 0,
-  Ongoing = 1,
-  Finish = 2
-}
 interface Props {
   children: React.ReactNode
-  taskStatus: TaskStatus
+  taskStatus: number
 }
 const TaskBox = ({ children, taskStatus }: Props) => {
   const ongoing = () => {
@@ -42,10 +37,16 @@ const TaskBox = ({ children, taskStatus }: Props) => {
     )
   }
 
+  const SuccessCover = () => (
+    <div className="task_box_cover">
+        Task Completed! ✅
+    </div>
+);
   const statusList = [notStarted, ongoing, ongoing, finish, failed]
   return (
     <>
       <div className="task_box mt-20">
+        {taskStatus === 3 && <SuccessCover />}
         <div className="task_header">
           <div className="task_status">Task status: {statusList[taskStatus ? taskStatus : 0]()}</div>
           <div className="task_guide">

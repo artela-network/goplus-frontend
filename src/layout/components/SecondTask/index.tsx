@@ -4,26 +4,23 @@ import Swap from '../../../pages/SwapForTask2'
 import TaskBox from "../Common/TaskBox";
 import { Button } from 'antd';
 import { updateTask, getTaskListByAccount } from '../../../api/activity'
-import { TaskInfoType } from '../introduce'
-enum TaskStatus {
-  Init = 0,
-  Ongoing = 1,
-  Finish = 2,
-}
+import { TaskInfo } from '../../../utils/campaignClient'
+import './style.css'
+
 interface PropsType {
   getTaskList?: () => void;
-  taskInfo: TaskInfoType;
+  taskInfo: TaskInfo;
 }
 const SecondTask = ({ taskInfo }: PropsType) => {
   const { account } = useActiveWeb3React()
   const [supplyWords, setSupplyWords] = useState('Total supply: 1B')
-  const [taskStatus, setTaskStatus] = useState<TaskStatus>(0)
+  const [taskStatus, setTaskStatus] = useState<number>(0)
   const inreaseRUG = () => {
     setSupplyWords('Total supply: 1B -> 3B')
   }
   const updateTaskStatus = async () => {
     if (account && taskInfo) {
-      const res = await updateTask(account, taskInfo.id, '2')
+      const res = await updateTask(account, taskInfo.id, '3')
       if (res.success) {
         const taskInfoRes = await getTaskListByAccount(account, taskInfo.id)
         if (taskInfoRes.success) {
@@ -35,6 +32,9 @@ const SecondTask = ({ taskInfo }: PropsType) => {
   useEffect(() => {
     if (taskInfo) {
       setTaskStatus(taskInfo.taskStatus)
+      if(taskInfo.taskStatus==3){
+        inreaseRUG()
+      }
     }
   }, [taskInfo])
   return (
@@ -54,7 +54,6 @@ const SecondTask = ({ taskInfo }: PropsType) => {
         <div className="task_swap">
           <Swap taskStatus={taskStatus} updateTaskStatus={updateTaskStatus} />
         </div>
-
       </TaskBox>
     </>
   )
