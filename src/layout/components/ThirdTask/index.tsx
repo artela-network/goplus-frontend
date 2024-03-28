@@ -8,14 +8,17 @@ import { updateTask, getTaskListByAccount } from '../../../api/activity'
 import { useActiveWeb3React } from '../../../hooks'
 import { getEtherscanLink } from '../../../utils'
 import { ExternalLink } from '../../../theme'
+import { failed, ongoing, finish, notStarted } from '../Common/StatusIcon';
+import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
 
 interface PropsType {
-    getTaskList?: () => void;
+    getTaskList: () => void;
     taskInfo?: TaskInfo;
 }
-const ThirdTask = ({ taskInfo }: PropsType) => {
+const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
     const { account } = useActiveWeb3React()
     const [txHash, setTxHash] = useState('')
+    const [loading, setLoading] = useState(false)
     const formatAddress = (address: string | undefined | null): string => {
         if (!address) {
             return ''
@@ -51,6 +54,10 @@ const ThirdTask = ({ taskInfo }: PropsType) => {
                 setTxHash(taskInfoRes.data.taskInfos[0].txs);
                 if (newTaskStatus === 1 || newTaskStatus === 2) {
                     setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
+                    setLoading(true)
+                } else if (newTaskStatus === 3) {
+                    getTaskList()
+                    setLoading(false)
                 }
             }
         }
@@ -69,28 +76,29 @@ const ThirdTask = ({ taskInfo }: PropsType) => {
                 Real experience:RamenSwap prevents rug pulls
             </div>
             <TaskBox taskStatus={taskStatus}>
-                <div className="task_guide">
+                <div className="task_guide" style={{minHeight:'457px'}}>
                     <div className='subTitle'>
                         Step1: Click 👇 button to send a real Rug-pull transaction
                     </div>
-                    <Button type="primary" onClick={doRugPull}> Do Rug-pull</Button>
-                    <div className='subTitle mt-20'>Rug-pull transaction:</div>
-                    <div className='subTitle'>
-                        {txHash ? (
+                    <Button disabled={taskStatus === 3} style={taskStatus !== 3 ? buttonStyle : buttonDisabledStyle} loading={loading} type="primary" onClick={doRugPull}> Do Rug-pull</Button>
+                    {taskStatus == 3 ?
+                        (txHash ? (
                             <>
-                            <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, txHash, 'transaction')}>
-                                {formatAddress(txHash)}
-                            </ExternalLink>View on Explore</>
+                                <div className='subTitle mt-20'>Rug-pull transaction:</div>
+                                <div className='subDescribe'>
+                                    <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, txHash, 'transaction')}>
+                                        {`${formatAddress(txHash)}`}
+                                    </ExternalLink>
+
+                                    {txHash ? failed() : notStarted()}
+                                </div></>
                         ) : (
                             ''
-                        )}  
-                    </div>
-                    <div className='subTitle'>
-                        Status: Processing | Fail
-                    </div>
-                    <div className='subTitle mt-20'>
+                        )) : ''
+                    }
+                    {taskStatus == 3 && <div className='subTitle mt-20'>
                         Anti-rug Aspect has prevented this rug transaction.
-                    </div>
+                    </div>}
                 </div>
                 <div className="task_swap">
                     <Video />

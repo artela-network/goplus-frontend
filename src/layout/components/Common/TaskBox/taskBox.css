@@ -1,21 +1,23 @@
 .task_box_cover {
     position: absolute;
+    pointer-events: none;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(69, 70, 88, 0.5); 
+    background-color: rgba(69, 70, 88, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: rgb(2, 97, 38); 
-    font-size: 24px; 
-    z-index: 2; 
+    color: rgb(2, 97, 38);
+    font-size: 24px;
+    z-index: 2;
     border-radius: 28px;
 }
 
 .task_box_relative {
-    position: relative; /* 使遮罩层绝对定位生效 */
+    position: relative;
+    /* 使遮罩层绝对定位生效 */
 }
 
 .task_box {
@@ -43,15 +45,17 @@
     /* width: 80%; */
     justify-content: start;
 }
-.task_box .task_header .task_status{
-    font-size: 24px;
-   line-height: 26px;
+
+.task_box .task_header .task_status {
+    font-size: 28px;
+    line-height: 26px;
 }
+
 .task_box .task_main {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    
+
 }
 
 .task_swap {
@@ -63,6 +67,6 @@
 }
 
 .task_guide {
-    flex:1;
+    flex: 1;
     height: 100%;
 }

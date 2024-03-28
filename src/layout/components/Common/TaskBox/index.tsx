@@ -46,9 +46,9 @@ const TaskBox = ({ children, taskStatus }: Props) => {
   return (
     <>
       <div className="task_box mt-20">
-        {taskStatus === 3 && <SuccessCover />}
+        {/* {taskStatus === 3 && <SuccessCover />} */}
         <div className="task_header">
-          <div className="task_status">Task status: {statusList[taskStatus ? taskStatus : 0]()}</div>
+          <div className="task_status">Task status:<text style={{fontSize:'24px'}}>{statusList[taskStatus ? taskStatus : 0]()}</text> </div>
           <div className="task_guide">
             <Button type="link">任务指南</Button>| <Button type="link">Task guide</Button>
           </div>

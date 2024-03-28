@@ -13,6 +13,7 @@ import { useExpertModeManager } from '../../state/user/hooks'
 import { useDerivedMintInfo } from '../../state/mint/hooks'
 import './style.css'
 import AppBody from '../AppBody'
+import { Button } from 'antd'
 
 enum TaskStatus {
   Init = 0,
@@ -22,11 +23,25 @@ enum TaskStatus {
 interface PropType {
   taskStatus: TaskStatus,
   updateTaskStatus: any;
+  fromVal: string;
+  toVal: string;
+  swapLoading: boolean;
 }
-export default function Swap({ taskStatus, updateTaskStatus }: PropType) {
+export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swapLoading }: PropType) {
   const theme = useContext(ThemeContext)
   const [isExpertMode] = useExpertModeManager()
-
+  const buttonStyle = {
+    display: 'inline-block',
+    padding: '10px 20px',
+    fontSize: '20px',
+    color: '#ffffff',
+    background: '#2172E5',
+    border: 'none',
+    borderRadius: '15px',
+    transition: 'background 0.3s ease',
+    height: '60px',
+    width:'100%'
+};
   const currencyA = useCurrency('ETH');
   const currencyB = useCurrency('0x058dDd9339F3cecDb7662e2130Bd1cB1f03672D2');
   const {
@@ -81,7 +96,7 @@ export default function Swap({ taskStatus, updateTaskStatus }: PropType) {
                 <AutoColumn gap={'md'}>
                   <CurrencyInputPanel
                     label={'From'}
-                    value={'3B'}
+                    value={fromVal}
                     showMaxButton={false}
                     currency={mtk}
                     onUserInput={handleTypeInput}
@@ -98,7 +113,7 @@ export default function Swap({ taskStatus, updateTaskStatus }: PropType) {
                     </AutoRow>
                   </AutoColumn>
                   <CurrencyInputPanel
-                    value={'1B'}
+                    value={toVal}
                     onUserInput={handleTypeOutput}
                     label={'To'}
                     showMaxButton={false}
@@ -108,7 +123,7 @@ export default function Swap({ taskStatus, updateTaskStatus }: PropType) {
                 </AutoColumn>
 
                 <BottomGrouping>
-                  <ButtonPrimary onClick={updateTaskStatus}>Swap</ButtonPrimary>
+                  <Button style={buttonStyle} onClick={updateTaskStatus} loading={swapLoading}>Swap</Button>
                 </BottomGrouping>
               </Wrapper>
             </>
