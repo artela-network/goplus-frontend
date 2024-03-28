@@ -29,6 +29,9 @@ export default function Activity() {
       if (res.success) {
         setTaskStatus(res.data.status)
         if (res.data.taskInfos) {
+          if (res.data.taskInfos) {
+            res.data.taskInfos = res.data.taskInfos.reverse()
+          }
           setTaskInfos(res.data.taskInfos)
         } else if (attempt < 2) {
           const initRes = await initTaskListByAccount(account, getQueryParams())
@@ -44,6 +47,12 @@ export default function Activity() {
 
   useEffect(() => {
     getTaskList()
+
+    const interval = setInterval(async () => {
+      await getTaskList()
+    }, 2000)
+
+    return () => clearInterval(interval)
   }, [account])
 
   return (

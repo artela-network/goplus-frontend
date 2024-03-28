@@ -19,13 +19,12 @@ const defaultTaskInfo: TaskInfo = {
   taskStatus: 0,
   memo: '',
   title: '',
-  txHash: ''
+  txs: ''
 }
 const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
   const { account } = useActiveWeb3React()
-  const taskStatusList = ['❌', '⏳', '✅']
   const [taskStatus, setTaskStatus] = useState(0)
-  const [txHash, setTxHash] = useState('')
+  const [txHash, setTxHash] = useState(taskInfo.txs)
   const formatAddress = (address: string | undefined | null): string => {
     if (!address) {
       return ''
@@ -79,7 +78,6 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
             ) : (
               ''
             )}
-            {taskStatusList[taskStatus]}
           </div>
         </div>
         <div className="task_swap">

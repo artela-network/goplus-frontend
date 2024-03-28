@@ -19,7 +19,7 @@ export interface TaskInfo {
   taskStatus: number
   memo: string
   title: string
-  txHash: string
+  txs: string
 }
 
 export interface UpdateTaskRequest {
