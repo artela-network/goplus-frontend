@@ -9,22 +9,21 @@ import ThirdTask from '../components/ThirdTask/index'
 import Explain from '../components/Explain/index'
 import { useActiveWeb3React } from '../../hooks'
 import { getTaskListByAccount, initTaskListByAccount } from '../../api/activity'
-
-
+import { TaskInfo } from '../../utils/campaignClient';
 export default function Activity() {
     const { account } = useActiveWeb3React()
     const [taskStatus, setTaskStatus] = useState(0)
-    const [taskInfos, setTaskInfos] = useState([])
+    const [taskInfos, setTaskInfos] = useState<TaskInfo[]>([])
     const location = useLocation();
     const getQueryParams = () => {
         const queryParams = new URLSearchParams(location.search);
         const taskId = queryParams.get('taskId');
         if (taskId !== null) {
-            return taskId; 
+            return taskId;
         } else {
-            return ''; 
+            return '';
         }
-      };
+    };
     const getTaskList = async (attempt = 0) => {
         if (account) {
             const res = await getTaskListByAccount(account);
@@ -43,7 +42,9 @@ export default function Activity() {
             setTaskInfos([]);
         }
     };
-
+    const filterTasksByTaskName = (tasks: TaskInfo[], taskName: string): TaskInfo[] => {
+        return tasks.filter(task => task.taskName === taskName);
+    }
     useEffect(() => {
         getTaskList()
     }, [account])

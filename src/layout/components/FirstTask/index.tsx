@@ -19,7 +19,7 @@ const defaultTaskInfo: TaskInfo = {
   taskStatus: 0,
   memo: '',
   title: '',
-  txHash: ''
+  txs: ''
 }
 const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
   const { account } = useActiveWeb3React()
@@ -55,6 +55,7 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
   useEffect(() => {
     if (taskInfo) {
       setTaskStatus(taskInfo.taskStatus)
+      setTxHash(taskInfo.txs)
     }
   }, [taskInfo])
   return (

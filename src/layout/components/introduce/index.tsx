@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './introduce.css'
 import { useActiveWeb3React } from '../../../hooks'
 import { updateTask, getTaskListByAccount } from '../../../api/activity'
@@ -6,22 +6,25 @@ import AccountWallet from '../../../components/AccountWallet';
 import { ChainId } from 'artswap'
 import { getEtherscanLink } from '../../../utils'
 import { ExternalLink } from '../../../theme'
+import { TaskInfo } from '../../../utils/campaignClient';
 
-export interface TaskInfoType {
-    id: number;
-    memo: string;
-    taskName: string;
-    taskStatus: number;
-    title: string;
-    txs: string;
+
+const defaultTaskInfo: TaskInfo = {
+    id: 0,
+    taskName: '',
+    taskStatus: 0,
+    memo: '',
+    title: '',
+    txs: ''
 }
-
 interface IntroduceProps {
     getTaskList: () => void;
-    taskInfo?: TaskInfoType;
+    taskInfo?: TaskInfo;
 }
-export default function Introduce({ getTaskList, taskInfo }: IntroduceProps) {
+export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo }: IntroduceProps) {
     const { account } = useActiveWeb3React()
+    const [taskStatus, setTaskStatus] = useState(0)
+
     const ongoing = () => {
         return (
             <>
@@ -52,13 +55,33 @@ export default function Introduce({ getTaskList, taskInfo }: IntroduceProps) {
     }
     const getFaucet = async () => {
         if (account && taskInfo) {
-            const res = await updateTask(account, taskInfo.id, '2')
+            const res = await updateTask(account, taskInfo.id, '1')
             if (res.success) {
                 const taskInfoRes = await getTaskListByAccount(account, taskInfo.id)
+                if (taskInfoRes.success) {
+                    // setTaskStatus(taskInfoRes.data.taskInfos[0].taskStatus)
+                    fetchTaskInfo()
+                }
             }
         }
     }
+    const fetchTaskInfo = async () => {
+        if (account && taskInfo) {
+            const taskInfoRes = await getTaskListByAccount(account, taskInfo.id);
+            if (taskInfoRes.success) {
+                const newTaskStatus = taskInfoRes.data.taskInfos[0].taskStatus;
+                setTaskStatus(newTaskStatus);
+                if (newTaskStatus === 1 || newTaskStatus === 2) {
+                    setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
+                }
+            }
+        }
 
+    };
+
+    // useEffect(() => {
+    //     fetchTaskInfo(); // 初始调用
+    // }, []);
     return (
         <div className="introduce">
             <div className='bkimg'>
@@ -80,18 +103,21 @@ export default function Introduce({ getTaskList, taskInfo }: IntroduceProps) {
                     <AccountWallet />
                     <div className='subTitle'>Step2: Claim test tokens</div>
                     <div>
-                        <button onClick={() => getFaucet()} className='my_button bg-blue-500 rounded-md text-white p-2 hover:bg-blue-700'>claim tokens</button>
+                        <button onClick={() => getFaucet()} className='my_button'>claim tokens</button>
                     </div>
-
+                    <div className='claim_res'>
+                        {
+                            account && (<>
+                                <div className='subTitle'>Claim transactions<br />
+                                    <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, taskInfo?.txs?.split(',')[0], 'transaction')}> {formatAddress(taskInfo?.txs?.split(',')[0])} </ExternalLink><text style={{ color: '#2F9E44' }}>{finish()}</text><br />
+                                    <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, (taskInfo?.txs?.split(',').length>=2?taskInfo?.txs?.split(',')[1]:''), 'transaction')}> {formatAddress((taskInfo?.txs?.split(',').length>=2?taskInfo?.txs?.split(',')[1]:''))} </ExternalLink><text style={{ color: '#F08C00' }}>{ongoing()}</text>
+                                </div>
+                            </>)
+                        }
+                    </div>
                 </div>
-                <div className='claim_res'>
-                    {
-                        account && (<>
-                            <div className='subTitle'>Claim transactions</div>
-                            <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, account, 'transaction')}> {formatAddress(account)} </ExternalLink><text style={{ color: '#2F9E44' }}>{finish()}</text><br />
-                            <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, account, 'transaction')}> {formatAddress(account)} </ExternalLink><text style={{ color: '#F08C00' }}>{ongoing()}</text>
-                        </>)
-                    }
+                <div style={{ width: '450px' }}>
+
                 </div>
             </div>
         </div>

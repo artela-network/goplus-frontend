@@ -1,0 +1,22 @@
+.taskContainer {
+    position: relative;
+  }
+  
+  .taskSuccessOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 255, 0, 0.5); /* 绿色半透明遮罩 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .successMessage {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  

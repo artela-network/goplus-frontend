@@ -1,0 +1,16 @@
+.task2_box {
+    padding: 20px 15px;
+}
+
+.task2_box .title {
+    font-size: 24px;
+    font-weight:bolder;
+}
+.task2_box li {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.task2_box .des {
+    font-size: 20px;
+}

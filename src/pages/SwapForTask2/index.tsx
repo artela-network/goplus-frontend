@@ -7,12 +7,11 @@ import CurrencyInputPanel from '../../components/CurrencyInputPanel'
 import { AutoRow } from '../../components/Row'
 import { ArrowWrapper, BottomGrouping, Wrapper } from '../../components/swap/styleds'
 import { Field } from '../../state/swap/actions'
-import {
-  useDerivedSwapInfo,
-  useSwapActionHandlers
-} from '../../state/swap/hooks'
+import { useSwapActionHandlers } from '../../state/swap/hooks'
+import { useCurrency } from '../../hooks/Tokens'
 import { useExpertModeManager } from '../../state/user/hooks'
-
+import { useDerivedMintInfo } from '../../state/mint/hooks'
+import './style.css'
 import AppBody from '../AppBody'
 
 enum TaskStatus {
@@ -28,6 +27,12 @@ export default function Swap({ taskStatus, updateTaskStatus }: PropType) {
   const theme = useContext(ThemeContext)
   const [isExpertMode] = useExpertModeManager()
 
+  const currencyA = useCurrency('ETH');
+  const currencyB = useCurrency('0x058dDd9339F3cecDb7662e2130Bd1cB1f03672D2');
+  const {
+    currencies
+
+  } = useDerivedMintInfo(currencyA ?? undefined, currencyB ?? undefined)
   // swap state
   class Currency {
     readonly decimals: number;
@@ -46,10 +51,8 @@ export default function Swap({ taskStatus, updateTaskStatus }: PropType) {
       super(decimals, symbol, name);
     }
   }
+  // const mtk = new MTK(18, "RUG", "My Token");
   const mtk = new MTK(18, "RUG", "My Token");
-
-  const { currencies } = useDerivedSwapInfo()
-
 
   const { onUserInput } = useSwapActionHandlers()
 
@@ -71,7 +74,7 @@ export default function Swap({ taskStatus, updateTaskStatus }: PropType) {
     <>
       <AppBody>
         {
-          taskStatus == 0 || taskStatus == 1 ? (
+          taskStatus == 0 || taskStatus == 1 || taskStatus == 2 ? (
             <>
               <div style={{ textAlign: 'center', marginBottom: '10px' }}>兑换</div>
               <Wrapper id="swap-page">
@@ -82,7 +85,6 @@ export default function Swap({ taskStatus, updateTaskStatus }: PropType) {
                     showMaxButton={false}
                     currency={mtk}
                     onUserInput={handleTypeInput}
-                    otherCurrency={currencies[Field.OUTPUT]}
                     id="swap-currency-input"
                   />
                   <AutoColumn justify="space-between">
@@ -90,7 +92,7 @@ export default function Swap({ taskStatus, updateTaskStatus }: PropType) {
                       <ArrowWrapper clickable>
                         <ArrowDown
                           size="16"
-                          color={currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.primary1 : theme.text2}
+                          color={theme.primary1}
                         />
                       </ArrowWrapper>
                     </AutoRow>
@@ -100,8 +102,7 @@ export default function Swap({ taskStatus, updateTaskStatus }: PropType) {
                     onUserInput={handleTypeOutput}
                     label={'To'}
                     showMaxButton={false}
-                    currency={currencies[Field.INPUT]}
-                    otherCurrency={currencies[Field.INPUT]}
+                    currency={currencies.CURRENCY_A}
                     id="swap-currency-output"
                   />
                 </AutoColumn>
@@ -114,14 +115,19 @@ export default function Swap({ taskStatus, updateTaskStatus }: PropType) {
 
           ) :
             (
-              <div>
-                <div> Liquidity in the pool</div>
-                <div>{`$ART: 3M -> 1K`}</div>
-                <div>{`$RUG: 30M -> 3B`}</div>
+              <div className='task2_box'>
+                <div > Liquidity in the pool</div>
+                <ul>
+                  <li>{`$ART: 3M -> 1K`}</li>
+                  <li>{`$RUG: 30M -> 3B`}</li>
+                </ul>
+
                 <div>Alice's Liquidity</div>
-                <div>{`$ART: 1 -> 0.1`}</div>
-                <div>{`$RUG: 10 -> 1M`}</div>
-                <div>
+                <ul>
+                  <li>{`$ART: 1 -> 0.1`}</li>
+                  <li>{`$RUG: 10 -> 1M`}</li>
+                </ul>
+                <div className='des'>
                   As project, you get 3M $ART
                   As Alice, you lose 1 $ART and get 1M
                   valueless token.
