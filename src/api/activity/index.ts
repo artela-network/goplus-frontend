@@ -10,7 +10,7 @@ const getTaskListByAccount = async (account: string, id?: number) => {
     return data;
 }
 
-const initTaskListByAccount = async (account: string, taskId: string = '1') => {
+const initTaskListByAccount = async (account: string, taskId: string,token:string,secret:string) => {
     const response = await fetch('https://campaign.artela.network/api/goplus/new-task', {
         method: 'POST',
         headers: {
@@ -18,7 +18,9 @@ const initTaskListByAccount = async (account: string, taskId: string = '1') => {
         },
         body: JSON.stringify({
             accountAddress: account,
-            taskId
+            taskId,
+            token,
+            secret
         })
     })
     const data = await response.json();
