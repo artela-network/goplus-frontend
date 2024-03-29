@@ -9,9 +9,14 @@ import ThirdTask from '../components/ThirdTask/index'
 import Explain from '../components/Explain/index'
 import { useActiveWeb3React } from '../../hooks'
 import { getTaskListByAccount, initTaskListByAccount } from '../../api/activity'
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Activity() {
   const { account } = useActiveWeb3React()
+  const [isCaptchaShow, setIsCaptchaShow] = useState(false)
+  const sitkey: string = process.env.REACT_APP_SIT_KEY || '';
+
+  const recaptchaRef = React.createRef<ReCAPTCHA>();
   const [taskStatus, setTaskStatus] = useState(0)
   const [taskInfos, setTaskInfos] = useState([])
   const location = useLocation()
@@ -39,13 +44,13 @@ export default function Activity() {
               return false
             }
           }
-
           return true
         } else if (attempt < 2) {
-          const initRes = await initTaskListByAccount(account, getQueryParams())
-          if (initRes.success) {
-            return getTaskList(attempt + 1)
-          }
+          setIsCaptchaShow(true)
+          // const initRes = await initTaskListByAccount(account, getQueryParams())
+          // if (initRes.success) {
+          //   return getTaskList(attempt + 1)
+          // }
         }
       }
     } else {
@@ -54,7 +59,15 @@ export default function Activity() {
 
     return false
   }
-
+  const onSubmit = async (token: any) => {
+    console.log("reCAPTCHA token:", token);
+    setIsCaptchaShow(false)
+    if (account) {
+      const initRes = await initTaskListByAccount(account, getQueryParams(), token, sitkey)
+      if (initRes.success) {
+      }
+    }
+  };
   useEffect(() => {
     if (!account) {
       return
@@ -85,9 +98,23 @@ export default function Activity() {
     }
   }, [account])
 
+  const captcha = () => {
+    if (isCaptchaShow) {
+      return (
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey={sitkey}
+          onChange={onSubmit}
+        />
+      )
+    } else {
+      return ''
+    }
+
+  }
   return (
     <div className="activity">
-      <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} />
+      <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} captcha={captcha()} />
       <TaskList />
       <FirstTask taskInfo={taskInfos[1]} />
       <SecondTask taskInfo={taskInfos[2]} />
