@@ -103,17 +103,17 @@ export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo }: I
                         {
                             taskInfo.txs && (<>
                                 <div className='subTitle'>Claim transactions<br />
-                                <div className='subDescribe'>
-                                    <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, taskInfo?.txs?.split(',')[0], 'transaction')}> {formatAddress(taskInfo?.txs?.split(',')[0])} </ExternalLink><text style={{ color: '#2F9E44' }}>{finish()}</text><br />
-                                    <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, (taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''), 'transaction')}> {formatAddress((taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''))} </ExternalLink><text style={{ color: '#F08C00' }}>{finish()}</text>
-                                </div>
+                                    <div className='subDescribe'>
+                                        <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, taskInfo?.txs?.split(',')[0], 'transaction')}> {formatAddress(taskInfo?.txs?.split(',')[0])} </ExternalLink><text style={{ color: '#2F9E44' }}>{finish()}</text><br />
+                                        <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, (taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''), 'transaction')}> {formatAddress((taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''))} </ExternalLink><text style={{ color: '#F08C00' }}>{finish()}</text>
+                                    </div>
                                 </div>
                             </>)
                         }
                     </div>
                 </div>
                 <div style={{ width: '450px' }}>
-
+                    
                 </div>
             </div>
         </div>
