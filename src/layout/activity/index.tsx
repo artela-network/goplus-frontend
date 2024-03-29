@@ -63,8 +63,12 @@ export default function Activity() {
     console.log("reCAPTCHA token:", token);
     setIsCaptchaShow(false)
     if (account) {
-      const initRes = await initTaskListByAccount(account, getQueryParams(), token, sitkey)
-      if (initRes.success) {
+      if(getQueryParams()){
+        const initRes = await initTaskListByAccount(account, getQueryParams(), token, sitkey)
+        if (initRes.success) {
+        }
+      }else{
+        alert('请带上taskid！')
       }
     }
   };
