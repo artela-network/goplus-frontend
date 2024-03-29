@@ -14,7 +14,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 export default function Activity() {
   const { account } = useActiveWeb3React()
   const [isCaptchaShow, setIsCaptchaShow] = useState(false)
-  const sitkey: string = process.env.REACT_APP_SIT_KEY || '';
+  // const sitkey: string = process.env.REACT_APP_SIT_KEY || '';
+  const sitkey: string = '6LcrZqgpAAAAAD8L2W-XJE7CR2xmI-nC76HNxqsb';
 
   const recaptchaRef = React.createRef<ReCAPTCHA>();
   const [taskStatus, setTaskStatus] = useState(0)
@@ -63,11 +64,11 @@ export default function Activity() {
     console.log("reCAPTCHA token:", token);
     setIsCaptchaShow(false)
     if (account) {
-      if(getQueryParams()){
+      if (getQueryParams()) {
         const initRes = await initTaskListByAccount(account, getQueryParams(), token, sitkey)
         if (initRes.success) {
         }
-      }else{
+      } else {
         alert('请带上taskid！')
       }
     }
