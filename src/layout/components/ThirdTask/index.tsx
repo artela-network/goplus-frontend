@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Video from "../Common/RugPullVideo"
 import TaskBox from "../Common/TaskBox";
 import { ChainId } from 'artswap'
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import { TaskInfo } from '../../../utils/campaignClient'
 import { updateTask, getTaskListByAccount } from '../../../api/activity'
 import { useActiveWeb3React } from '../../../hooks'
@@ -34,10 +34,7 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
         return `${first11}...${last9}`;
     }
     const doRugPull = () => {
-
-
         updateTaskStatus()
-
     }
     const [taskStatus, setTaskStatus] = useState(0)
     const updateTaskStatus = async () => {
@@ -88,7 +85,7 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
                     <div className='subTitle'>
                         Step1: Click 👇 button to send a real Rug-pull transaction
                     </div>
-                    <Button disabled={taskStatus === 3} style={taskStatus !== 3 ? buttonStyle : buttonDisabledStyle} loading={loading} type="primary" onClick={doRugPull}> Do Rug-pull</Button>
+                    <Button disabled={taskStatus !== 0} style={taskStatus == 0 ? buttonStyle : buttonDisabledStyle} loading={loading} type="primary" onClick={doRugPull}> Do Rug-pull</Button>
                     {taskStatus == 3 ?
                         (txHash ? (
                             <>
@@ -99,13 +96,13 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
                                     </ExternalLink>
 
                                     {txHash ? finish() : notStarted()}
-                                    <div>
+                                    <div style={{ marginTop: '10px' }}>
                                         status:  Anti-rug Aspect has prevented this rug transaction.
                                     </div>
                                 </div></>
                         ) : (
                             ''
-                        )) : ''
+                        )) : taskStatus == 1 || taskStatus == 2 ? <div className='subTitle mt-20'><Spin /></div> : ''
                     }
                     {taskStatus == 3 &&
                         <div className='subTitle'>Aspect Programming offers an SDK and a WASM runtime environment for building native extensions on Artela blockchain.</div>

@@ -10,22 +10,15 @@ import { TaskInfo } from '../../../utils/campaignClient';
 import { Button } from 'antd';
 import { failed, ongoing, finish } from '../Common/StatusIcon';
 import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
-const defaultTaskInfo: TaskInfo = {
-    id: 0,
-    taskName: '',
-    taskStatus: 0,
-    memo: '',
-    title: '',
-    txs: ''
-}
+import { Spin } from 'antd';
 interface IntroduceProps {
     getTaskList: () => void;
     taskInfo?: TaskInfo;
     captcha: ReactNode;
 }
-export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo, captcha }: IntroduceProps) {
+export default function Introduce({ getTaskList, taskInfo, captcha }: IntroduceProps) {
     const { account } = useActiveWeb3React()
-    const [taskStatus, setTaskStatus] = useState(0)
+    const [taskStatus, setTaskStatus] = useState(5)
     const [loading, setLoading] = useState(false)
 
     const formatAddress = (address: string | undefined | null): string => {
@@ -106,19 +99,17 @@ export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo, cap
                     }
                     <div className='subTitle'>Step2: Claim test tokens</div>
                     <div>
-                        <Button type='primary' disabled={taskStatus === 3} style={taskStatus !== 3 ? buttonStyle : buttonDisabledStyle} loading={loading} onClick={() => getFaucet()} className='my_button' >claim tokens</Button>
+                        <Button type='primary' disabled={taskStatus !== 0 && taskStatus !== 4} style={taskStatus == 0 || taskStatus === 4 ? buttonStyle : buttonDisabledStyle} loading={loading} onClick={() => getFaucet()} className='my_button' >claim tokens</Button>
                     </div>
                     <div className='claim_res'>
-                        {
-                            taskInfo.txs && (<>
-                                <div className='subTitle'>Claim transactions<br />
-                                    <div className='subDescribe'>
-                                        <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, taskInfo?.txs?.split(',')[0], 'transaction')}> {formatAddress(taskInfo?.txs?.split(',')[0])} </ExternalLink><text style={{ color: '#2F9E44' }}>{finish()}</text><br />
-                                        <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, (taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''), 'transaction')}> {formatAddress((taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''))} </ExternalLink><text style={{ color: '#F08C00' }}>{finish()}</text>
-                                    </div>
+                        {taskStatus == 1 || taskStatus == 2 ? <Spin /> : taskInfo ? (taskInfo.txs && (<>
+                            <div className='subTitle'>Claim transactions<br />
+                                <div className='subDescribe'>
+                                    <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, taskInfo?.txs?.split(',')[0], 'transaction')}> {formatAddress(taskInfo?.txs?.split(',')[0])} </ExternalLink><text style={{ color: '#2F9E44' }}>{taskStatus == 3 ? finish() : taskStatus == 2 ? ongoing() : ''}</text><br />
+                                    <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, (taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''), 'transaction')}> {formatAddress((taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''))} </ExternalLink><text style={{ color: '#F08C00' }}>{taskStatus == 3 ? finish() : taskStatus == 2 ? ongoing() : ''}</text>
                                 </div>
-                            </>)
-                        }
+                            </div>
+                        </>)) : ''}
                     </div>
                 </div>
                 <div style={{ width: '450px' }}>

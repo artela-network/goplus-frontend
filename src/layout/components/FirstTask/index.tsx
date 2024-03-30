@@ -102,11 +102,11 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
           ) : (
             ''
           )}
-          {account && pair ? (
+          {taskStatus == 3 ? (
             <div>
-              <AutoColumn style={{ minWidth: '20rem', marginTop: '1rem', marginRight: '1rem' }}>
+              {/* <AutoColumn style={{ minWidth: '20rem', marginTop: '1rem', marginRight: '1rem' }}>
                 <MinimalPositionCard showUnwrapped={false} pair={pair} />
-              </AutoColumn>
+              </AutoColumn> */}
               <hr />
               <div className='subTitle'>Your liquidity in the pool: 500</div>
               <ul>
@@ -117,8 +117,8 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
             </div>
           ) : null}
         </div>
-        <div className="task_swap" style={{ marginLeft: '15px',position:'relative' }}>
-          <SuccessCover />
+        <div className="task_swap" style={{ marginLeft: '15px', position: 'relative' }}>
+          {taskStatus == 3 && <SuccessCover />}
           <RedirectDuplicateTokenIds
             currencyIdA={currencyIdA}
             currencyIdB={currencyIdB}
