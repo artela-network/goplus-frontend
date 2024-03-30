@@ -45,7 +45,7 @@ const SecondTask = ({ taskInfo }: PropsType) => {
   const [fromVal, setFromVal] = useState('0')
   const [toVal, setToVal] = useState('0')
   const [supplyWords, setSupplyWords] = useState('Total supply: 1B')
-  const [taskStatus, setTaskStatus] = useState<number>(0)
+  const [taskStatus, setTaskStatus] = useState<number>(5)
   const [loading, setLoading] = useState(false)
   const inreaseRUG = async () => {
     if (account && taskInfo) {
@@ -90,7 +90,7 @@ const SecondTask = ({ taskInfo }: PropsType) => {
       <TaskBox taskStatus={taskStatus}>
         <div className="task_guide">
           <div className='subTitle'>Step1: Click 👇 button to Increase 2B $RUG</div>
-          <Button loading={loading} disabled={taskStatus == 1 || taskStatus == 3} style={taskStatus == 1 || taskStatus == 3 ? buttonDisabledStyle : buttonStyle} type="primary" onClick={inreaseRUG}> Increase </Button>
+          <Button loading={loading} disabled={taskStatus == 1 || taskStatus == 3} style={taskStatus == 0 || taskStatus == 4 ? buttonStyle : buttonDisabledStyle} type="primary" onClick={inreaseRUG}> Increase </Button>
           <div className='subDescribe'>{supplyWords} </div>
           <div className='subTitle mt-20'>Step2: Swap 3B $RUG</div>
           <div className='subDescribe'>Click swap button to sell all $Rug 👉</div>

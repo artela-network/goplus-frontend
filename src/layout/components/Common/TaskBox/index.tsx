@@ -39,16 +39,16 @@ const TaskBox = ({ children, taskStatus }: Props) => {
 
   const SuccessCover = () => (
     <div className="task_box_cover">
-        Task Completed! ✅
+      Task Completed! ✅
     </div>
-);
-  const statusList = [notStarted, ongoing, ongoing, finish, failed]
+  );
+  const statusList = [notStarted, ongoing, ongoing, finish, failed, notStarted]
   return (
     <>
       <div className="task_box mt-20">
         {/* {taskStatus === 3 && <SuccessCover />} */}
         <div className="task_header">
-          <div className="task_status">Task status:<text style={{fontSize:'24px'}}>{statusList[taskStatus ? taskStatus : 0]()}</text> </div>
+          <div className="task_status">Task status:<text style={{ fontSize: '24px' }}>{statusList[taskStatus ? taskStatus : 0]()}</text> </div>
           <div className="task_guide">
             <Button type="link">任务指南</Button>| <Button type="link">Task guide</Button>
           </div>

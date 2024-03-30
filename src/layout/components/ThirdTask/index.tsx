@@ -36,7 +36,7 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
     const doRugPull = () => {
         updateTaskStatus()
     }
-    const [taskStatus, setTaskStatus] = useState(0)
+    const [taskStatus, setTaskStatus] = useState(5)
     const updateTaskStatus = async () => {
         setLoading(true)
         try {
