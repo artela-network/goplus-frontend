@@ -21,9 +21,9 @@ const defaultTaskInfo: TaskInfo = {
 interface IntroduceProps {
     getTaskList: () => void;
     taskInfo?: TaskInfo;
-    captcha:ReactNode;
+    captcha: ReactNode;
 }
-export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo,captcha }: IntroduceProps) {
+export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo, captcha }: IntroduceProps) {
     const { account } = useActiveWeb3React()
     const [taskStatus, setTaskStatus] = useState(0)
     const [loading, setLoading] = useState(false)
@@ -43,15 +43,22 @@ export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo,capt
         return `${first11}...${last9}`;
     }
     const getFaucet = async () => {
-        if (account && taskInfo) {
-            const res = await updateTask(account, taskInfo.id, '1')
-            if (res.success) {
-                const taskInfoRes = await getTaskListByAccount(account, taskInfo.id)
-                if (taskInfoRes.success) {
-                    setTaskStatus(taskInfoRes.data.taskInfos[0].taskStatus)
-                    fetchTaskInfo()
+        setLoading(true)
+        try {
+            if (account && taskInfo) {
+                const res = await updateTask(account, taskInfo.id, '1');
+                if (res.success) {
+                    const taskInfoRes = await getTaskListByAccount(account, taskInfo.id);
+                    if (taskInfoRes.success) {
+                        setTaskStatus(taskInfoRes.data.taskInfos[0].taskStatus);
+                        fetchTaskInfo();
+                    }
                 }
             }
+        } catch (error) {
+            console.error(error); // 处理或记录错误
+        } finally {
+            setLoading(false); // 在这里统一停止加载状态
         }
     }
     const fetchTaskInfo = async () => {
@@ -62,10 +69,8 @@ export default function Introduce({ getTaskList, taskInfo = defaultTaskInfo,capt
                 setTaskStatus(newTaskStatus);
                 if (newTaskStatus === 1 || newTaskStatus === 2) {
                     setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
-                    setLoading(true)
                 } else if (newTaskStatus === 3) {
                     getTaskList()
-                    setLoading(false)
                 }
             }
         }

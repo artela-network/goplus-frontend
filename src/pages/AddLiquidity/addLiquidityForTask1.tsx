@@ -43,7 +43,7 @@ import { AppDispatch } from '../../state'
 interface AddLiquidityProps {
   currencyIdA?: string
   currencyIdB?: string
-  updateTaskStatus: (txs: string) => void
+  updateTaskStatus: (txs: string, memo: string) => void
 }
 
 export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatus }: AddLiquidityProps) {
@@ -55,8 +55,8 @@ export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatu
 
   const oneCurrencyIsWDEV = Boolean(
     chainId &&
-      ((currencyA && currencyEquals(currencyA, WDEV[chainId])) ||
-        (currencyB && currencyEquals(currencyB, WDEV[chainId])))
+    ((currencyA && currencyEquals(currencyA, WDEV[chainId])) ||
+      (currencyB && currencyEquals(currencyB, WDEV[chainId])))
   )
 
   const toggleWalletModal = useWalletModalToggle() // toggle wallet when disconnected
@@ -207,7 +207,8 @@ export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatu
 
           console.log('update task')
 
-          updateTaskStatus(response.hash)
+
+          updateTaskStatus(response.hash, [parsedAmounts[Field.CURRENCY_A]?.toSignificant(3), parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)].join(','))
 
           ReactGA.event({
             category: 'Liquidity',
@@ -283,9 +284,8 @@ export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatu
     )
   }
 
-  const pendingText = `Supplying ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)} ${
-    currencies[Field.CURRENCY_A]?.symbol
-  } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)} ${currencies[Field.CURRENCY_B]?.symbol}`
+  const pendingText = `Supplying ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)} ${currencies[Field.CURRENCY_A]?.symbol
+    } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)} ${currencies[Field.CURRENCY_B]?.symbol}`
 
   const handleCurrencyASelect = useCallback(
     (currencyA: Currency) => {

@@ -34,15 +34,25 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
         return `${first11}...${last9}`;
     }
     const doRugPull = () => {
+
+
         updateTaskStatus()
+
     }
     const [taskStatus, setTaskStatus] = useState(0)
     const updateTaskStatus = async () => {
-        if (account && taskInfo) {
-            const res = await updateTask(account, taskInfo.id, '1')
-            if (res.success) {
-                fetchTaskInfo()
+        setLoading(true)
+        try {
+            if (account && taskInfo) {
+                const res = await updateTask(account, taskInfo.id, '1')
+                if (res.success) {
+                    fetchTaskInfo()
+                }
             }
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setLoading(false)
         }
     }
     const fetchTaskInfo = async () => {
@@ -54,10 +64,8 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
                 setTxHash(taskInfoRes.data.taskInfos[0].txs);
                 if (newTaskStatus === 1 || newTaskStatus === 2) {
                     setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
-                    setLoading(true)
                 } else if (newTaskStatus === 3) {
                     getTaskList()
-                    setLoading(false)
                 }
             }
         }
@@ -76,7 +84,7 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
                 Real experience:RamenSwap prevents rug pulls
             </div>
             <TaskBox taskStatus={taskStatus}>
-                <div className="task_guide" style={{minHeight:'457px'}}>
+                <div className="task_guide" style={{ minHeight: '457px' }}>
                     <div className='subTitle'>
                         Step1: Click 👇 button to send a real Rug-pull transaction
                     </div>
@@ -90,20 +98,22 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
                                         {`${formatAddress(txHash)}`}
                                     </ExternalLink>
 
-                                    {txHash ? failed() : notStarted()}
+                                    {txHash ? finish() : notStarted()}
+                                    <div>
+                                        status:  Anti-rug Aspect has prevented this rug transaction.
+                                    </div>
                                 </div></>
                         ) : (
                             ''
                         )) : ''
                     }
-                    {taskStatus == 3 && <div className='subTitle mt-20'>
-                        Anti-rug Aspect has prevented this rug transaction.
-                    </div>}
+                    {taskStatus == 3 &&
+                        <div className='subTitle'>Aspect Programming offers an SDK and a WASM runtime environment for building native extensions on Artela blockchain.</div>
+                    }
                 </div>
                 <div className="task_swap">
                     <Video />
                 </div>
-
             </TaskBox>
         </>
     )

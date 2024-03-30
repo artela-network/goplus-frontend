@@ -10,7 +10,7 @@ import Explain from '../components/Explain/index'
 import { useActiveWeb3React } from '../../hooks'
 import { getTaskListByAccount, initTaskListByAccount } from '../../api/activity'
 import ReCAPTCHA from "react-google-recaptcha";
-
+import { Button } from 'antd'
 export default function Activity() {
   const { account } = useActiveWeb3React()
   const [isCaptchaShow, setIsCaptchaShow] = useState(false)
@@ -117,14 +117,33 @@ export default function Activity() {
     }
 
   }
+  const Footer = () => {
+    return (
+      <>
+        <div className='text-56px mt-20 text-center' style={{maxWidth:'1200px'}}>
+          🎆 Congratulations on completing the task. You will receive energy blocks from secwarex.
+        </div>
+        <div className='text-56px mt-20 text-center' style={{maxWidth:'1200px'}}>
+        🎆 Here's an 👇ART's badge for you.
+        </div>
+        <div style={{fontSize:'30px',marginTop:'10px'}}>
+          <a href="https://secwarex.io/">go to galxe</a>
+        </div>
+        <div >
+          <Button style={{fontSize:'30px',marginTop:'10px'}} type='link'>sync status to secwarex</Button>
+        </div>
+      </>
+    )
+  }
   return (
     <div className="activity">
       <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} captcha={captcha()} />
-      <TaskList />
+      {/* <TaskList /> */}
       <FirstTask taskInfo={taskInfos[1]} />
       <SecondTask taskInfo={taskInfos[2]} />
       <ThirdTask getTaskList={getTaskList} taskInfo={taskInfos[3]} />
-      <Explain />
+      {/* <Explain /> */}
+      <Footer/>
     </div>
   )
 }
