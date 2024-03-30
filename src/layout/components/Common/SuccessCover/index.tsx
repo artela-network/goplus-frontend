@@ -1,7 +1,10 @@
 import React from "react";
+import { ReactComponent as CompletedIcon } from "./completed.svg";
+
 const SuccessCover = () => (
     <div className="task_box_cover">
-        Task Completed! ✅
+        <CompletedIcon />
     </div>
 );
+
 export default SuccessCover;

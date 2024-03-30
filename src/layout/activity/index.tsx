@@ -120,17 +120,17 @@ export default function Activity() {
   const Footer = () => {
     return (
       <>
-        <div className='text-56px mt-20 text-center' style={{maxWidth:'1200px'}}>
+        <div className='text-56px mt-20 text-center' style={{ maxWidth: '1200px' }}>
           🎆 Congratulations on completing the task. You will receive energy blocks from secwarex.
         </div>
-        <div className='text-56px mt-20 text-center' style={{maxWidth:'1200px'}}>
-        🎆 Here's an 👇ART's badge for you.
+        <div className='text-56px mt-20 text-center' style={{ maxWidth: '1200px' }}>
+          🎆 Here's an 👇ART's badge for you.
         </div>
-        <div style={{fontSize:'30px',marginTop:'10px'}}>
-          <a href="https://secwarex.io/">go to galxe</a>
+        <div style={{ fontSize: '30px', marginTop: '10px' }}>
+          <a style={{ color: 'gray' }} href="https://secwarex.io/"> go to galxe</a>
         </div>
         <div >
-          <Button style={{fontSize:'30px',marginTop:'10px'}} type='link'>sync status to secwarex</Button>
+          <Button style={{ fontSize: '30px', marginTop: '10px', color: 'gray', textDecoration: 'underline' }} type='link'>sync status to secwarex</Button>
         </div>
       </>
     )
@@ -143,7 +143,7 @@ export default function Activity() {
       <SecondTask taskInfo={taskInfos[2]} />
       <ThirdTask getTaskList={getTaskList} taskInfo={taskInfos[3]} />
       {/* <Explain /> */}
-      <Footer/>
+      <Footer />
     </div>
   )
 }

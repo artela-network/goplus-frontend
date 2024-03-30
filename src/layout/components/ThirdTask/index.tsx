@@ -86,10 +86,10 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
                         Step1: Click 👇 button to send a real Rug-pull transaction
                     </div>
                     <Button disabled={taskStatus !== 0} style={taskStatus == 0 ? buttonStyle : buttonDisabledStyle} loading={loading} type="primary" onClick={doRugPull}> Do Rug-pull</Button>
+                    {taskStatus !== 0 && <div className='subTitle'>Rug-pull transaction:</div>}
                     {taskStatus == 3 ?
                         (txHash ? (
                             <>
-                                <div className='subTitle mt-20'>Rug-pull transaction:</div>
                                 <div className='subDescribe'>
                                     <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, txHash, 'transaction')}>
                                         {`${formatAddress(txHash)}`}
@@ -97,7 +97,7 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
 
                                     {txHash ? finish() : notStarted()}
                                     <div style={{ marginTop: '10px' }}>
-                                        status:  Anti-rug Aspect has prevented this rug transaction.
+                                        status:  Revert by Aspect.
                                     </div>
                                 </div></>
                         ) : (

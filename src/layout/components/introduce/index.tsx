@@ -98,12 +98,13 @@ export default function Introduce({ getTaskList, taskInfo, captcha }: IntroduceP
                         captcha
                     }
                     <div className='subTitle'>Step2: Claim test tokens</div>
-                    <div>
+                    <div style={{ width: '600px' }}>
                         <Button type='primary' disabled={taskStatus !== 0 && taskStatus !== 4} style={taskStatus == 0 || taskStatus === 4 ? buttonStyle : buttonDisabledStyle} loading={loading} onClick={() => getFaucet()} className='my_button' >claim tokens</Button>
                     </div>
                     <div className='claim_res'>
+                        {taskStatus !== 0&&taskStatus !== 5 && <div className='subTitle'>Claim transactions</div>}
                         {taskStatus == 1 || taskStatus == 2 ? <Spin /> : taskInfo ? (taskInfo.txs && (<>
-                            <div className='subTitle'>Claim transactions<br />
+                            <div className='subTitle'>
                                 <div className='subDescribe'>
                                     <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, taskInfo?.txs?.split(',')[0], 'transaction')}> {formatAddress(taskInfo?.txs?.split(',')[0])} </ExternalLink><text style={{ color: '#2F9E44' }}>{taskStatus == 3 ? finish() : taskStatus == 2 ? ongoing() : ''}</text><br />
                                     <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, (taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''), 'transaction')}> {formatAddress((taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''))} </ExternalLink><text style={{ color: '#F08C00' }}>{taskStatus == 3 ? finish() : taskStatus == 2 ? ongoing() : ''}</text>

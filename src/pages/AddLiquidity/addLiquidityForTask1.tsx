@@ -227,7 +227,7 @@ export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatu
   }
 
   useEffect(() => {
-    dispatch(typeInput({ field: Field.CURRENCY_A, typedValue: '0.5', noLiquidity: noLiquidity === true }))
+    dispatch(typeInput({ field: Field.CURRENCY_A, typedValue: '1', noLiquidity: noLiquidity === true }))
   }, [])
 
   const modalHeader = () => {
