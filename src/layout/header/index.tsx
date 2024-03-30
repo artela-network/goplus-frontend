@@ -26,13 +26,13 @@ const Header = () => {
                 <div className='nav'>
                     <div className='icon'>GoPlus</div>
                     <div style={{ marginLeft: '47%', display: 'flex', justifyContent: 'center', gap: '20px' }}>
-                        <a href="" className='link-disabled'>
+                        <a href="https://t.me/artela_official" target='blank' className='link-style'>
                             <FaTelegram className='link-icon' style={{ fontSize: '30px', lineHeight: '32px' }} />
                         </a>
-                        <a href="" className='link-style'>
+                        <a href="https://discord.com/invite/artela" target='blank' className='link-style'>
                             <FaDiscord className='link-icon' style={{ fontSize: '30px', lineHeight: '32px' }} />
                         </a>
-                        <a href="https://twitter.com/Art_inscription" className='link-style'>
+                        <a href="https://twitter.com/Artela_Network" target='blank' className='link-style'>
                             <FaTwitter className='link-icon' style={{ fontSize: '30px', lineHeight: '32px' }} />
                         </a>
                     </div>

@@ -13,6 +13,7 @@ import { MinimalPositionCard } from '../../../components/PositionCard'
 import { AutoColumn } from '../../../components/Column'
 import { useCurrency } from '../../../hooks/Tokens'
 import { useDerivedMintInfo } from '../../../state/mint/hooks'
+import SuccessCover from '../Common/SuccessCover'
 
 interface Props {
   taskInfo: TaskInfo
@@ -83,32 +84,47 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
       <TaskBox taskStatus={taskStatus}>
         <div className="task_guide">
           <div>Step1: Add liquidity</div>
-          <div>
-            <li className="subTitle">1. Select ART/RUG pair</li>
-            <li className="subTitle">2. Add 1 $ART liquidity to the pool</li>
-          </div>
-          <div className="subTitle">Transaction</div>
-          <div className="subTitle">
-            {txHash ? (
-              <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, txHash, 'transaction')}>
-                {formatAddress(txHash)}
-              </ExternalLink>
-            ) : (
-              ''
-            )}
-          </div>
-          {account && pair ? (
-            <AutoColumn style={{ minWidth: '20rem', marginTop: '1rem', marginRight: '1rem'}}>
-              <MinimalPositionCard showUnwrapped={false} pair={pair} />
-            </AutoColumn>
+          <ul>
+            <li className="subDescribe">Select ART/RUG pair</li>
+            <li className="subDescribe">Add 1 $ART liquidity to the pool</li>
+          </ul>
+          {txHash ? (
+            <>
+              <div className="subTitle">Transaction</div>
+              <ul>
+                <li className="subDescribe">
+                  <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, txHash, 'transaction')}>
+                    {formatAddress(txHash)}
+                  </ExternalLink>
+                </li>
+              </ul>
+            </>
+          ) : (
+            ''
+          )}
+          {taskStatus == 3 ? (
+            <div>
+              {/* <AutoColumn style={{ minWidth: '20rem', marginTop: '1rem', marginRight: '1rem' }}>
+                <MinimalPositionCard showUnwrapped={false} pair={pair} />
+              </AutoColumn> */}
+              <hr />
+              <div className='subTitle'>Your liquidity in the pool: 500</div>
+              <ul>
+                <li className='subDescribe'>$ART: 0.5</li>
+                <li className='subDescribe'>$RUG: 500000</li>
+              </ul>
+
+            </div>
           ) : null}
         </div>
-        <div className="task_swap">
+        <div className="task_swap" style={{ marginLeft: '15px', position: 'relative' }}>
+          {taskStatus == 3 && <SuccessCover />}
           <RedirectDuplicateTokenIds
             currencyIdA={currencyIdA}
             currencyIdB={currencyIdB}
             updateTaskStatus={updateTaskStatus}
           />
+          <div style={{ textAlign: 'center', width: '100%', fontSize: '16px' }}>power by <a href='https://moonbeam-uniswap-three.vercel.app/#/swap'> moonbeam uniswap</a></div>
         </div>
       </TaskBox>
     </>

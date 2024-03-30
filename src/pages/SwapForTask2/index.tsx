@@ -40,8 +40,8 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
     borderRadius: '15px',
     transition: 'background 0.3s ease',
     height: '60px',
-    width:'100%'
-};
+    width: '100%'
+  };
   const currencyA = useCurrency('ETH');
   const currencyB = useCurrency('0x058dDd9339F3cecDb7662e2130Bd1cB1f03672D2');
   const {
@@ -86,7 +86,7 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
 
 
   return (
-    <>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
       <AppBody>
         {
           taskStatus == 0 || taskStatus == 1 || taskStatus == 2 ? (
@@ -132,20 +132,23 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
             (
               <div className='task2_box'>
                 <div > Liquidity in the pool</div>
-                <ul>
+                <ul style={{fontSize:'20px'}}>
                   <li>{`$ART: 3M -> 1K`}</li>
                   <li>{`$RUG: 30M -> 3B`}</li>
                 </ul>
 
                 <div>Alice's Liquidity</div>
-                <ul>
+                <ul style={{fontSize:'20px'}}>
                   <li>{`$ART: 1 -> 0.1`}</li>
                   <li>{`$RUG: 10 -> 1M`}</li>
                 </ul>
                 <div className='des'>
-                  As project, you get 3M $ART
-                  As Alice, you lose 1 $ART and get 1M
-                  valueless token.
+                  <div style={{marginTop:'10px'}}>
+                    As project, you get <b style={{ color: '#28a745' }}>3M <text style={{color:'orange'}}>$ART</text></b><br />
+                  </div>
+                  <div style={{marginTop:'10px'}}>
+                    As Alice, you lose <b style={{ color: '#dc3545' }}>1 <text style={{color:'orange'}}>$ART</text> </b>and get 1M valueless token.
+                  </div>
                 </div>
               </div>
             )
@@ -153,7 +156,7 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
 
 
       </AppBody>
-    </>
+    </div>
   )
 }
 

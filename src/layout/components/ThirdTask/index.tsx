@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Video from "../Common/RugPullVideo"
 import TaskBox from "../Common/TaskBox";
 import { ChainId } from 'artswap'
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import { TaskInfo } from '../../../utils/campaignClient'
 import { updateTask, getTaskListByAccount } from '../../../api/activity'
 import { useActiveWeb3React } from '../../../hooks'
@@ -38,11 +38,18 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
     }
     const [taskStatus, setTaskStatus] = useState(0)
     const updateTaskStatus = async () => {
-        if (account && taskInfo) {
-            const res = await updateTask(account, taskInfo.id, '1')
-            if (res.success) {
-                fetchTaskInfo()
+        setLoading(true)
+        try {
+            if (account && taskInfo) {
+                const res = await updateTask(account, taskInfo.id, '1')
+                if (res.success) {
+                    fetchTaskInfo()
+                }
             }
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setLoading(false)
         }
     }
     const fetchTaskInfo = async () => {
@@ -54,10 +61,8 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
                 setTxHash(taskInfoRes.data.taskInfos[0].txs);
                 if (newTaskStatus === 1 || newTaskStatus === 2) {
                     setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
-                    setLoading(true)
                 } else if (newTaskStatus === 3) {
                     getTaskList()
-                    setLoading(false)
                 }
             }
         }
@@ -76,34 +81,36 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
                 Real experience:RamenSwap prevents rug pulls
             </div>
             <TaskBox taskStatus={taskStatus}>
-                <div className="task_guide" style={{minHeight:'457px'}}>
+                <div className="task_guide" style={{ minHeight: '457px' }}>
                     <div className='subTitle'>
                         Step1: Click 👇 button to send a real Rug-pull transaction
                     </div>
-                    <Button disabled={taskStatus === 3} style={taskStatus !== 3 ? buttonStyle : buttonDisabledStyle} loading={loading} type="primary" onClick={doRugPull}> Do Rug-pull</Button>
+                    <Button disabled={taskStatus !== 0} style={taskStatus == 0 ? buttonStyle : buttonDisabledStyle} loading={loading} type="primary" onClick={doRugPull}> Do Rug-pull</Button>
+                    {taskStatus !== 0 && <div className='subTitle'>Rug-pull transaction:</div>}
                     {taskStatus == 3 ?
                         (txHash ? (
                             <>
-                                <div className='subTitle mt-20'>Rug-pull transaction:</div>
                                 <div className='subDescribe'>
                                     <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, txHash, 'transaction')}>
                                         {`${formatAddress(txHash)}`}
                                     </ExternalLink>
 
-                                    {txHash ? failed() : notStarted()}
+                                    {txHash ? finish() : notStarted()}
+                                    <div style={{ marginTop: '10px' }}>
+                                        status:  Revert by Aspect.
+                                    </div>
                                 </div></>
                         ) : (
                             ''
-                        )) : ''
+                        )) : taskStatus == 1 || taskStatus == 2 ? <div className='subTitle mt-20'><Spin /></div> : ''
                     }
-                    {taskStatus == 3 && <div className='subTitle mt-20'>
-                        Anti-rug Aspect has prevented this rug transaction.
-                    </div>}
+                    {taskStatus == 3 &&
+                        <div className='subTitle'>Aspect Programming offers an SDK and a WASM runtime environment for building native extensions on Artela blockchain.</div>
+                    }
                 </div>
                 <div className="task_swap">
                     <Video />
                 </div>
-
             </TaskBox>
         </>
     )

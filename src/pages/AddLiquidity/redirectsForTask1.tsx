@@ -4,16 +4,16 @@ import AddLiquidity from './addLiquidityForTask1';
 interface RedirectDuplicateTokenIdsProps {
   currencyIdA: string;
   currencyIdB: string;
-  updateTaskStatus:(txs:string)=>void;
+  updateTaskStatus: (txs: string, memo: string) => void;
 }
 const RedirectDuplicateTokenIds: React.FC<RedirectDuplicateTokenIdsProps> = ({ currencyIdA, currencyIdB, updateTaskStatus }) => {
   if (currencyIdA.toLowerCase() === currencyIdB.toLowerCase()) {
     return <Redirect to={`/add/${currencyIdA}`} />;
   }
   return (
-    <>
-      <AddLiquidity currencyIdA={currencyIdA} currencyIdB={currencyIdB} updateTaskStatus={updateTaskStatus}/>
-    </>
+    <div style={{margin:'auto',width:'80%'}}>
+      <AddLiquidity currencyIdA={currencyIdA} currencyIdB={currencyIdB} updateTaskStatus={updateTaskStatus} />
+    </div>
   );
 };
 

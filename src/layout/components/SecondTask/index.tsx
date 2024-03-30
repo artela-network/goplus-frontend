@@ -6,26 +6,57 @@ import { Button } from 'antd';
 import { updateTask, getTaskListByAccount } from '../../../api/activity'
 import { TaskInfo } from '../../../utils/campaignClient'
 import './style.css'
-import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
+// import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
 
 interface PropsType {
   getTaskList?: () => void;
   taskInfo: TaskInfo;
 }
 const SecondTask = ({ taskInfo }: PropsType) => {
+  const buttonStyle = {
+    display: 'inline-block',
+    padding: '10px 20px',
+    fontSize: '20px',
+    color: '#ffffff',
+    background: '#2172E5',
+    border: 'none',
+    borderRadius: '5px',
+    transition: 'background 0.3s ease',
+    height: '50px',
+    width: '188px',
+  };
+  const buttonDisabledStyle = {
+    display: 'inline-block',
+    padding: '10px 20px',
+    fontSize: '20px', // 稍微减小字体大小，使按钮看起来更加“静态”
+    color: '#dddddd', // 改为灰色，表示不可用
+    background: '#8fa2bf', // 使用更暗或更灰的背景色来表示按钮不可点击
+    border: 'none',
+    borderRadius: '5px',
+    transition: 'background 0.3s ease',
+    height: '50px',
+    width: '188px',
+    cursor: 'not-allowed', // 显示一个不允许的光标，进一步指示按钮不可用
+    opacity: '0.6', // 降低透明度，增加不可用的视觉效果
+    pointerEvents: 'none', // 确保用户不能点击或以其他方式与按钮交互
+  };
   const { account } = useActiveWeb3React()
   const [swapLoading, setSwapLoading] = useState(false)
   const [fromVal, setFromVal] = useState('0')
   const [toVal, setToVal] = useState('0')
   const [supplyWords, setSupplyWords] = useState('Total supply: 1B')
   const [taskStatus, setTaskStatus] = useState<number>(0)
+  const [loading, setLoading] = useState(false)
   const inreaseRUG = async () => {
     if (account && taskInfo) {
+      setLoading(true)
       await updateTask(account, taskInfo.id, '1')
+      setLoading(false)
+      setSupplyWords('Total supply: 1B -> 3B')
+      setFromVal('3B')
+      setToVal('1B')
     }
-    setSupplyWords('Total supply: 1B -> 3B')
-    setFromVal('3B')
-    setToVal('1B')
+
   }
   const updateTaskStatus = async () => {
     if (account && taskInfo) {
@@ -59,12 +90,12 @@ const SecondTask = ({ taskInfo }: PropsType) => {
       <TaskBox taskStatus={taskStatus}>
         <div className="task_guide">
           <div className='subTitle'>Step1: Click 👇 button to Increase 2B $RUG</div>
-          <Button disabled={taskStatus == 1 || taskStatus == 3} style={taskStatus == 1 || taskStatus == 3 ? buttonDisabledStyle : buttonStyle} type="primary" onClick={inreaseRUG}> Increase </Button>
+          <Button loading={loading} disabled={taskStatus == 1 || taskStatus == 3} style={taskStatus == 1 || taskStatus == 3 ? buttonDisabledStyle : buttonStyle} type="primary" onClick={inreaseRUG}> Increase </Button>
           <div className='subDescribe'>{supplyWords} </div>
           <div className='subTitle mt-20'>Step2: Swap 3B $RUG</div>
           <div className='subDescribe'>Click swap button to sell all $Rug 👉</div>
         </div>
-        <div className="task_swap">
+        <div className="task_swap" style={{ marginLeft: '15px', position: 'relative' }}>
           <Swap taskStatus={taskStatus} updateTaskStatus={updateTaskStatus} fromVal={fromVal} toVal={toVal} swapLoading={swapLoading} />
         </div>
       </TaskBox>
