@@ -91,7 +91,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha }: IntroduceP
                 Connect Artela Testnet & Claim test tokens
             </div>
             <div className='my_card mt-20'>
-                <div className='claim_box'>
+                <div style={{marginLeft:'55px'}} className='claim_box'>
                     <div className='subTitle'>Step1: Connect to Artela Testnet</div>
                     <AccountWallet />
                     {
@@ -113,7 +113,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha }: IntroduceP
                         </>)) : ''}
                     </div>
                 </div>
-                <div style={{ width: '450px' }}>
+                <div className='task_swap' style={{ width: '450px' }}>
                     <div>
 
                     </div>
