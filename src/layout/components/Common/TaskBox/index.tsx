@@ -4,8 +4,9 @@ import './taskBox.css'
 interface Props {
   children: React.ReactNode
   taskStatus: number
+  footer?: React.ReactNode
 }
-const TaskBox = ({ children, taskStatus }: Props) => {
+const TaskBox = ({ children, taskStatus, footer }: Props) => {
   const ongoing = () => {
     return (
       <>
@@ -36,17 +37,10 @@ const TaskBox = ({ children, taskStatus }: Props) => {
       </>
     )
   }
-
-  const SuccessCover = () => (
-    <div className="task_box_cover">
-      Task Completed! ✅
-    </div>
-  );
   const statusList = [notStarted, ongoing, ongoing, finish, failed, notStarted]
   return (
     <>
       <div className="task_box">
-        {/* {taskStatus === 3 && <SuccessCover />} */}
         <div className="task_header">
           <div className="task_status">Task status:<text style={{ fontSize: '24px' }}>{statusList[taskStatus ? taskStatus : 0]()}</text> </div>
           <div className="task_guide">
@@ -54,6 +48,9 @@ const TaskBox = ({ children, taskStatus }: Props) => {
           </div>
         </div>
         <div className="task_main text-24px">{children}</div>
+        <div className='task_footer'>
+          {taskStatus==3 && footer}
+        </div>
       </div>
     </>
   )

@@ -26,8 +26,9 @@ interface PropType {
   fromVal: string;
   toVal: string;
   swapLoading: boolean;
+  disabled: boolean;
 }
-export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swapLoading }: PropType) {
+export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swapLoading, disabled }: PropType) {
   const theme = useContext(ThemeContext)
   const [isExpertMode] = useExpertModeManager()
   const buttonStyle = {
@@ -36,6 +37,18 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
     fontSize: '20px',
     color: '#ffffff',
     background: '#2172E5',
+    border: 'none',
+    borderRadius: '15px',
+    transition: 'background 0.3s ease',
+    height: '60px',
+    width: '100%'
+  };
+  const disButtonStyle = {
+    display: 'inline-block',
+    padding: '10px 20px',
+    fontSize: '20px',
+    color: '#dddddd', // 改为灰色，表示不可用
+    background: '#59677E', // 使用更暗或更灰的背景色来表示按钮不可点击
     border: 'none',
     borderRadius: '15px',
     transition: 'background 0.3s ease',
@@ -89,7 +102,7 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <AppBody>
         {
-          taskStatus == 0 || taskStatus == 1 || taskStatus == 2 || taskStatus == 5? (
+          taskStatus == 0 || taskStatus == 1 || taskStatus == 2 || taskStatus == 5 ? (
             <>
               <div style={{ textAlign: 'center', marginBottom: '10px' }}>兑换</div>
               <Wrapper id="swap-page">
@@ -123,7 +136,7 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
                 </AutoColumn>
 
                 <BottomGrouping>
-                  <Button style={buttonStyle} onClick={updateTaskStatus} loading={swapLoading}>Swap</Button>
+                  <Button disabled={disabled} style={disabled ? disButtonStyle : buttonStyle} onClick={updateTaskStatus} loading={swapLoading}>Swap</Button>
                 </BottomGrouping>
               </Wrapper>
             </>
@@ -132,22 +145,31 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
             (
               <div className='task2_box'>
                 <div > Liquidity in the pool</div>
-                <ul style={{fontSize:'20px'}}>
-                  <li>{`$ART: 3M -> 1K`}</li>
-                  <li>{`$RUG: 30M -> 3B`}</li>
+                <ul>
+                  <li><div>{`Init  (Value  1ART=1,000,000 RUG)`}</div>
+
+                    <ul style={{ fontSize: '20px', marginTop: '10px' }}>
+                      <li>{`ART 1000`}</li>
+                      <li>{`RUG 1,000,000,000 （1 Billion）`}</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <div>{`After Rug Pull  ( Value  1ART=9,000,900 RUG)`}</div>
+                    <ul style={{ fontSize: '20px', marginTop: '10px' }}>
+                      <li>{`$ART: 1 -> 0.1`}</li>
+                      <li>{`$RUG: 10 -> 1M`}</li>
+                    </ul>
+                  </li>
                 </ul>
 
-                <div>Alice's Liquidity</div>
-                <ul style={{fontSize:'20px'}}>
-                  <li>{`$ART: 1 -> 0.1`}</li>
-                  <li>{`$RUG: 10 -> 1M`}</li>
-                </ul>
+
+
                 <div className='des'>
-                  <div style={{marginTop:'10px'}}>
-                    As Project, you get <b style={{ color: '#28a745' }}>3M <text style={{color:'orange'}}>$ART</text></b><br />
+                  <div style={{ marginTop: '10px' }}>
+                    As Project, you get <b style={{ color: '#28a745' }}>3M <text style={{ color: 'orange' }}>$ART</text></b><br />
                   </div>
-                  <div style={{marginTop:'10px'}}>
-                    As Alice, you lose <b style={{ color: '#dc3545' }}>1 <text style={{color:'orange'}}>$ART</text> </b>and get 1M valueless token.
+                  <div style={{ marginTop: '10px' }}>
+                    As Alice, you lose <b style={{ color: '#dc3545' }}>1 <text style={{ color: 'orange' }}>$ART</text> </b>and get 1M valueless token.
                   </div>
                 </div>
               </div>

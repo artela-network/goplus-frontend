@@ -7,12 +7,14 @@ import { updateTask, getTaskListByAccount } from '../../../api/activity'
 import { TaskInfo } from '../../../utils/campaignClient'
 import './style.css'
 // import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
+import SuccessCover from '../Common/SuccessCover'
 
 interface PropsType {
   getTaskList?: () => void;
   taskInfo: TaskInfo;
 }
 const SecondTask = ({ taskInfo }: PropsType) => {
+  const footerWords = `That's how typically rug-pull happens, malicious smart contracts instantly increase a huge amount of token supply for him own, and then swap out your valuable assets.`
   const buttonStyle = {
     display: 'inline-block',
     padding: '10px 20px',
@@ -76,8 +78,8 @@ const SecondTask = ({ taskInfo }: PropsType) => {
       setTaskStatus(taskInfo.taskStatus)
       if (taskInfo.taskStatus == 1 || taskInfo.taskStatus == 3) {
         setSupplyWords('Total supply: 1B -> 3B')
-        setFromVal('3B')
-        setToVal('1B')
+        setFromVal('2,000,000,000 (2 Billion)')
+        setToVal('666.7')
       }
     }
   }, [taskInfo])
@@ -86,7 +88,7 @@ const SecondTask = ({ taskInfo }: PropsType) => {
       <div className="head_title">
         Task 2: &nbsp;Simulated experience rug pull
       </div>
-      <TaskBox taskStatus={taskStatus}>
+      <TaskBox taskStatus={taskStatus} footer={footerWords}>
         <div className="task_guide">
           <div className='subTitle'>Step1: Click 👇 button to Increase 2B $RUG</div>
           <Button loading={loading} disabled={taskStatus == 1 || taskStatus == 3} style={taskStatus == 0 || taskStatus == 4 ? buttonStyle : buttonDisabledStyle} type="primary" onClick={inreaseRUG}> Increase </Button>
@@ -95,8 +97,9 @@ const SecondTask = ({ taskInfo }: PropsType) => {
           <div className='subDescribe'>Click swap button to sell all $Rug 👉</div>
         </div>
         <div className="task_swap" style={{ marginLeft: '15px', position: 'relative' }}>
-          <Swap taskStatus={taskStatus} updateTaskStatus={updateTaskStatus} fromVal={fromVal} toVal={toVal} swapLoading={swapLoading} />
-        </div>
+        {taskStatus == 3 && <SuccessCover />}
+          <Swap taskStatus={taskStatus} updateTaskStatus={updateTaskStatus} fromVal={fromVal} toVal={toVal} swapLoading={swapLoading} disabled={taskStatus!=1}/>
+        </div> 
       </TaskBox>
     </>
   )

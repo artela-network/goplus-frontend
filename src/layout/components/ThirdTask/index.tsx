@@ -19,6 +19,13 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
     const { account } = useActiveWeb3React()
     const [txHash, setTxHash] = useState('')
     const [loading, setLoading] = useState(false)
+    const footer = () =>{
+        return (
+            <>
+                In this scenario, the logic behind clicking `Do Rug-pull` button is as follows: A malicious account initiated a rug pull transition in the background. However, due to the integration of Artela's Aspect technology with this liquidity pool, our Aspect code implemented risk control measures. It successfully identified the blacklisted account and flagged the transaction as high-risk, promptly reverting it. For further details on the implementation of Aspect technology, please visit <a type="link" href="https://docs.artela.network/develop/core-concepts/aspect">here</a>.
+            </>
+        )
+    }
     const formatAddress = (address: string | undefined | null): string => {
         if (!address) {
             return ''
@@ -79,7 +86,7 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
             <div className='head_title'>
                 Task 3: &nbsp;Real experience:RamenSwap prevents rug pulls
             </div>
-            <TaskBox taskStatus={taskStatus}>
+            <TaskBox taskStatus={taskStatus} footer={footer()}>
                 <div className="task_guide" style={{ minHeight: '457px' }}>
                     <div className='subTitle'>
                         Step1: Click 👇 button to send a real Rug-pull transaction
@@ -93,8 +100,6 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
                                     <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, txHash, 'transaction')}>
                                         {`${formatAddress(txHash)}`}
                                     </ExternalLink>
-
-                                    {txHash ? finish() : notStarted()}
                                     <div style={{ marginTop: '10px' }}>
                                         status:  Revert by Aspect.
                                     </div>
@@ -103,9 +108,9 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
                             ''
                         )) : taskStatus == 1 || taskStatus == 2 ? <div className='subTitle mt-20'><Spin /></div> : ''
                     }
-                    {taskStatus == 3 &&
+                    {/* {taskStatus == 3 &&
                         <div className='subTitle'>Aspect Programming offers an SDK and a WASM runtime environment for building native extensions on Artela blockchain.</div>
-                    }
+                    } */}
                 </div>
                 <div className="task_swap">
                     <Video />

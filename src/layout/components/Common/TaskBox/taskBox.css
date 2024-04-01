@@ -6,8 +6,6 @@
     bottom: 0;
     background-color: rgba(69, 70, 88, 0.5);
     display: flex;
-    justify-content: center;
-    align-items: center;
     color: rgb(2, 97, 38);
     font-size: 24px;
     z-index: 2;
@@ -37,6 +35,15 @@
     border: 1px solid rgba(255, 255, 255, .1);
 }
 
+.task_main_box {
+    display: flex;
+    flex-direction: row;
+}
+
+.task_footer {
+    color: #768391;
+}
+
 .task_box .task_header {
     display: flex;
     flex-direction: row;
@@ -55,7 +62,7 @@
     justify-content: space-around;
     width: 100%;
     padding: 5px 0 5px 55px;
-    gap:15px;
+    gap: 15px;
 }
 
 .task_swap {

@@ -14,6 +14,7 @@ import { AutoColumn } from '../../../components/Column'
 import { useCurrency } from '../../../hooks/Tokens'
 import { useDerivedMintInfo } from '../../../state/mint/hooks'
 import SuccessCover from '../Common/SuccessCover'
+import { Spin } from 'antd'
 
 interface Props {
   taskInfo: TaskInfo
@@ -99,22 +100,24 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
               </ul>
             </>
           ) : (
-            ''
+            null
           )}
-          {taskStatus == 3 ? (
-            <div>
-              {/* <AutoColumn style={{ minWidth: '20rem', marginTop: '1rem', marginRight: '1rem' }}>
+          {taskStatus == 1 || taskStatus == 2 ? <Spin /> :
+            taskStatus == 3 ? (
+              <div>
+                {/* <AutoColumn style={{ minWidth: '20rem', marginTop: '1rem', marginRight: '1rem' }}>
                 <MinimalPositionCard showUnwrapped={false} pair={pair} />
               </AutoColumn> */}
-              <hr />
-              <div className='subTitle'>Your liquidity in the pool: 500</div>
-              <ul>
-                <li className='subDescribe'>$ART: {taskInfo.memo.split(',')[0]}</li>
-                <li className='subDescribe'>$RUG: {taskInfo.memo.split(',')[1]}</li>
-              </ul>
+                <hr />
+                <div className='subTitle'>Your liquidity in the pool: 500</div>
+                <ul>
+                  <li className='subDescribe'>$ART: {taskInfo.memo.split(',')[0]}</li>
+                  <li className='subDescribe'>$RUG: {taskInfo.memo.split(',')[1]}</li>
+                </ul>
 
-            </div>
-          ) : null}
+              </div>
+            ) : ''
+          }
         </div>
         <div className="task_swap" style={{ marginLeft: '15px', position: 'relative' }}>
           {taskStatus == 3 && <SuccessCover />}

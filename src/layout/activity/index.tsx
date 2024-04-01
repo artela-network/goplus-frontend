@@ -8,7 +8,7 @@ import SecondTask from '../components/SecondTask/index'
 import ThirdTask from '../components/ThirdTask/index'
 import Explain from '../components/Explain/index'
 import { useActiveWeb3React } from '../../hooks'
-import { getTaskListByAccount, initTaskListByAccount } from '../../api/activity'
+import { getTaskListByAccount, initTaskListByAccount, syncTask } from '../../api/activity'
 import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from 'antd'
 import CustomModal from "../components/Common/Model"
@@ -129,6 +129,16 @@ export default function Activity() {
     }
 
   }
+  const syncState = async () => {
+    if (getQueryParams()) {
+      if (account) {
+        const res = syncTask(account, getQueryParams(), 'goplus')
+      }
+    } else {
+      handleOpenModal()
+    }
+
+  }
   const Footer = () => {
     if (taskStatus == 3) {
       return (
@@ -143,7 +153,7 @@ export default function Activity() {
             <a style={{ color: 'gray' }} href="https://secwarex.io/"> go to galxe</a>
           </div>
           <div >
-            <Button style={{ fontSize: '30px', marginTop: '10px', color: 'gray', textDecoration: 'underline' }} type='link'>sync status to secwarex</Button>
+            <Button onClick={syncState} style={{ fontSize: '30px', marginTop: '10px', color: 'gray', textDecoration: 'underline' }} type='link'>sync status to secwarex</Button>
           </div>
         </>
       )
@@ -154,8 +164,12 @@ export default function Activity() {
   }
   return (
     <div className="activity">
-      <CustomModal isOpen={isModalOpen} onClose={handleCloseModal} />
-      <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} captcha={captcha()} initLoading={loading}/>
+      <CustomModal isOpen={isModalOpen} onClose={handleCloseModal} >
+        <p style={{ fontSize: '18px' }}>
+          Welcome to our task! This task is co-hosted by Artela and Secwarex. Please enter the event page through the <a href="https://secwarex.io/img-task/81553" target="_blank" rel="noopener noreferrer" style={{ color: '#4E9CAF' }}>correct entrance</a>. Let's make this event a success together!
+        </p>
+      </CustomModal>
+      <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} captcha={captcha()} initLoading={loading} />
       {/* <TaskList /> */}
       <FirstTask taskInfo={taskInfos[1]} />
       <SecondTask taskInfo={taskInfos[2]} />

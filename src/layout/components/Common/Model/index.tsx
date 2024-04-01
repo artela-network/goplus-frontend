@@ -4,9 +4,10 @@ import React from 'react';
 interface CustomModalProps {
   isOpen: boolean;
   onClose: () => void; // onClose是一个没有参数且没有返回值的函数
+  children?: React.ReactNode;
 }
 
-const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose }) => {
+const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) {
     return null;
   }
@@ -35,7 +36,9 @@ const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose }) => {
         maxWidth: '600px', // 避免在大屏幕上过宽
         borderRadius: '10px', // 可选：添加圆角
       }}>
-       <p style={{fontSize:'18px'}}>Welcome to our task! This task is co-hosted by Artela and Secwarex. Please enter the event page through the <a href="https://secwarex.io/img-task/81553" target="_blank" rel="noopener noreferrer" style={{ color: '#4E9CAF' }}>correct entrance</a>. Let's make this event a success together!</p>
+        <div>
+          {children}
+        </div>
         <button onClick={onClose} style={{
           backgroundColor: '#555', // 按钮暗色背景
           color: '#fff', // 按钮亮色文字
