@@ -124,7 +124,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha,initLoading }
                                         {taskStatus == 4 && <text className='error-message'>Claim token failed, please claim again</text>}
                                     </div>
                                     <div>
-                                        RUG: 2000000 &nbsp;
+                                        RUG: 2,000,000 &nbsp;
                                         <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, (taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''), 'transaction')}> {formatAddress((taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''))} </ExternalLink><text style={{ color: '#F08C00' }}>{taskStatus == 4 ? failed() : taskStatus == 3 ? finish() : taskStatus == 2 ? ongoing() : ''}</text>
                                         {taskStatus == 4 && <text className='error-message'> Claim token failed, please claim again</text>}
                                     </div>

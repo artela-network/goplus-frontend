@@ -130,32 +130,34 @@ export default function Activity() {
 
   }
   const syncState = async () => {
-    if (getQueryParams()) {
+ 
       if (account) {
-        const res = syncTask(account, getQueryParams(), 'goplus')
+        const res = syncTask(account)
       }
-    } else {
-      handleOpenModal()
-    }
+  
 
   }
   const Footer = () => {
     if (taskStatus == 3) {
       return (
-        <>
-          <div className='text-56px mt-20 text-center' style={{ maxWidth: '1200px' }}>
-            🎆 Congratulations on completing the task. You will receive energy blocks from secwarex.
+        <div style={{display:'flex',flexDirection:'column',justifyContent:'start',width:'1200px', maxWidth: '1200px',marginTop:'25px'}}>
+          <div style={{ fontSize:'38px', maxWidth: '1200px' }}>
+            Thanks for hacking!
           </div>
-          <div className='text-56px mt-20 text-center' style={{ maxWidth: '1200px' }}>
-            🎆 Here's an 👇ART's badge for you.
+          <div style={{ fontSize:'38px', maxWidth: '1200px' }}>
+            With Anti-Rug Aspect, 0 rug pull happen!
           </div>
+          <div style={{ fontSize:'38px', maxWidth: '1200px' }}>
+            Imagine Anti-Rug to earn? Claim your OAT and stay tuned!
+          </div>
+
           <div style={{ fontSize: '30px', marginTop: '10px' }}>
-            <a style={{ color: 'gray' }} href="https://secwarex.io/"> go to galxe</a>
+            <a style={{ color: 'gray' }} href="https://SecWareX.io/"> Go to SecWareX</a>
           </div>
-          <div >
-            <Button onClick={syncState} style={{ fontSize: '30px', marginTop: '10px', color: 'gray', textDecoration: 'underline' }} type='link'>sync status to secwarex</Button>
+          <div onClick={syncState} style={{ fontSize: '30px', marginTop: '10px' }}>
+            <a style={{ color: 'gray' }}> Sync status to SecWareX</a>
           </div>
-        </>
+        </div>
       )
     } else {
       return null;
@@ -166,7 +168,7 @@ export default function Activity() {
     <div className="activity">
       <CustomModal isOpen={isModalOpen} onClose={handleCloseModal} >
         <p style={{ fontSize: '18px' }}>
-          Welcome to our task! This task is co-hosted by Artela and Secwarex. Please enter the event page through the <a href="https://secwarex.io/img-task/81553" target="_blank" rel="noopener noreferrer" style={{ color: '#4E9CAF' }}>correct entrance</a>. Let's make this event a success together!
+          Welcome to our task! This task is co-hosted by Artela and SecWareX. Please enter the event page through the <a href="https://SecWareX.io/img-task/81553" target="_blank" rel="noopener noreferrer" style={{ color: '#4E9CAF' }}>correct entrance</a>. Let's make this event a success together!
         </p>
       </CustomModal>
       <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} captcha={captcha()} initLoading={loading} />

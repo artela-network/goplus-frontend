@@ -144,32 +144,37 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
           ) :
             (
               <div className='task2_box'>
-                <div > Liquidity in the pool</div>
+                <div style={{ textAlign: 'center', fontSize: '30px' }}> Liquidity in the pool</div>
+                <div style={{ fontSize: '24px' }}>{`Init`}</div>
+                <ul style={{ fontSize: '20px', marginTop: '10px' }}>
+                  <li>{`ART 1000`}</li>
+                  <li>{`RUG 1,000,000,000 （1 Billion）`}</li>
+                </ul>
+                <div style={{ fontSize: '14px', color: '#767675' }} >{` Value  1ART=1,000,000 RUG`}</div>
+                <div style={{ fontSize: '24px' }}>{`After Rug Pull`}</div>
+                <ul style={{ fontSize: '20px', marginTop: '10px' }}>
+                  <li>{`ART 333.3`}</li>
+                  <li>{`RUG 3,000,000,000  （3 Billion）`}</li>
+                </ul>
+                <div style={{ fontSize: '14px', color: '#767675' }} >{`Value  1ART=9,000,900 RUG`}</div>
+                <div style={{ textAlign: 'center', fontSize: '30px', marginTop: '15px' }}> Alice's Token Value Change</div>
                 <ul>
-                  <li><div>{`Init  (Value  1ART=1,000,000 RUG)`}</div>
-
-                    <ul style={{ fontSize: '20px', marginTop: '10px' }}>
-                      <li>{`ART 1000`}</li>
-                      <li>{`RUG 1,000,000,000 （1 Billion）`}</li>
-                    </ul>
+                  <li>
+                    <div>{`Before Rug Pull :  `}</div>
+                    <div>{` 1,000,000 RUG = 1ART`}</div>
                   </li>
                   <li>
-                    <div>{`After Rug Pull  ( Value  1ART=9,000,900 RUG)`}</div>
-                    <ul style={{ fontSize: '20px', marginTop: '10px' }}>
-                      <li>{`$ART: 1 -> 0.1`}</li>
-                      <li>{`$RUG: 10 -> 1M`}</li>
-                    </ul>
+                    <div>{`After Rug Pull :`}</div>
+                    <div>{` 1,000,000 RUG =0.11 ART`}</div>
                   </li>
                 </ul>
-
-
-
                 <div className='des'>
                   <div style={{ marginTop: '10px' }}>
-                    As Project, you get <b style={{ color: '#28a745' }}>3M <text style={{ color: 'orange' }}>$ART</text></b><br />
+                    As Project, you get <text style={{ color: '#28a745' }}>666.7</text> ART<br />
                   </div>
                   <div style={{ marginTop: '10px' }}>
-                    As Alice, you lose <b style={{ color: '#dc3545' }}>1 <text style={{ color: 'orange' }}>$ART</text> </b>and get 1M valueless token.
+                    {/* As Alice, you lose <b style={{ color: '#dc3545' }}>1 <text style={{ color: 'orange' }}>$ART</text> </b>and get 1M valueless token. */}
+                    As Alice, you lost <text style={{ color: 'red' }}>1</text> ART and received <text style={{ color: 'red' }}>1,000,000</text> RUG, but the rug pull action caused the RUG asset to <text style={{ color: 'red' }}> shrink by tenfold</text>.
                   </div>
                 </div>
               </div>

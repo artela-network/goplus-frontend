@@ -42,12 +42,13 @@
 
 .task_footer {
     color: #768391;
+    font-size: 18px;
 }
 
 .task_box .task_header {
     display: flex;
     flex-direction: row;
-    gap: 50px;
+    gap: 10px;
     /* width: 80%; */
     justify-content: start;
 }
@@ -75,6 +76,10 @@
 
 .task_guide {
     flex: 3;
+    height: 100%;
+    padding: 10px;
+}
+.to_task_guide {
     height: 100%;
     padding: 10px;
 }

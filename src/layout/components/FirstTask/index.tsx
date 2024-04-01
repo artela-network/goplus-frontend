@@ -83,10 +83,10 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
       </div>
       <TaskBox taskStatus={taskStatus}>
         <div className="task_guide">
-          <div>Step1: Add liquidity</div>
+          <div>Add liquidity</div>
           <ul>
             <li className="subDescribe">Select ART/RUG pair</li>
-            <li className="subDescribe">Add 1 $ART liquidity to the pool</li>
+            <li className="subDescribe">Add 1 ART liquidity to the pool</li>
           </ul>
           {txHash ? (
             <>
@@ -109,23 +109,25 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
                 <MinimalPositionCard showUnwrapped={false} pair={pair} />
               </AutoColumn> */}
                 <hr />
-                <div className='subTitle'>Your liquidity in the pool: 500</div>
+                <div className='subTitle'>Your liquidity in the pool: {taskInfo.memo.split(',')[0]}ART</div>
                 <ul>
-                  <li className='subDescribe'>$ART: {taskInfo.memo.split(',')[0]}</li>
-                  <li className='subDescribe'>$RUG: {taskInfo.memo.split(',')[1]}</li>
+                  <li className='subDescribe'>ART: {taskInfo.memo.split(',')[0]}</li>
+                  <li className='subDescribe'>RUG: {taskInfo.memo.split(',')[1]}</li>
                 </ul>
 
               </div>
             ) : ''
           }
         </div>
-        <div className="task_swap" style={{ marginLeft: '15px', position: 'relative' }}>
-          {taskStatus == 3 && <SuccessCover />}
-          <RedirectDuplicateTokenIds
-            currencyIdA={currencyIdA}
-            currencyIdB={currencyIdB}
-            updateTaskStatus={updateTaskStatus}
-          />
+        <div className="task_swap" style={{ marginLeft: '15px',  }}>
+          <div style={{position: 'relative'}}>
+            {taskStatus == 3 && <SuccessCover />}
+            <RedirectDuplicateTokenIds
+              currencyIdA={currencyIdA}
+              currencyIdB={currencyIdB}
+              updateTaskStatus={updateTaskStatus}
+            />
+          </div>
           <div style={{ textAlign: 'center', width: '100%', fontSize: '16px' }}>©Power by <a href='https://www.ramenswap.xyz/'> Ramenswap</a></div>
         </div>
       </TaskBox>
