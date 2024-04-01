@@ -11,12 +11,16 @@ import { Button } from 'antd';
 import { failed, ongoing, finish } from '../Common/StatusIcon';
 import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
 import { Spin } from 'antd';
+import { goPulusIcon } from '../../../assets/icon/goPlus';
+import artelaIcon from '../../../assets/icon/artela.png'
+import connect from '../../../assets/icon/connect.svg'
 interface IntroduceProps {
     getTaskList: () => void;
     taskInfo?: TaskInfo;
     captcha: ReactNode;
+    initLoading:boolean;
 }
-export default function Introduce({ getTaskList, taskInfo, captcha }: IntroduceProps) {
+export default function Introduce({ getTaskList, taskInfo, captcha,initLoading }: IntroduceProps) {
     const { account } = useActiveWeb3React()
     const [taskStatus, setTaskStatus] = useState(5)
     const [loading, setLoading] = useState(false)
@@ -78,11 +82,19 @@ export default function Introduce({ getTaskList, taskInfo, captcha }: IntroduceP
     return (
         <div className="introduce">
             <div className='bkimg'>
-                <div className="img_container text-48px text-bold">Experience RamenSwap with Anti-Rug Aspect<br />Complete tasks to earn Energy Block rewards</div>
+                <div className="img_container text-48px text-bold">
+                    <text>
+                        Experience AMM DEX with Anti-Rug Aspect<br />Complete tasks to earn Energy Block rewards
+                    </text>
+                    <div className="icon-container">
+                        <img src={goPulusIcon} ></img>
+                        <img style={{ height: '45px' }} src={artelaIcon} ></img>
+                    </div>
+                </div>
             </div>
             <div className='introduce_text mt-14'>
                 <div>
-                    Let's experience how Artela network's RamenSwap achieves Anti-rug!<br />
+                    Let's experience how Artela network's AMM achieves Anti-rug!<br />
                     Rug-pull is a fraudulent act by the project team.In the Spot DEX,youprovide liquidity to the project's poll,but the project team can pull out all assets in just two steps,leaving you with nothing.<br />
                     So as a liquidity provider,who can protect you?On the Artela Network,there's an on-chain risk control module to safeguard you!It identifies rug-pull transactions and blocks them in real-time.
                 </div>
@@ -91,7 +103,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha }: IntroduceP
                 Connect Artela Testnet & Claim test tokens
             </div>
             <div className='my_card'>
-                <div style={{marginLeft:'55px'}} className='claim_box'>
+                <div style={{ marginLeft: '55px' }} className='claim_box'>
                     <div className='subTitle'>Step1: Connect to Artela Testnet</div>
                     <AccountWallet />
                     <div className='subTitle'>Step2: Claim test tokens</div>
@@ -99,15 +111,23 @@ export default function Introduce({ getTaskList, taskInfo, captcha }: IntroduceP
                         captcha
                     }
                     <div style={{ width: '600px' }}>
-                        <Button type='primary' disabled={taskStatus !== 0 && taskStatus !== 4} style={taskStatus == 0 || taskStatus === 4 ? buttonStyle : buttonDisabledStyle} loading={loading} onClick={() => getFaucet()} className='my_button' >claim tokens</Button>
+                        <Button type='primary' disabled={taskStatus !== 0 && taskStatus !== 4} style={taskStatus == 0 || taskStatus === 4 ? buttonStyle : buttonDisabledStyle} loading={loading||initLoading} onClick={() => getFaucet()} className='my_button' >claim tokens</Button>
                     </div>
                     <div className='claim_res'>
-                        {taskStatus !== 0&&taskStatus !== 5 && <div className='subTitle'>Claim transactions</div>}
+                        {taskStatus !== 0 && taskStatus !== 5 && <div className='subTitle'>Claim transactions</div>}
                         {taskStatus == 1 || taskStatus == 2 ? <Spin /> : taskInfo ? (taskInfo.txs && (<>
                             <div className='subTitle'>
                                 <div className='subDescribe'>
-                                    <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, taskInfo?.txs?.split(',')[0], 'transaction')}> {formatAddress(taskInfo?.txs?.split(',')[0])} </ExternalLink><text style={{ color: '#2F9E44' }}>{taskStatus == 3 ? finish() : taskStatus == 2 ? ongoing() : ''}</text><br />
-                                    <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, (taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''), 'transaction')}> {formatAddress((taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''))} </ExternalLink><text style={{ color: '#F08C00' }}>{taskStatus == 3 ? finish() : taskStatus == 2 ? ongoing() : ''}</text>
+                                    <div>
+                                        ART: 2 &nbsp;
+                                        <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, taskInfo?.txs?.split(',')[0], 'transaction')}> {formatAddress(taskInfo?.txs?.split(',')[0])} </ExternalLink><text style={{ color: '#2F9E44' }}>{taskStatus == 4 ? failed() : taskStatus == 3 ? finish() : taskStatus == 2 ? ongoing() : ''}</text>
+                                        {taskStatus == 4 && <text className='error-message'>Claim token failed, please claim again</text>}
+                                    </div>
+                                    <div>
+                                        RUG: 2,000,000 &nbsp;
+                                        <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, (taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''), 'transaction')}> {formatAddress((taskInfo?.txs?.split(',').length >= 2 ? taskInfo?.txs?.split(',')[1] : ''))} </ExternalLink><text style={{ color: '#F08C00' }}>{taskStatus == 4 ? failed() : taskStatus == 3 ? finish() : taskStatus == 2 ? ongoing() : ''}</text>
+                                        {taskStatus == 4 && <text className='error-message'> Claim token failed, please claim again</text>}
+                                    </div>
                                 </div>
                             </div>
                         </>)) : ''}
