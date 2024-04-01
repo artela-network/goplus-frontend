@@ -89,7 +89,7 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <AppBody>
         {
-          taskStatus == 0 || taskStatus == 1 || taskStatus == 2 ? (
+          taskStatus == 0 || taskStatus == 1 || taskStatus == 2 || taskStatus == 5? (
             <>
               <div style={{ textAlign: 'center', marginBottom: '10px' }}>兑换</div>
               <Wrapper id="swap-page">
@@ -144,7 +144,7 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
                 </ul>
                 <div className='des'>
                   <div style={{marginTop:'10px'}}>
-                    As project, you get <b style={{ color: '#28a745' }}>3M <text style={{color:'orange'}}>$ART</text></b><br />
+                    As Project, you get <b style={{ color: '#28a745' }}>3M <text style={{color:'orange'}}>$ART</text></b><br />
                   </div>
                   <div style={{marginTop:'10px'}}>
                     As Alice, you lose <b style={{ color: '#dc3545' }}>1 <text style={{color:'orange'}}>$ART</text> </b>and get 1M valueless token.

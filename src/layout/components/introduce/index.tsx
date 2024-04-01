@@ -87,17 +87,17 @@ export default function Introduce({ getTaskList, taskInfo, captcha }: IntroduceP
                     So as a liquidity provider,who can protect you?On the Artela Network,there's an on-chain risk control module to safeguard you!It identifies rug-pull transactions and blocks them in real-time.
                 </div>
             </div>
-            <div className='text-56px mt-20 text-center'>
+            <div className='head_title'>
                 Connect Artela Testnet & Claim test tokens
             </div>
-            <div className='my_card mt-20'>
+            <div className='my_card'>
                 <div style={{marginLeft:'55px'}} className='claim_box'>
                     <div className='subTitle'>Step1: Connect to Artela Testnet</div>
                     <AccountWallet />
+                    <div className='subTitle'>Step2: Claim test tokens</div>
                     {
                         captcha
                     }
-                    <div className='subTitle'>Step2: Claim test tokens</div>
                     <div style={{ width: '600px' }}>
                         <Button type='primary' disabled={taskStatus !== 0 && taskStatus !== 4} style={taskStatus == 0 || taskStatus === 4 ? buttonStyle : buttonDisabledStyle} loading={loading} onClick={() => getFaucet()} className='my_button' >claim tokens</Button>
                     </div>

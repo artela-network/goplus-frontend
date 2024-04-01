@@ -83,9 +83,8 @@ const SecondTask = ({ taskInfo }: PropsType) => {
   }, [taskInfo])
   return (
     <>
-      <div className="text-56px mt-20 text-center">
-        Task 2<br />
-        Simulated experience rug pull
+      <div className="head_title">
+        Task 2: &nbsp;Simulated experience rug pull
       </div>
       <TaskBox taskStatus={taskStatus}>
         <div className="task_guide">

@@ -11,6 +11,7 @@ import { useActiveWeb3React } from '../../hooks'
 import { getTaskListByAccount, initTaskListByAccount } from '../../api/activity'
 import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from 'antd'
+import CustomModal from "../components/Common/Model"
 export default function Activity() {
   const { account } = useActiveWeb3React()
   const [isCaptchaShow, setIsCaptchaShow] = useState(false)
@@ -22,7 +23,15 @@ export default function Activity() {
   const [taskInfos, setTaskInfos] = useState([])
   const location = useLocation()
   const intervalId = useRef<NodeJS.Timeout | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   const getQueryParams = () => {
     const queryParams = new URLSearchParams(location.search)
     const taskId = queryParams.get('taskId')
@@ -69,7 +78,7 @@ export default function Activity() {
         if (initRes.success) {
         }
       } else {
-        alert('请带上taskid！')
+        handleOpenModal()
       }
     }
   };
@@ -137,6 +146,7 @@ export default function Activity() {
   }
   return (
     <div className="activity">
+      <CustomModal isOpen={isModalOpen} onClose={handleCloseModal}/>
       <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} captcha={captcha()} />
       {/* <TaskList /> */}
       <FirstTask taskInfo={taskInfos[1]} />

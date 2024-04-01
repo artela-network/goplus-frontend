@@ -76,9 +76,8 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
     }, [taskInfo])
     return (
         <>
-            <div className='text-56px mt-20 text-center'>
-                Task 3<br />
-                Real experience:RamenSwap prevents rug pulls
+            <div className='head_title'>
+                Task 3: &nbsp;Real experience:RamenSwap prevents rug pulls
             </div>
             <TaskBox taskStatus={taskStatus}>
                 <div className="task_guide" style={{ minHeight: '457px' }}>

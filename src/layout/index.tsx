@@ -6,7 +6,7 @@ import './styles.css'
 const Layout = () => {
     return (
         <>
-            <Header/>
+            {/* <Header/> */}
             <main className='main_box'>
                 <Activity />
             </main>
