@@ -13,7 +13,7 @@ import { AutoColumn, ColumnCenter } from '../../components/Column'
 import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
 import DoubleCurrencyLogo from '../../components/DoubleLogo'
-import { AddRemoveTabs } from '../../components/NavigationTabs'
+import { AddRemoveTabsForTask1 } from '../../components/NavigationTabs'
 import { MinimalPositionCard } from '../../components/PositionCard'
 import Row, { RowBetween, RowFlat } from '../../components/Row'
 
@@ -326,7 +326,7 @@ export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatu
   return (
     <>
       <AppBody>
-        <AddRemoveTabs adding={true} />
+        <AddRemoveTabsForTask1 adding={true} />
         <Wrapper>
           <TransactionConfirmationModal
             isOpen={showConfirm}
@@ -367,8 +367,8 @@ export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatu
               onMax={() => {
                 onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
               }}
-              onCurrencySelect={handleCurrencyASelect}
-              showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
+              onCurrencySelect={()=>{}}
+              showMaxButton={false}
               currency={currencies[Field.CURRENCY_A]}
               id="add-liquidity-input-tokena"
               showCommonBases
@@ -379,11 +379,11 @@ export default function AddLiquidity({ currencyIdA, currencyIdB, updateTaskStatu
             <CurrencyInputPanel
               value={formattedAmounts[Field.CURRENCY_B]}
               onUserInput={onFieldBInput}
-              onCurrencySelect={handleCurrencyBSelect}
+              onCurrencySelect={()=>{}}
               onMax={() => {
                 onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
               }}
-              showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
+              showMaxButton={false}
               currency={currencies[Field.CURRENCY_B]}
               id="add-liquidity-input-tokenb"
               showCommonBases

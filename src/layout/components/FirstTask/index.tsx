@@ -57,9 +57,9 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
     // 返回格式化后的字符串
     return `${first11}...${last9}`
   }
-  const updateTaskStatus = async (txs: string) => {
+  const updateTaskStatus = async (txs: string, memo: string) => {
     if (account && taskInfo) {
-      const res = await updateTask(account, taskInfo.id, '1', txs)
+      const res = await updateTask(account, taskInfo.id, '1', txs, memo)
       if (res.success) {
         const taskInfoRes = await getTaskListByAccount(account, taskInfo.id)
         if (taskInfoRes.success) {
@@ -109,8 +109,8 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
               <hr />
               <div className='subTitle'>Your liquidity in the pool: 500</div>
               <ul>
-                <li className='subDescribe'>$ART: 0.5</li>
-                <li className='subDescribe'>$RUG: 500000</li>
+                <li className='subDescribe'>$ART: {taskInfo.memo.split(',')[0]}</li>
+                <li className='subDescribe'>$RUG: {taskInfo.memo.split(',')[1]}</li>
               </ul>
 
             </div>

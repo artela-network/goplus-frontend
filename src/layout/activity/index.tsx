@@ -14,6 +14,7 @@ import { Button } from 'antd'
 import CustomModal from "../components/Common/Model"
 export default function Activity() {
   const { account } = useActiveWeb3React()
+  const [loading, setLoading] = useState(false)
   const [isCaptchaShow, setIsCaptchaShow] = useState(false)
   // const sitkey: string = process.env.REACT_APP_SIT_KEY || '';
   const sitkey: string = '6LcrZqgpAAAAAD8L2W-XJE7CR2xmI-nC76HNxqsb';
@@ -74,7 +75,9 @@ export default function Activity() {
     setIsCaptchaShow(false)
     if (account) {
       if (getQueryParams()) {
+        setLoading(true)
         const initRes = await initTaskListByAccount(account, getQueryParams(), token, sitkey)
+        setLoading(false)
         if (initRes.success) {
         }
       } else {
@@ -127,27 +130,32 @@ export default function Activity() {
 
   }
   const Footer = () => {
-    return (
-      <>
-        <div className='text-56px mt-20 text-center' style={{ maxWidth: '1200px' }}>
-          🎆 Congratulations on completing the task. You will receive energy blocks from secwarex.
-        </div>
-        <div className='text-56px mt-20 text-center' style={{ maxWidth: '1200px' }}>
-          🎆 Here's an 👇ART's badge for you.
-        </div>
-        <div style={{ fontSize: '30px', marginTop: '10px' }}>
-          <a style={{ color: 'gray' }} href="https://secwarex.io/"> go to galxe</a>
-        </div>
-        <div >
-          <Button style={{ fontSize: '30px', marginTop: '10px', color: 'gray', textDecoration: 'underline' }} type='link'>sync status to secwarex</Button>
-        </div>
-      </>
-    )
+    if (taskStatus == 3) {
+      return (
+        <>
+          <div className='text-56px mt-20 text-center' style={{ maxWidth: '1200px' }}>
+            🎆 Congratulations on completing the task. You will receive energy blocks from secwarex.
+          </div>
+          <div className='text-56px mt-20 text-center' style={{ maxWidth: '1200px' }}>
+            🎆 Here's an 👇ART's badge for you.
+          </div>
+          <div style={{ fontSize: '30px', marginTop: '10px' }}>
+            <a style={{ color: 'gray' }} href="https://secwarex.io/"> go to galxe</a>
+          </div>
+          <div >
+            <Button style={{ fontSize: '30px', marginTop: '10px', color: 'gray', textDecoration: 'underline' }} type='link'>sync status to secwarex</Button>
+          </div>
+        </>
+      )
+    } else {
+      return null;
+    }
+
   }
   return (
     <div className="activity">
-      <CustomModal isOpen={isModalOpen} onClose={handleCloseModal}/>
-      <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} captcha={captcha()} />
+      <CustomModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} captcha={captcha()} initLoading={loading}/>
       {/* <TaskList /> */}
       <FirstTask taskInfo={taskInfos[1]} />
       <SecondTask taskInfo={taskInfos[2]} />
