@@ -77,9 +77,8 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
   }, [taskInfo])
   return (
     <>
-      <div className="text-56px mt-20 text-center">
-        Task 1<br />
-        Add liquidity for ART/RUG pair
+      <div className="head_title">
+        Task 1: &nbsp;Add liquidity for ART/RUG pair
       </div>
       <TaskBox taskStatus={taskStatus}>
         <div className="task_guide">
@@ -124,7 +123,7 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
             currencyIdB={currencyIdB}
             updateTaskStatus={updateTaskStatus}
           />
-          <div style={{ textAlign: 'center', width: '100%', fontSize: '16px' }}>power by <a href='https://moonbeam-uniswap-three.vercel.app/#/swap'> moonbeam uniswap</a></div>
+          <div style={{ textAlign: 'center', width: '100%', fontSize: '16px' }}>©Power by <a href='https://www.ramenswap.xyz/'> Ramenswap</a></div>
         </div>
       </TaskBox>
     </>

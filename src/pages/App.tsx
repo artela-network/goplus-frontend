@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import GoogleAnalyticsReporter from '../components/analytics/GoogleAnalyticsReporter'
 import Header from '../components/Header'
@@ -47,7 +47,7 @@ const Marginer = styled.div`
 export default function App() {
   return (
     <Suspense fallback={null}>
-      <HashRouter>
+      <BrowserRouter>
         <Route component={GoogleAnalyticsReporter} />
         <Route component={DarkModeQueryParamReader} />
           <Layout/>
@@ -72,7 +72,7 @@ export default function App() {
             <Marginer />
           </BodyWrapper> */}
          
-      </HashRouter>
+      </BrowserRouter>
     </Suspense>
   )
 }
