@@ -10,6 +10,8 @@ import { getEtherscanLink } from '../../../utils'
 import { ExternalLink } from '../../../theme'
 import { failed, ongoing, finish, notStarted } from '../Common/StatusIcon';
 import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
+import CustomModal from "../../components/Common/Model"
+import galxe from '../../../assets/galxe.png'
 
 interface PropsType {
     getTaskList: () => void;
@@ -19,11 +21,20 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
     const { account } = useActiveWeb3React()
     const [txHash, setTxHash] = useState('')
     const [loading, setLoading] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
     const footer = () => {
         return (
             <>
                 In this scenario, the swap is safeguarded by the Anti-rug Aspect, a risk management module integrated into the blockchain runtime. The attempted rug-pull transaction has been assessed by the risk control logics within the Anti-rug Aspect. Consequently, the Aspect  intervened and reverted the transaction before it was finalized, preventing any actual loss of funds.
-                For further details on the implementation of Aspect technology, please visit <a type="link" href="https://docs.artela.network/develop/core-concepts/aspect">here</a>.
+                For further details on the implementation of Aspect technology, please visit <a type="link" target='blank' href="https://docs.artela.network/develop/core-concepts/aspect">here</a>.
             </>
         )
     }
@@ -71,6 +82,7 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
                     setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
                 } else if (newTaskStatus === 3) {
                     getTaskList()
+                    handleOpenModal()
                 }
             }
         }
@@ -84,6 +96,11 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
     }, [taskInfo])
     return (
         <>
+            <CustomModal isOpen={isModalOpen} onClose={handleCloseModal} >
+                <p style={{ fontSize: '18px' }}>
+                    🎉The real rug-pull transaction has been reverted by Aspect!
+                </p>
+            </CustomModal>
             <div className='head_title'>
                 Task 3: &nbsp;Now try again, but the Swap is protected by Anti-rug Aspect!
             </div>
@@ -109,12 +126,9 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
                             ''
                         )) : taskStatus == 1 || taskStatus == 2 ? <div className='subTitle mt-20'><Spin /></div> : ''
                     }
-                    {/* {taskStatus == 3 &&
-                        <div className='subTitle'>Aspect Programming offers an SDK and a WASM runtime environment for building native extensions on Artela blockchain.</div>
-                    } */}
                 </div>
                 <div className="task_swap">
-                    <Video />
+                    {taskStatus == 3 && <img src={galxe} />}
                 </div>
             </TaskBox>
         </>

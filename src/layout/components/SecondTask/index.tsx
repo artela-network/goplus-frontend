@@ -10,13 +10,13 @@ import './style.css'
 import SuccessCover from '../Common/SuccessCover'
 
 interface PropsType {
-  getTaskList?: () => void;
+  getTaskList: () => void;
   taskInfo: TaskInfo;
 }
-const SecondTask = ({ taskInfo }: PropsType) => {
+const SecondTask = ({ taskInfo, getTaskList }: PropsType) => {
   const footerWords = <div>
     {
-    `That's how typically rug-pull happens, malicious smart contracts instantly increase a huge amount of token supply for him own, and then swap out your valuable assets.`
+      `That's how typically rug-pull happens, malicious smart contracts instantly increase a huge amount of token supply for him own, and then swap out your valuable assets.`
     }
   </div>
   const buttonStyle = {
@@ -56,7 +56,10 @@ const SecondTask = ({ taskInfo }: PropsType) => {
   const inreaseRUG = async () => {
     if (account && taskInfo) {
       setLoading(true)
-      await updateTask(account, taskInfo.id, '1')
+      const res = await updateTask(account, taskInfo.id, '1')
+      if (res.success) {
+        fetchTaskInfo()
+      }
       setLoading(false)
       setSupplyWords('Total supply: 1 Billion -> 99 Billion')
       setFromVal('99 Billion')
@@ -77,13 +80,28 @@ const SecondTask = ({ taskInfo }: PropsType) => {
       }
     }
   }
+  const fetchTaskInfo = async () => {
+    if (account && taskInfo) {
+      const taskInfoRes = await getTaskListByAccount(account, taskInfo.id);
+      if (taskInfoRes.success) {
+        const newTaskStatus = taskInfoRes.data.taskInfos[0].taskStatus;
+        setTaskStatus(newTaskStatus);
+        if (newTaskStatus === 1 || newTaskStatus === 2) {
+          setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
+        } else if (newTaskStatus === 3) {
+          getTaskList()
+        }
+      }
+    }
+
+  };
   useEffect(() => {
     if (taskInfo) {
       setTaskStatus(taskInfo.taskStatus)
       if (taskInfo.taskStatus == 1 || taskInfo.taskStatus == 3) {
         setSupplyWords('Total supply: 1 Billion -> 99 Billion')
-        setFromVal('2,000,000,000 (2 Billion)')
-        setToVal('666.7')
+        setFromVal('99,000,000,000 (99 Billion)')
+        setToVal('990')
       }
     }
   }, [taskInfo])

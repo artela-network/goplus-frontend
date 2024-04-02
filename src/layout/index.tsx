@@ -10,9 +10,9 @@ const Layout = () => {
             <main className='main_box'>
                 <Activity />
             </main>
-            {/* <div className='footer'>
+            <div className='footer'>
                 
-            </div> */}
+            </div>
         </>
 
     );

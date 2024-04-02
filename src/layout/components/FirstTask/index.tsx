@@ -17,17 +17,10 @@ import SuccessCover from '../Common/SuccessCover'
 import { Spin } from 'antd'
 
 interface Props {
-  taskInfo: TaskInfo
+  taskInfo: TaskInfo;
+  getTaskList: () => void;
 }
-const defaultTaskInfo: TaskInfo = {
-  id: 0,
-  taskName: '',
-  taskStatus: 0,
-  memo: '',
-  title: '',
-  txs: ''
-}
-const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
+const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
   const { account } = useActiveWeb3React()
   const [taskStatus, setTaskStatus] = useState(0)
   const [txHash, setTxHash] = useState(taskInfo.txs)
@@ -37,9 +30,6 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
 
   const currencyA = useCurrency(currencyIdA)
   const currencyB = useCurrency(currencyIdB)
-  console.log('....------00000000000111111111')
-console.log(currencyA)
-console.log(currencyB)
   const { pair } = useDerivedMintInfo(currencyA ?? undefined, currencyB ?? undefined)
 
   useEffect(() => {
@@ -64,14 +54,28 @@ console.log(currencyB)
     if (account && taskInfo) {
       const res = await updateTask(account, taskInfo.id, '1', txs, memo)
       if (res.success) {
-        const taskInfoRes = await getTaskListByAccount(account, taskInfo.id)
-        if (taskInfoRes.success) {
-          setTaskStatus(taskInfoRes.data.taskInfos[0].taskStatus)
-          setTxHash(taskInfoRes.data.taskInfos[0].txs)
-        }
+        if (res.success) {
+          fetchTaskInfo()
+      }
       }
     }
   }
+  const fetchTaskInfo = async () => {
+    if (account && taskInfo) {
+        const taskInfoRes = await getTaskListByAccount(account, taskInfo.id);
+        if (taskInfoRes.success) {
+            const newTaskStatus = taskInfoRes.data.taskInfos[0].taskStatus;
+            setTaskStatus(newTaskStatus);
+            setTxHash(taskInfoRes.data.taskInfos[0].txs);
+            if (newTaskStatus === 1 || newTaskStatus === 2) {
+                setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
+            } else if (newTaskStatus === 3) {
+                getTaskList()
+            }
+        }
+    }
+
+};
   useEffect(() => {
     if (taskInfo) {
       setTaskStatus(taskInfo.taskStatus)
@@ -81,11 +85,11 @@ console.log(currencyB)
   return (
     <>
       <div className="head_title">
-        Task 1: &nbsp;Add liquidity for ART/RUG pair
+        Task 1: &nbsp;Provide Liquidity for a Meme token called RUG 
       </div>
       <TaskBox taskStatus={taskStatus}>
         <div className="task_guide">
-          <div>Add liquidity</div>
+          <div>Add Liquidity</div>
           <ul>
             <li className="subDescribe">Select ART/RUG pair</li>
             <li className="subDescribe">Add ART/RUG liquidity to the pool</li>
