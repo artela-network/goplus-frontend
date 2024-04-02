@@ -133,7 +133,7 @@ const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
               updateTaskStatus={updateTaskStatus}
             />
           </div>
-          <div style={{ textAlign: 'center', width: '100%', fontSize: '16px' }}>©Power by <a href='https://www.ramenswap.xyz/'> Ramenswap</a></div>
+          <div style={{ textAlign: 'center', width: '100%', fontSize: '16px' }}>©Power by <a href='https://www.ramenswap.xyz/' target='blank'> Ramenswap</a></div>
         </div>
       </TaskBox>
     </>
