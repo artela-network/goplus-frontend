@@ -11,6 +11,7 @@ import { useActiveWeb3React } from '../../hooks'
 import { getTaskListByAccount, initTaskListByAccount, syncTask } from '../../api/activity'
 import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from 'antd'
+import { TaskInfo } from '../../utils/campaignClient'
 import CustomModal from "../components/Common/Model"
 export default function Activity() {
   const { account } = useActiveWeb3React()
@@ -19,9 +20,48 @@ export default function Activity() {
   // const sitkey: string = process.env.REACT_APP_SIT_KEY || '';
   const sitkey: string = '6LcrZqgpAAAAAD8L2W-XJE7CR2xmI-nC76HNxqsb';
 
+  const initialTaskInfos: TaskInfo[] = [
+    {
+      id: 0,
+      taskName: '',
+      taskStatus: 5,
+      memo: '',
+      title: '',
+      txs: '',
+      taskId: ''
+    },
+    {
+      id: 0,
+      taskName: '',
+      taskStatus: 5,
+      memo: '',
+      title: '',
+      txs: '',
+      taskId: ''
+    },
+    {
+      id: 0,
+      taskName: '',
+      taskStatus: 5,
+      memo: '',
+      title: '',
+      txs: '',
+      taskId: ''
+    },
+    {
+      id: 0,
+      taskName: '',
+      taskStatus: 5,
+      memo: '',
+      title: '',
+      txs: '',
+      taskId: ''
+    },
+  ]
+
   const recaptchaRef = React.createRef<ReCAPTCHA>();
   const [taskStatus, setTaskStatus] = useState(0)
-  const [taskInfos, setTaskInfos] = useState([])
+  const [taskInfos, setTaskInfos] = useState<TaskInfo[]>(initialTaskInfos)
   const location = useLocation()
   const intervalId = useRef<NodeJS.Timeout | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,6 +97,7 @@ export default function Activity() {
           }
           return true
         } else if (attempt < 2) {
+          setTaskInfos(initialTaskInfos)
           setIsCaptchaShow(true)
           // const initRes = await initTaskListByAccount(account, getQueryParams())
           // if (initRes.success) {
@@ -65,13 +106,12 @@ export default function Activity() {
         }
       }
     } else {
-      setTaskInfos([])
+      setTaskInfos(initialTaskInfos)
     }
 
     return false
   }
   const onSubmit = async (token: any) => {
-    console.log("reCAPTCHA token:", token);
     setIsCaptchaShow(false)
     if (account) {
       if (getQueryParams()) {
@@ -79,6 +119,7 @@ export default function Activity() {
         const initRes = await initTaskListByAccount(account, getQueryParams(), token, sitkey)
         setLoading(false)
         if (initRes.success) {
+          getTaskList()
         }
       } else {
         handleOpenModal()
@@ -89,30 +130,32 @@ export default function Activity() {
     if (!account) {
       return
     }
+    console.log('change。。。。。')
+    getTaskList()
+    setIsCaptchaShow(false)
+    // const init = async () => {
+    //   let allDone = await getTaskList()
 
-    const init = async () => {
-      let allDone = await getTaskList()
+    //   if (intervalId.current) {
+    //     clearInterval(intervalId.current)
+    //   }
 
-      if (intervalId.current) {
-        clearInterval(intervalId.current)
-      }
+    //   if (!allDone) {
+    //     intervalId.current = setInterval(async () => {
+    //       allDone = await getTaskList()
+    //       if (allDone && intervalId.current) {
+    //         clearInterval(intervalId.current)
+    //         intervalId.current = null
+    //       }
+    //     }, 8000)
+    //   }
+    // }
 
-      if (!allDone) {
-        intervalId.current = setInterval(async () => {
-          allDone = await getTaskList()
-          if (allDone && intervalId.current) {
-            clearInterval(intervalId.current)
-            intervalId.current = null
-          }
-        }, 8000)
-      }
-    }
+    // init()
 
-    init()
-
-    return () => {
-      if (intervalId.current) clearInterval(intervalId.current)
-    }
+    // return () => {
+    //   if (intervalId.current) clearInterval(intervalId.current)
+    // }
   }, [account])
 
   const captcha = () => {
@@ -130,33 +173,40 @@ export default function Activity() {
 
   }
   const syncState = async () => {
- 
-      if (account) {
-        const res = syncTask(account)
-      }
-  
-
+    if (account) {
+      if (Array.isArray(taskInfos) && taskInfos.length > 0)
+        var res = syncTask(account, taskInfos[0].taskId)
+    }
   }
   const Footer = () => {
     if (taskStatus == 3) {
       return (
-        <div style={{display:'flex',flexDirection:'column',justifyContent:'start',width:'1200px', maxWidth: '1200px',marginTop:'25px'}}>
-          <div style={{ fontSize:'38px', maxWidth: '1200px' }}>
-            Thanks for hacking!
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', width: '1200px', maxWidth: '1200px', marginTop: '25px' }}>
+          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
+            Thanks for your participation! You have finished all your tasks！
           </div>
-          <div style={{ fontSize:'38px', maxWidth: '1200px' }}>
-            With Anti-Rug Aspect, 0 rug pull happen!
+          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
+            <a href="https://SecWareX.io/">
+              Claim you rewards here and stay tuned!
+            </a>
           </div>
-          <div style={{ fontSize:'38px', maxWidth: '1200px' }}>
-            Imagine Anti-Rug to earn? Claim your OAT and stay tuned!
+          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
+            <a href="https://SecWareX.io/">
+              Claim your energy blocks.
+            </a>
+            <text onClick={syncState} style={{ fontSize: '30px', marginTop: '10px', marginBottom: "50px" }}>
+              <a style={{ color: 'gray' }}> Sync status to SecWareX</a>
+            </text>
+          </div>
+          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
+            <a href="https://SecWareX.io/">
+              Claim your Artela Security guardian Badge.
+            </a>
+          </div>
+          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
+            Wishing you a smooth, safe, and prosperous journey in Web3!
           </div>
 
-          <div style={{ fontSize: '30px', marginTop: '10px' }}>
-            <a style={{ color: 'gray' }} href="https://SecWareX.io/"> Go to SecWareX</a>
-          </div>
-          <div onClick={syncState} style={{ fontSize: '30px', marginTop: '10px' }}>
-            <a style={{ color: 'gray' }}> Sync status to SecWareX</a>
-          </div>
         </div>
       )
     } else {
@@ -172,11 +222,9 @@ export default function Activity() {
         </p>
       </CustomModal>
       <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} captcha={captcha()} initLoading={loading} />
-      {/* <TaskList /> */}
-      <FirstTask taskInfo={taskInfos[1]} />
-      <SecondTask taskInfo={taskInfos[2]} />
+      <FirstTask getTaskList={getTaskList} taskInfo={taskInfos[1]} />
+      <SecondTask getTaskList={getTaskList} taskInfo={taskInfos[2]} />
       <ThirdTask getTaskList={getTaskList} taskInfo={taskInfos[3]} />
-      {/* <Explain /> */}
       <Footer />
     </div>
   )

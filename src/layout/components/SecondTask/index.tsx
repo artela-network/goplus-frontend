@@ -10,13 +10,13 @@ import './style.css'
 import SuccessCover from '../Common/SuccessCover'
 
 interface PropsType {
-  getTaskList?: () => void;
+  getTaskList: () => void;
   taskInfo: TaskInfo;
 }
-const SecondTask = ({ taskInfo }: PropsType) => {
+const SecondTask = ({ taskInfo, getTaskList }: PropsType) => {
   const footerWords = <div>
     {
-    `That's how typically rug-pull happens, malicious smart contracts instantly increase a huge amount of token supply for him own, and then swap out your valuable assets.`
+      `That's how typically rug-pull happens, malicious smart contracts instantly increase a huge amount of token supply for him own, and then swap out your valuable assets.`
     }
   </div>
   const buttonStyle = {
@@ -56,10 +56,13 @@ const SecondTask = ({ taskInfo }: PropsType) => {
   const inreaseRUG = async () => {
     if (account && taskInfo) {
       setLoading(true)
-      await updateTask(account, taskInfo.id, '1')
+      const res = await updateTask(account, taskInfo.id, '1')
+      if (res.success) {
+        fetchTaskInfo()
+      }
       setLoading(false)
-      setSupplyWords('Total supply: 1 Billion -> 3 Billion')
-      setFromVal('3 Billion')
+      setSupplyWords('Total supply: 1 Billion -> 99 Billion')
+      setFromVal('99 Billion')
       setToVal('1 Billion')
     }
 
@@ -77,27 +80,42 @@ const SecondTask = ({ taskInfo }: PropsType) => {
       }
     }
   }
+  const fetchTaskInfo = async () => {
+    if (account && taskInfo) {
+      const taskInfoRes = await getTaskListByAccount(account, taskInfo.id);
+      if (taskInfoRes.success) {
+        const newTaskStatus = taskInfoRes.data.taskInfos[0].taskStatus;
+        setTaskStatus(newTaskStatus);
+        if (newTaskStatus === 1 || newTaskStatus === 2) {
+          setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
+        } else if (newTaskStatus === 3) {
+          getTaskList()
+        }
+      }
+    }
+
+  };
   useEffect(() => {
     if (taskInfo) {
       setTaskStatus(taskInfo.taskStatus)
       if (taskInfo.taskStatus == 1 || taskInfo.taskStatus == 3) {
-        setSupplyWords('Total supply: 1 Billion -> 3 Billion')
-        setFromVal('2,000,000,000 (2 Billion)')
-        setToVal('666.7')
+        setSupplyWords('Total supply: 1 Billion -> 99 Billion')
+        setFromVal('99,000,000,000 (99 Billion)')
+        setToVal('990')
       }
     }
   }, [taskInfo])
   return (
     <>
       <div className="head_title">
-        Task 2: &nbsp;Simulated experience rug pull
+        Task 2: &nbsp;Let’s say you own RUG token contract, now Rug Pull!
       </div>
       <TaskBox taskStatus={taskStatus} footer={footerWords}>
         <div className="task_guide">
-          <div className='subTitle'>Step1: Click 👇 button to Increase 2 Billion RUG</div>
+          <div className='subTitle'>Step1: Click to increase 99 Billion RUG token supply for you! </div>
           <Button loading={loading} disabled={taskStatus == 1 || taskStatus == 3} style={taskStatus == 0 || taskStatus == 4 ? buttonStyle : buttonDisabledStyle} type="primary" onClick={inreaseRUG}> Increase </Button>
           <div className='subDescribe'>{supplyWords} </div>
-          <div className='subTitle mt-20'>Step2: Swap 3 Billion RUG</div>
+          <div className='subTitle mt-20'>Step2: Use the newly added 99 Billion RUG token to swap for ART tokens in the pool.</div>
           <div className='subDescribe'>Click swap button to sell all Rug 👉</div>
         </div>
         <div className="task_swap" style={{ marginLeft: '15px', position: 'relative' }}>

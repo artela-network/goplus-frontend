@@ -11,16 +11,15 @@ import { Button } from 'antd';
 import { failed, ongoing, finish } from '../Common/StatusIcon';
 import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
 import { Spin } from 'antd';
-import { goPulusIcon } from '../../../assets/icon/goPlus';
+import goPulusIcon from '../../../assets/icon/goplus.png';
 import artelaIcon from '../../../assets/icon/artela.png'
-import connect from '../../../assets/icon/connect.svg'
 interface IntroduceProps {
     getTaskList: () => void;
     taskInfo?: TaskInfo;
     captcha: ReactNode;
-    initLoading:boolean;
+    initLoading: boolean;
 }
-export default function Introduce({ getTaskList, taskInfo, captcha,initLoading }: IntroduceProps) {
+export default function Introduce({ getTaskList, taskInfo, captcha, initLoading }: IntroduceProps) {
     const { account } = useActiveWeb3React()
     const [taskStatus, setTaskStatus] = useState(5)
     const [loading, setLoading] = useState(false)
@@ -84,7 +83,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha,initLoading }
             <div className='bkimg'>
                 <div className="img_container text-48px text-bold">
                     <text>
-                        Experience AMM DEX with Anti-Rug Aspect<br />Complete tasks to earn Energy Block rewards
+                        Experience on-chain security against Rug Pull in AMM Swap<br />Powered by: Go Plus & Artela
                     </text>
                     <div className="icon-container">
                         <img src={goPulusIcon} ></img>
@@ -94,9 +93,13 @@ export default function Introduce({ getTaskList, taskInfo, captcha,initLoading }
             </div>
             <div className='introduce_text mt-14'>
                 <div>
-                    Let's experience how Artela network's AMM achieves Anti-rug!<br />
-                    Rug-pull is a fraudulent act by the project team.In the Spot DEX,youprovide liquidity to the project's poll,but the project team can pull out all assets in just two steps,leaving you with nothing.<br />
-                    So as a liquidity provider,who can protect you?On the Artela Network,there's an on-chain risk control module to safeguard you!It identifies rug-pull transactions and blocks them in real-time.
+                    According to CipherTrace, rug pulls accounted for 99% of all crypto frauds in 2023, totaling $2.1 billion in losses.  <br />
+                    Faced with the Damocles sword hanging over everyone's head, who will be there to protect our security?<br />
+                    Artela & Goplus provide a new solution: An on-chain risk control module that can identifies rug-pull transactions and block them in real-time.
+                </div>
+                <div className='mt-14' style={{fontSize:'24px',color:'white'}}>
+                Come and experience the cutting-edge security technology of Web3!<br/>
+                Become a pioneer in on-chain risk control, and gain your rewards!
                 </div>
             </div>
             <div className='head_title'>
@@ -111,7 +114,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha,initLoading }
                         captcha
                     }
                     <div style={{ width: '600px' }}>
-                        <Button type='primary' disabled={taskStatus !== 0 && taskStatus !== 4} style={taskStatus == 0 || taskStatus === 4 ? buttonStyle : buttonDisabledStyle} loading={loading||initLoading} onClick={() => getFaucet()} className='my_button' >claim tokens</Button>
+                        <Button type='primary' disabled={taskStatus !== 0 && taskStatus !== 4} style={taskStatus == 0 || taskStatus === 4 ? buttonStyle : buttonDisabledStyle} loading={loading || initLoading} onClick={() => getFaucet()} className='my_button' >claim tokens</Button>
                     </div>
                     <div className='claim_res'>
                         {taskStatus !== 0 && taskStatus !== 5 && <div className='subTitle'>Claim transactions</div>}

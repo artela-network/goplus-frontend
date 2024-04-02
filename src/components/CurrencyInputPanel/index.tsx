@@ -200,7 +200,7 @@ export default function CurrencyInputPanel({
               )}
             </>
           )}
-          <CurrencySelect
+          {/* <CurrencySelect
             selected={!!currency}
             className="open-currency-select-button"
             onClick={() => {
@@ -208,7 +208,7 @@ export default function CurrencyInputPanel({
                 setModalOpen(true)
               }
             }}
-          >
+          > */}
             <Aligner>
               {pair ? (
                 <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={24} margin={true} />
@@ -230,7 +230,7 @@ export default function CurrencyInputPanel({
               )}
               {/* {!disableCurrencySelect && <StyledDropDown selected={!!currency} />} */}
             </Aligner>
-          </CurrencySelect>
+          {/* </CurrencySelect> */}
         </InputRow>
       </Container>
       {/* {!disableCurrencySelect && onCurrencySelect && (

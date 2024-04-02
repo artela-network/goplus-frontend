@@ -48,11 +48,11 @@ function ConfirmationPendingContent({ onDismiss, pendingText }: { onDismiss: () 
           <CustomLightSpinner src={Circle} alt="loader" size={'90px'} />
         </ConfirmedIcon>
         <AutoColumn gap="12px" justify={'center'}>
-          <Text fontWeight={500} fontSize={20}>
+          <Text color='white' fontWeight={500} fontSize={20}>
             Waiting For Confirmation
           </Text>
           <AutoColumn gap="12px" justify={'center'}>
-            <Text fontWeight={600} fontSize={14} color="" textAlign="center">
+            <Text color='white' fontWeight={600} fontSize={14} textAlign="center">
               {pendingText}
             </Text>
           </AutoColumn>
@@ -87,7 +87,7 @@ function TransactionSubmittedContent({
           <ArrowUpCircle strokeWidth={0.5} size={90} color={theme.primary1} />
         </ConfirmedIcon>
         <AutoColumn gap="12px" justify={'center'}>
-          <Text fontWeight={500} fontSize={20}>
+          <Text color='white' fontWeight={500} fontSize={20}>
             Transaction Submitted
           </Text>
 
@@ -124,7 +124,7 @@ export function ConfirmationModalContent({
     <Wrapper>
       <Section>
         <RowBetween>
-          <Text fontWeight={500} fontSize={20}>
+          <Text color='white' fontWeight={500} fontSize={20}>
             {title}
           </Text>
           <CloseIcon onClick={onDismiss} />

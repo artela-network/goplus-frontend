@@ -95,7 +95,7 @@ export default function PendingView({
           ) : (
             <>
               <StyledLoader />
-              Initializing...
+              <text style={{color:'white'}}>Initializing...</text> 
             </>
           )}
         </LoadingWrapper>

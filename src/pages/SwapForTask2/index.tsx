@@ -144,39 +144,21 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
           ) :
             (
               <div className='task2_box'>
-                <div style={{ textAlign: 'center', fontSize: '30px' }}> Liquidity in the pool</div>
-                <div style={{ fontSize: '24px' }}>{`Init`}</div>
+                <div style={{color:'white',fontSize:'28px',marginTop:'15px'}}>Aha, as a contract owner, You make 990 ART token by Rug Pull! Not bad. </div>
+                <div style={{margin:'25px 0'}}>Let’s see how it comes.</div>
+                <div style={{ fontSize: '24px' }}> Liquidity before Rug:</div>
                 <ul style={{ fontSize: '20px', marginTop: '10px' }}>
-                  <li>{`ART 1000`}</li>
-                  <li>{`RUG 1,000,000,000 （1 Billion）`}</li>
+                  <li>{`ART:1000`}</li>
+                  <li>{`RUG:1000,000,000(1 Billion)`}</li>
                 </ul>
-                <div style={{ fontSize: '14px', color: '#767675' }} >{` Value  1ART=1,000,000 RUG`}</div>
-                <div style={{ fontSize: '24px' }}>{`After Rug Pull`}</div>
+                <div style={{ fontSize: '24px', marginTop: '15px' }}> Liquidity After Rug:</div>
                 <ul style={{ fontSize: '20px', marginTop: '10px' }}>
-                  <li>{`ART 333.3`}</li>
-                  <li>{`RUG 3,000,000,000  （3 Billion）`}</li>
+                  <li>{`ART:10`}</li>
+                  <li>{`RUG:100,000,000,000(100 Billion)`}</li>
                 </ul>
-                <div style={{ fontSize: '14px', color: '#767675' }} >{`Value  1ART=9,000,900 RUG`}</div>
-                <div style={{ textAlign: 'center', fontSize: '30px', marginTop: '15px' }}> Alice's Token Value Change</div>
-                <ul>
-                  <li>
-                    <div>{`Before Rug Pull :  `}</div>
-                    <div>{` 1,000,000 RUG = 1ART`}</div>
-                  </li>
-                  <li>
-                    <div>{`After Rug Pull :`}</div>
-                    <div>{` 1,000,000 RUG =0.11 ART`}</div>
-                  </li>
-                </ul>
-                <div className='des'>
-                  <div style={{ marginTop: '10px' }}>
-                    As Project, you get <text style={{ color: '#28a745' }}>666.7</text> ART<br />
-                  </div>
-                  <div style={{ marginTop: '10px' }}>
-                    {/* As Alice, you lose <b style={{ color: '#dc3545' }}>1 <text style={{ color: 'orange' }}>$ART</text> </b>and get 1M valueless token. */}
-                    As Alice, you lost <text style={{ color: 'red' }}>1</text> ART and received <text style={{ color: 'red' }}>1,000,000</text> RUG, but the rug pull action caused the RUG asset to <text style={{ color: 'red' }}> shrink by tenfold</text>.
-                  </div>
-                </div>
+                {/* <div className='des'>
+                  That's how typically rug-pull happens, malicious smart contracts instantly increase a huge amount of token supply for him own, and then swap out the valuable assets.
+                </div> */}
               </div>
             )
         }
