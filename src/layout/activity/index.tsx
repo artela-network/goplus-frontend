@@ -168,8 +168,10 @@ export default function Activity() {
             <a href="https://SecWareX.io/">
               Claim your energy blocks.
             </a>
-            <text onClick={syncState} style={{ fontSize: '30px', marginTop: '10px', marginBottom: "50px" }}>
-              <a style={{ color: 'gray' }}> Sync status to SecWareX</a>
+            <text style={{ fontSize: '24px', marginTop: '10px', marginBottom: "50px" }}>
+              <text style={{ color: 'gray' }}>If the task isn't completed, please <a onClick={syncState} style={{ textDecoration: 'underline',color:'gray' }}>
+                synchronize the status.
+              </a></text>
             </text>
           </div>
           <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
