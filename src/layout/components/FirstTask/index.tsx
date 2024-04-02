@@ -37,7 +37,9 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
 
   const currencyA = useCurrency(currencyIdA)
   const currencyB = useCurrency(currencyIdB)
-
+  console.log('....------00000000000111111111')
+console.log(currencyA)
+console.log(currencyB)
   const { pair } = useDerivedMintInfo(currencyA ?? undefined, currencyB ?? undefined)
 
   useEffect(() => {
@@ -86,7 +88,7 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
           <div>Add liquidity</div>
           <ul>
             <li className="subDescribe">Select ART/RUG pair</li>
-            <li className="subDescribe">Add 1 ART liquidity to the pool</li>
+            <li className="subDescribe">Add ART/RUG liquidity to the pool</li>
           </ul>
           {txHash ? (
             <>
@@ -114,7 +116,6 @@ const FirstTask = ({ taskInfo = defaultTaskInfo }: Props) => {
                   <li className='subDescribe'>ART: {taskInfo.memo.split(',')[0]}</li>
                   <li className='subDescribe'>RUG: {taskInfo.memo.split(',')[1]}</li>
                 </ul>
-
               </div>
             ) : ''
           }

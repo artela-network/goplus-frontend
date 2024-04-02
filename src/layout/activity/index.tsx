@@ -130,31 +130,31 @@ export default function Activity() {
 
   }
   const syncState = async () => {
- 
-      if (account) {
-        const res = syncTask(account)
-      }
-  
-
+    if (account) {
+      if (Array.isArray(taskInfos) && taskInfos.length > 0)
+        var res = syncTask(account, taskInfos[0])
+    }
   }
   const Footer = () => {
     if (taskStatus == 3) {
       return (
-        <div style={{display:'flex',flexDirection:'column',justifyContent:'start',width:'1200px', maxWidth: '1200px',marginTop:'25px'}}>
-          <div style={{ fontSize:'38px', maxWidth: '1200px' }}>
-            Thanks for hacking!
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', width: '1200px', maxWidth: '1200px', marginTop: '25px' }}>
+          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
+            Thanks for your participation! You have finished all your tasks！
           </div>
-          <div style={{ fontSize:'38px', maxWidth: '1200px' }}>
-            With Anti-Rug Aspect, 0 rug pull happen!
+          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
+            Claim you rewards here and stay tuned!
           </div>
-          <div style={{ fontSize:'38px', maxWidth: '1200px' }}>
-            Imagine Anti-Rug to earn? Claim your OAT and stay tuned!
+          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
+            Claim your energy blocks.Claim your Artela Security guardian Badge.
           </div>
-
           <div style={{ fontSize: '30px', marginTop: '10px' }}>
             <a style={{ color: 'gray' }} href="https://SecWareX.io/"> Go to SecWareX</a>
           </div>
-          <div onClick={syncState} style={{ fontSize: '30px', marginTop: '10px' }}>
+          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
+            Wishing you a smooth, safe, and prosperous journey in Web3!
+          </div>
+          <div onClick={syncState} style={{ fontSize: '30px', marginTop: '10px',marginBottom:"50px" }}>
             <a style={{ color: 'gray' }}> Sync status to SecWareX</a>
           </div>
         </div>
