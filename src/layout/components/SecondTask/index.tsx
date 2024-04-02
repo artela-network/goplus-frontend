@@ -102,6 +102,10 @@ const SecondTask = ({ taskInfo, getTaskList }: PropsType) => {
         setSupplyWords('Total supply: 1 Billion -> 99 Billion')
         setFromVal('99,000,000,000 (99 Billion)')
         setToVal('990')
+      } else {
+        setSupplyWords('Total supply: 1 Billion')
+        setFromVal('0')
+        setToVal('0')
       }
     }
   }, [taskInfo])

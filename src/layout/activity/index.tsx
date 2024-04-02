@@ -130,32 +130,8 @@ export default function Activity() {
     if (!account) {
       return
     }
-    console.log('change。。。。。')
     getTaskList()
     setIsCaptchaShow(false)
-    // const init = async () => {
-    //   let allDone = await getTaskList()
-
-    //   if (intervalId.current) {
-    //     clearInterval(intervalId.current)
-    //   }
-
-    //   if (!allDone) {
-    //     intervalId.current = setInterval(async () => {
-    //       allDone = await getTaskList()
-    //       if (allDone && intervalId.current) {
-    //         clearInterval(intervalId.current)
-    //         intervalId.current = null
-    //       }
-    //     }, 8000)
-    //   }
-    // }
-
-    // init()
-
-    // return () => {
-    //   if (intervalId.current) clearInterval(intervalId.current)
-    // }
   }, [account])
 
   const captcha = () => {
@@ -186,9 +162,7 @@ export default function Activity() {
             Thanks for your participation! You have finished all your tasks！
           </div>
           <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
-            <a href="https://SecWareX.io/">
-              Claim you rewards here and stay tuned!
-            </a>
+            Claim you rewards here and stay tuned!
           </div>
           <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
             <a href="https://SecWareX.io/">
