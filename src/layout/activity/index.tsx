@@ -71,7 +71,6 @@ export default function Activity() {
     return false
   }
   const onSubmit = async (token: any) => {
-    console.log("reCAPTCHA token:", token);
     setIsCaptchaShow(false)
     if (account) {
       if (getQueryParams()) {
@@ -79,6 +78,8 @@ export default function Activity() {
         const initRes = await initTaskListByAccount(account, getQueryParams(), token, sitkey)
         setLoading(false)
         if (initRes.success) {
+          // 我想在这里改变子组件的status状态
+          getTaskList()
         }
       } else {
         handleOpenModal()
@@ -154,7 +155,7 @@ export default function Activity() {
           <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
             Wishing you a smooth, safe, and prosperous journey in Web3!
           </div>
-          <div onClick={syncState} style={{ fontSize: '30px', marginTop: '10px',marginBottom:"50px" }}>
+          <div onClick={syncState} style={{ fontSize: '30px', marginTop: '10px', marginBottom: "50px" }}>
             <a style={{ color: 'gray' }}> Sync status to SecWareX</a>
           </div>
         </div>

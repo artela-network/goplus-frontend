@@ -9,23 +9,25 @@ import { WrappedTokenInfo } from '../../state/lists/hooks'
 import Logo from '../Logo'
 
 const getTokenLogoURL = (address: string) =>
-  `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`
+  `😈`
+// const getTokenLogoURL = (address: string) =>
+//   `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`
 
 const StyledEthereumLogo = styled.img<{ size: string }>`
   width: ${({ size }) => size};
   height: ${({ size }) => size};
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.075);
-  border-radius: 24px;
+  border-radius: 4px;
 `
 
-const StyledLogo = styled(Logo)<{ size: string }>`
+const StyledLogo = styled(Logo) <{ size: string }>`
   width: ${({ size }) => size};
   height: ${({ size }) => size};
 `
 
 export default function CurrencyLogo({
   currency,
-  size = '24px',
+  size = '30px',
   style
 }: {
   currency?: Currency
@@ -48,8 +50,12 @@ export default function CurrencyLogo({
   }, [currency, uriLocations])
 
   if (currency === DEV) {
-    return <StyledEthereumLogo src={ARTLog} size={size} style={style} />
+    return <StyledEthereumLogo src={ARTLog} size={'34'} style={style} />
   }
 
-  return <StyledLogo size={size} srcs={srcs} alt={`${currency?.symbol ?? 'token'} logo`} style={style} />
+  // return <StyledLogo size={size} srcs={srcs} alt={`${currency?.symbol ?? 'token'} logo`} style={style} />
+  return (<div style={{width:'32px',height:'32px',fontSize:'30px',lineHeight:'32px',margin:'2px',textAlign:'start'}}>
+    😈
+  </div>
+  )
 }
