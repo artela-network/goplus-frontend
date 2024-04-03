@@ -1,5 +1,6 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 import './introduce.css'
+import './mobile.css'
 import { useActiveWeb3React } from '../../../hooks'
 import { updateTask, getTaskListByAccount } from '../../../api/activity'
 import AccountWallet from '../../../components/AccountWallet';
@@ -106,7 +107,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                 Connect Artela Testnet & Claim test tokens
             </div> 
             <div className='my_card'>
-                <div style={{ marginLeft: '55px' }} className='claim_box'>
+                <div className='claim_box'>
                     <div className='subTitle'>Step1: Connect to Artela Testnet<br/> <text style={{color:'gray ',fontSize:'16px'}}>please use Metamask Wallet to finish these tasks.</text></div>
                     <AccountWallet />
                     <div className='subTitle'>Step2: Claim test tokens</div>

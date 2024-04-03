@@ -84,7 +84,7 @@ const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
     }
   }, [taskInfo])
   return (
-    <div>
+    <>
       <div className="head_title">
         Task 1: &nbsp;Provide Liquidity for a Meme token called RUG 
       </div>
@@ -125,7 +125,7 @@ const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
             ) : ''
           }
         </div>
-        <div className="task_swap" style={{ marginLeft: '15px',  }}>
+        <div className="task_swap">
           <div style={{position: 'relative'}}>
             {taskStatus == 3 && <SuccessCover />}
             <RedirectDuplicateTokenIds
@@ -137,7 +137,7 @@ const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
           <div style={{ textAlign: 'center', width: '100%', fontSize: '16px',marginTop:'10px' }}>©Power by <a href='https://www.ramenswap.xyz/' target='blank'> Ramenswap</a></div>
         </div>
       </TaskBox>
-    </div>
+    </>
   )
 }
 export default FirstTask

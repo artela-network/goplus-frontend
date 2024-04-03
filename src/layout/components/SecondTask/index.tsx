@@ -123,9 +123,9 @@ const SecondTask = ({ taskInfo, getTaskList, preTaskState }: PropsType) => {
             type="primary" onClick={inreaseRUG}> Increase </Button>
           <div className='subDescribe'>{supplyWords} </div>
           <div className='subTitle mt-20'>Step2: Use the newly added 99 Billion RUG token to swap for ART tokens in the pool.</div>
-          <div className='subDescribe'>Click swap button to sell all Rug 👉</div>
+          <div className='subDescribe'>Click swap button to sell all Rug</div>
         </div>
-        <div className="task_swap" style={{ marginLeft: '15px', position: 'relative' }}>
+        <div className="task_swap" style={{ position: 'relative' }}>
           {taskStatus == 3 && <SuccessCover />}
           <Swap taskStatus={taskStatus} updateTaskStatus={updateTaskStatus} fromVal={fromVal} toVal={toVal} swapLoading={swapLoading} disabled={taskStatus != 1} />
         </div>

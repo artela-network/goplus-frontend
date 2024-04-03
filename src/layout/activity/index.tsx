@@ -155,41 +155,43 @@ export default function Activity() {
     }
   }
   const Footer = () => {
-    if (taskStatus == 3) {
+    if (taskStatus === 3) {
       return (
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', width: '1200px', maxWidth: '1200px', marginTop: '125px' }}>
-          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
-            Thanks for your participation! You have finished all your tasks！
+        <div className="footerContainer">
+          <div className="footerText">
+            Thanks for your participation! You have finished all your tasks!
           </div>
-          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
-            Claim you rewards here and stay tuned!
+          <div className="footerText">
+            Claim your rewards here and stay tuned!
           </div>
-          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
-            <a href="https://SecWareX.io/">
+          <div className="footerText">
+            <a target='blank' href="https://SecWareX.io/">
               Claim your energy blocks.
-            </a><br/>
-            <text style={{ fontSize: '24px', marginTop: '10px', marginBottom: "50px" }}>
-              <text style={{ color: 'gray' }}> if the task status of SexWareX stays unfinished, please press here. <a onClick={syncState} style={{ textDecoration: 'underline',color:'gray' }}>
-                synchronize the status.
-              </a></text>
+            </a>
+            <br />
+            <text style={{ fontSize: '24px' }}>
+              <text style={{ color: 'gray' }}>
+                If the task status of SecWareX stays unfinished, please press here.&nbsp;
+                <a onClick={syncState} className='footerLink' style={{ cursor: 'pointer' }}>
+                  Synchronize the status.
+                </a>
+              </text>
             </text>
           </div>
-          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
-            <a href="https://SecWareX.io/">
+          <div className="footerText">
+            <a target='blank' href="https://SecWareX.io/">
               Claim your Artela Security guardian Badge.
             </a>
           </div>
-          <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
+          <div className="footerText">
             Wishing you a smooth, safe, and prosperous journey in Web3!
           </div>
-
         </div>
       )
     } else {
       return null;
     }
-
-  }
+  };
   return (
     <div className="activity">
       <CustomModal isOpen={isModalOpen} onClose={handleCloseModal} >
@@ -198,9 +200,9 @@ export default function Activity() {
         </p>
       </CustomModal>
       <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} captcha={captcha()} initLoading={loading} />
-      <FirstTask getTaskList={getTaskList} taskInfo={taskInfos[1]} preTaskState={taskInfos[0].taskStatus}/>
-      <SecondTask getTaskList={getTaskList} taskInfo={taskInfos[2]} preTaskState={taskInfos[1].taskStatus}/>
-      <ThirdTask getTaskList={getTaskList} taskInfo={taskInfos[3]} preTaskState={taskInfos[2].taskStatus}/>
+      <FirstTask getTaskList={getTaskList} taskInfo={taskInfos[1]} preTaskState={taskInfos[0].taskStatus} />
+      <SecondTask getTaskList={getTaskList} taskInfo={taskInfos[2]} preTaskState={taskInfos[1].taskStatus} />
+      <ThirdTask getTaskList={getTaskList} taskInfo={taskInfos[3]} preTaskState={taskInfos[2].taskStatus} />
       <Footer />
     </div>
   )
