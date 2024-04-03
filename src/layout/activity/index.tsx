@@ -157,7 +157,7 @@ export default function Activity() {
   const Footer = () => {
     if (taskStatus == 3) {
       return (
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', width: '1200px', maxWidth: '1200px', marginTop: '25px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', width: '1200px', maxWidth: '1200px', marginTop: '125px' }}>
           <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
             Thanks for your participation! You have finished all your tasks！
           </div>
@@ -167,9 +167,9 @@ export default function Activity() {
           <div style={{ fontSize: '38px', maxWidth: '1200px' }}>
             <a href="https://SecWareX.io/">
               Claim your energy blocks.
-            </a>
+            </a><br/>
             <text style={{ fontSize: '24px', marginTop: '10px', marginBottom: "50px" }}>
-              <text style={{ color: 'gray' }}>If the task isn't completed, please <a onClick={syncState} style={{ textDecoration: 'underline',color:'gray' }}>
+              <text style={{ color: 'gray' }}> if the task status of SexWareX stays unfinished, please press here. <a onClick={syncState} style={{ textDecoration: 'underline',color:'gray' }}>
                 synchronize the status.
               </a></text>
             </text>
@@ -198,9 +198,9 @@ export default function Activity() {
         </p>
       </CustomModal>
       <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} captcha={captcha()} initLoading={loading} />
-      <FirstTask getTaskList={getTaskList} taskInfo={taskInfos[1]} />
-      <SecondTask getTaskList={getTaskList} taskInfo={taskInfos[2]} />
-      <ThirdTask getTaskList={getTaskList} taskInfo={taskInfos[3]} />
+      <FirstTask getTaskList={getTaskList} taskInfo={taskInfos[1]} preTaskState={taskInfos[0].taskStatus}/>
+      <SecondTask getTaskList={getTaskList} taskInfo={taskInfos[2]} preTaskState={taskInfos[1].taskStatus}/>
+      <ThirdTask getTaskList={getTaskList} taskInfo={taskInfos[3]} preTaskState={taskInfos[2].taskStatus}/>
       <Footer />
     </div>
   )

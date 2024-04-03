@@ -16,8 +16,9 @@ import galxe from '../../../assets/galxe.png'
 interface PropsType {
     getTaskList: () => void;
     taskInfo?: TaskInfo;
+    preTaskState: number;
 }
-const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
+const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
     const { account } = useActiveWeb3React()
     const [txHash, setTxHash] = useState('')
     const [loading, setLoading] = useState(false)
@@ -109,7 +110,9 @@ const ThirdTask = ({ getTaskList, taskInfo }: PropsType) => {
                     <div className='subTitle'>
                         Step1: Click 👇 button to send a real Rug-pull transaction
                     </div>
-                    <Button disabled={taskStatus !== 0} style={taskStatus == 0 ? buttonStyle : buttonDisabledStyle} loading={loading} type="primary" onClick={doRugPull}> Do Rug-pull</Button>
+                    <Button disabled={preTaskState != 0 && preTaskState != 4 && taskStatus !== 0}
+                        style={taskStatus == 0 && (preTaskState == 2 || preTaskState == 3) ? buttonStyle : buttonDisabledStyle}
+                        loading={loading} type="primary" onClick={doRugPull}> Do Rug-pull</Button>
                     {taskStatus !== 0 && <div className='subTitle'>Rug-pull transaction:</div>}
                     {taskStatus == 3 ?
                         (txHash ? (

@@ -328,10 +328,11 @@ export default function WalletModal({
           <CloseIcon onClick={toggleWalletModal}>
             <CloseColor />
           </CloseIcon>
-          <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
-          <ContentWrapper>
+          <HeaderRow style={{color:'white'}}>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
+          <ContentWrapper >
             {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the appropriate Ethereum network.</h5>
+              <h5 >please use Metamask Wallet to finish these tasks.</h5>
+              // <h5 >Please connect to the appropriate Ethereum network.</h5>
             ) : (
               'Error connecting. Try refreshing the page.'
             )}
