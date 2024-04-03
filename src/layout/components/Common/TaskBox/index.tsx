@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from 'antd'
 import './taskBox.css'
+import './taskBox_mobile.css'
 interface Props {
   children: React.ReactNode
   taskStatus: number
@@ -44,7 +45,7 @@ const TaskBox = ({ children, taskStatus, footer }: Props) => {
         <div className="task_header">
           <div className="task_status">Task status:<text style={{ fontSize: '24px' }}>{statusList[taskStatus ? taskStatus : 0]()}</text> </div>
           <div className="to_task_guide">
-             <Button type="link">Task guide</Button>
+             <a type="link">Task guide</a>
           </div>
         </div>
         <div className="task_main text-24px">{children}</div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from './header/index'
 import Activity from './activity/index'
 import './styles.css'
+import './styles_mobile.css'
 
 const Layout = () => {
     return (
