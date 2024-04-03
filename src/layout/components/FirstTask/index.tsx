@@ -27,7 +27,7 @@ const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
   const [txHash, setTxHash] = useState(taskInfo.txs)
 
   const currencyIdA = 'ETH'
-  const currencyIdB = '0x8997ec639d49D2F08EC0e6b858f36317680A6eE7'
+  const currencyIdB = '0xb8D2C890F1c3412dbFa992D03a4a36BbAF6B58D7'
 
   const currencyA = useCurrency(currencyIdA)
   const currencyB = useCurrency(currencyIdB)
