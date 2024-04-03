@@ -83,9 +83,9 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
             <div className='bkimg'>
                 <div className="img_container text-48px text-bold">
                     <text>
-                        Experience on-chain security against Rug Pull in AMM Swap<br />Powered by: Go Plus & Artela
+                        Experience on-chain security against Rug Pull in AMM Swap<br />
                     </text>
-                    <div className="icon-container">
+                    <div className="icon-container">Powered by:
                         <img src={goPulusIcon} ></img>
                         <img style={{ height: '45px' }} src={artelaIcon} ></img>
                     </div>
@@ -95,19 +95,19 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                 <div>
                     According to CipherTrace, rug pulls accounted for 99% of all crypto frauds in 2023, totaling $2.1 billion in losses.  <br />
                     Faced with the Damocles sword hanging over everyone's head, who will be there to protect our security?<br />
-                    Artela & Goplus provide a new solution: An on-chain risk control module that can identifies rug-pull transactions and block them in real-time.
+                    Artela & Goplus provide a new solution: An on-chain risk control module that can identifies rug-pull transactions and block them in real time.
                 </div>
                 <div className='mt-14' style={{fontSize:'24px',color:'white'}}>
                 Come and experience the cutting-edge security technology of Web3!<br/>
                 Become a pioneer in on-chain risk control, and gain your rewards!
                 </div>
             </div>
-            <div className='head_title'>
+            <div className='head_title' style={{marginTop:'100px'}}>
                 Connect Artela Testnet & Claim test tokens
-            </div>
+            </div> 
             <div className='my_card'>
                 <div style={{ marginLeft: '55px' }} className='claim_box'>
-                    <div className='subTitle'>Step1: Connect to Artela Testnet</div>
+                    <div className='subTitle'>Step1: Connect to Artela Testnet<br/> <text style={{color:'gray ',fontSize:'16px'}}>please use Metamask Wallet to finish these tasks.</text></div>
                     <AccountWallet />
                     <div className='subTitle'>Step2: Claim test tokens</div>
                     {

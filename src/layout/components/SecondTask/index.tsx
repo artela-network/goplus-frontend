@@ -12,11 +12,12 @@ import SuccessCover from '../Common/SuccessCover'
 interface PropsType {
   getTaskList: () => void;
   taskInfo: TaskInfo;
+  preTaskState: number;
 }
-const SecondTask = ({ taskInfo, getTaskList }: PropsType) => {
+const SecondTask = ({ taskInfo, getTaskList, preTaskState }: PropsType) => {
   const footerWords = <div>
     {
-      `That's how typically rug-pull happens, malicious smart contracts instantly increase a huge amount of token supply for him own, and then swap out your valuable assets.`
+      `That's how typically a rug-pull attack unfolds: Malicious smart contracts owners instantly increase a huge amount of token supply for themselves, and then swap out your valuable assets.`
     }
   </div>
   const buttonStyle = {
@@ -63,7 +64,7 @@ const SecondTask = ({ taskInfo, getTaskList }: PropsType) => {
       setLoading(false)
       setSupplyWords('Total supply: 1 Billion -> 99 Billion')
       setFromVal('99 Billion')
-      setToVal('1 Billion')
+      setToVal('990')
     }
 
   }
@@ -117,7 +118,9 @@ const SecondTask = ({ taskInfo, getTaskList }: PropsType) => {
       <TaskBox taskStatus={taskStatus} footer={footerWords}>
         <div className="task_guide">
           <div className='subTitle'>Step1: Click to increase 99 Billion RUG token supply for you! </div>
-          <Button loading={loading} disabled={taskStatus == 1 || taskStatus == 3} style={taskStatus == 0 || taskStatus == 4 ? buttonStyle : buttonDisabledStyle} type="primary" onClick={inreaseRUG}> Increase </Button>
+          <Button loading={loading} disabled={preTaskState == 0 || preTaskState == 4 || taskStatus == 1 || taskStatus == 3}
+            style={(preTaskState == 2 || preTaskState == 3) && (taskStatus == 0 || taskStatus == 4) ? buttonStyle : buttonDisabledStyle}
+            type="primary" onClick={inreaseRUG}> Increase </Button>
           <div className='subDescribe'>{supplyWords} </div>
           <div className='subTitle mt-20'>Step2: Use the newly added 99 Billion RUG token to swap for ART tokens in the pool.</div>
           <div className='subDescribe'>Click swap button to sell all Rug 👉</div>

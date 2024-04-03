@@ -19,6 +19,7 @@ import { Spin } from 'antd'
 interface Props {
   taskInfo: TaskInfo;
   getTaskList: () => void;
+  preTaskState:number;
 }
 const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
   const { account } = useActiveWeb3React()
@@ -83,7 +84,7 @@ const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
     }
   }, [taskInfo])
   return (
-    <>
+    <div>
       <div className="head_title">
         Task 1: &nbsp;Provide Liquidity for a Meme token called RUG 
       </div>
@@ -136,7 +137,7 @@ const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
           <div style={{ textAlign: 'center', width: '100%', fontSize: '16px',marginTop:'10px' }}>©Power by <a href='https://www.ramenswap.xyz/' target='blank'> Ramenswap</a></div>
         </div>
       </TaskBox>
-    </>
+    </div>
   )
 }
 export default FirstTask
