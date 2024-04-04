@@ -13,6 +13,9 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from 'antd'
 import { TaskInfo } from '../../utils/campaignClient'
 import CustomModal from "../components/Common/Model"
+import goplusPic from '../../assets/footer/goplus.png'
+import artelaPic from '../../assets/footer/badge.png'
+
 export default function Activity() {
   const { account } = useActiveWeb3React()
   const [loading, setLoading] = useState(false)
@@ -159,33 +162,53 @@ export default function Activity() {
       return (
         <div className="footerContainer">
           <div className="footerText">
-            Thanks for your participation! You have finished all your tasks!
+            🎉🎉You have finished all your tasks!
           </div>
           <div className="footerText">
             Claim your rewards here and stay tuned!
           </div>
-          <div className="footerText">
-            <a target='blank' href="https://SecWareX.io/">
-              Claim your energy blocks.
-            </a>
-            <br />
-            <text style={{ fontSize: '24px' }}>
-              <text style={{ color: 'gray' }}>
-                If the task status of SecWareX stays unfinished, please press here.&nbsp;
-                <a onClick={syncState} className='footerLink' style={{ cursor: 'pointer' }}>
-                  Synchronize the status.
-                </a>
-              </text>
-            </text>
+          <div className="claim_rewords">
+            <div className='rewords_box'>
+              <div style={{ fontSize: '26px' }}>SecWareX Block Energy</div>
+              <div className='img_box'>
+                <img src={goplusPic}></img>
+              </div>
+              <div className='rewords_footer'>
+                <Button type='primary'>
+                  <a target='blank' href="https://SecWareX.io/">
+                    Go to SecWareX
+                  </a>
+                </Button>
+              </div>
+
+            </div>
+            <div className="rewords_box">
+              <div style={{ fontSize: '26px' }}>Artela Security Guardian</div>
+              <div className='img_box'>
+                <img src={artelaPic}></img>
+              </div>
+              <div className='rewords_footer'>
+                <Button type='primary'>
+                  <a target='blank' href="https://SecWareX.io/">
+                    Claim in Galex
+                  </a>
+                </Button>
+              </div>
+
+            </div>
           </div>
-          <div className="footerText">
-            <a target='blank' href="https://SecWareX.io/">
-              Claim your Artela Security guardian Badge.
-            </a>
-          </div>
-          <div className="footerText">
+          <div className="footerText" style={{ fontSize: '28px' }}>
             Wishing you a smooth, safe, and prosperous journey in Web3!
           </div>
+          <text style={{ fontSize: '22px', textAlign: 'center' }}>
+            <text>
+              ❓If the task status of SecWareX stays unfinished, please press to&nbsp;
+              <a onClick={syncState} className='footerLink' style={{ cursor: 'pointer' }}>
+                Synchronize task status
+              </a> manually.
+            </text>
+          </text>
+
         </div>
       )
     } else {

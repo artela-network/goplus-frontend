@@ -14,6 +14,7 @@ import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
 import { Spin } from 'antd';
 import goPulusIcon from '../../../assets/icon/goplus.png';
 import artelaIcon from '../../../assets/icon/artela.png'
+import connectIcon from '../../../assets/icon/connect.svg'
 interface IntroduceProps {
     getTaskList: () => void;
     taskInfo?: TaskInfo;
@@ -86,29 +87,31 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                     <text>
                         Experience on-chain security against Rug Pull in AMM Swap<br />
                     </text>
-                    <div className="icon-container">Powered by:
+                    <div className="icon-container">
                         <img src={goPulusIcon} ></img>
-                        <img style={{ height: '45px' }} src={artelaIcon} ></img>
+                        <img className='icon_connect' src={connectIcon} ></img>
+                        <img style={{ height: '30px' }} src={artelaIcon} ></img>
                     </div>
                 </div>
             </div>
             <div className='introduce_text mt-14'>
+                <div className='' style={{ fontSize: '24px', color: 'white' }}>
+                    Come and experience the cutting-edge security technology of Web3!<br />
+                    Become a pioneer in on-chain risk control, and gain your rewards!🎁🎁🎁
+                </div>
                 <div>
                     According to CipherTrace, rug pulls accounted for 99% of all crypto frauds in 2023, totaling $2.1 billion in losses.  <br />
                     Faced with the Damocles sword hanging over everyone's head, who will be there to protect our security?<br />
                     Artela & Goplus provide a new solution: An on-chain risk control module that can identifies rug-pull transactions and block them in real time.
                 </div>
-                <div className='mt-14' style={{fontSize:'24px',color:'white'}}>
-                Come and experience the cutting-edge security technology of Web3!<br/>
-                Become a pioneer in on-chain risk control, and gain your rewards!
-                </div>
+
             </div>
-            <div className='head_title' style={{marginTop:'100px'}}>
+            <div className='head_title' style={{ marginTop: '100px' }}>
                 Connect Artela Testnet & Claim test tokens
-            </div> 
+            </div>
             <div className='my_card'>
                 <div className='claim_box'>
-                    <div className='subTitle'>Step1: Connect to Artela Testnet<br/> <text style={{color:'gray ',fontSize:'16px'}}>please use Metamask Wallet to finish these tasks.</text></div>
+                    <div className='subTitle'>Step1: Connect to Artela Testnet<br /> <text style={{ color: 'gray ', fontSize: '16px' }}>please use Metamask Wallet to finish these tasks.</text></div>
                     <AccountWallet />
                     <div className='subTitle'>Step2: Claim test tokens</div>
                     {

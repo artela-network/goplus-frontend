@@ -2,11 +2,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 65px;
+    gap: 15px;
 }
-
+.icon-container .icon_connect {
+    height: 22px;
+}
 .icon-container img {
-    height: 50px;
+    height: 36px;
 }
 
 .introduce {

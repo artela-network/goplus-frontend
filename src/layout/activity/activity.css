@@ -87,7 +87,7 @@
 .footerContainer {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   width: 1200px;
   max-width: 1200px;
   margin-top: 125px;
@@ -96,11 +96,40 @@
 .footerText {
   font-size: 38px;
   max-width: 1200px;
+  text-align: center;
 }
-
+.claim_rewords{
+  display: flex;
+  flex-direction: row;
+  gap: 65px;
+  justify-content: center;
+  margin: 25px 0;
+}
+.rewords_box{
+  border: 2px solid gray;
+  border-radius: 15px;
+  padding: 20px 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap:25px;
+}
+.rewords_footer {
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+}
+.claim_rewords .img_box{
+  display: flex;
+  justify-content: center;
+}
+.claim_rewords .img_box img{
+  height: 100px;
+}
 .footerLink {
   text-decoration: underline;
-  color: gray;
+  color: #059AD2;
+  text-align: center;
 }
 
 /* 媒体查询适配最大宽度为350px的屏幕 */
