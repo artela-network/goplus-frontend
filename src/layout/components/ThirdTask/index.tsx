@@ -83,7 +83,7 @@ const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
                     setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
                 } else if (newTaskStatus === 3) {
                     getTaskList()
-                    handleOpenModal()
+                    // handleOpenModal()
                 }
             }
         }
@@ -122,16 +122,21 @@ const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
                                         {`${formatAddress(txHash)}`}
                                     </ExternalLink>
                                     <div style={{ marginTop: '10px' }}>
-                                        Status: The rug-pull transaction has been reverted by Anti-rug Aspect.
+                                        Status: Reverted by Aspect.
                                     </div>
                                 </div></>
                         ) : (
                             ''
                         )) : taskStatus == 1 || taskStatus == 2 ? <div className='subTitle mt-20'><Spin /></div> : ''
                     }
+                    {
+                        taskStatus == 3 && <>
+                            🎉The real rug-pull transaction has been reverted by Aspect!
+                        </>
+                    }
                 </div>
-                <div className="task_swap">
-                    {taskStatus == 3 && <img src={galxe} />}
+                <div className="task_swap" >
+                    <img src={galxe} style={{borderRadius:'35px'}}/>
                 </div>
             </TaskBox>
         </>
