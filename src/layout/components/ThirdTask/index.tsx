@@ -99,7 +99,7 @@ const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
         <>
             <CustomModal isOpen={isModalOpen} onClose={handleCloseModal} >
                 <p style={{ fontSize: '18px' }}>
-                    🎉The real rug-pull transaction has been reverted by Aspect!
+                    🎉&nbsp;The real rug-pull transaction has been reverted by Aspect!
                 </p>
             </CustomModal>
             <div className='head_title'>
@@ -131,7 +131,7 @@ const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
                     }
                     {
                         taskStatus == 3 && <>
-                            🎉The real rug-pull transaction has been reverted by Aspect!
+                            🎉&nbsp;The real rug-pull transaction has been reverted by Aspect!
                         </>
                     }
                 </div>
