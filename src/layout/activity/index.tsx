@@ -162,7 +162,7 @@ export default function Activity() {
       return (
         <div className="footerContainer">
           <div className="footerText">
-            🎉🎉You have finished all your tasks!
+            🎉🎉&nbsp;You have finished all your tasks!
           </div>
           <div className="footerText">
             Claim your rewards here and stay tuned!
@@ -189,7 +189,7 @@ export default function Activity() {
               </div>
               <div className='rewords_footer'>
                 <Button type='primary'>
-                  <a target='blank' href="https://SecWareX.io/">
+                  <a target='blank' href="https://app.galxe.com/quest/Artela/GCEZwthhTx/">
                     Claim in Galex
                   </a>
                 </Button>
@@ -198,7 +198,7 @@ export default function Activity() {
             </div>
           </div>
           <div className="footerText" style={{ fontSize: '28px' }}>
-            Wishing you a smooth, safe, and prosperous journey in Web3!
+            Wish you a smooth, safe, and prosperous journey in Web3!
           </div>
           <text style={{ fontSize: '22px', textAlign: 'center' }}>
             <text>
