@@ -11,7 +11,7 @@ import AccountDetails from '../AccountDetails'
 import PendingView from './PendingView'
 import Option from './Option'
 import { SUPPORTED_WALLETS, TEST_NET_CONFIG } from '../../constants'
-import { ExternalLink } from '../../theme'
+import { ExternalLink, colors } from '../../theme'
 import MetamaskIcon from '../../assets/images/metamask.png'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import { injected, fortmatic, portis } from '../../connectors'
@@ -240,6 +240,7 @@ export default function WalletModal({
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
     return Object.keys(SUPPORTED_WALLETS).map(key => {
       const option = SUPPORTED_WALLETS[key]
+      console.log(isMobile,'***',window.web3,'------',window.ethereum,'+++++',option.mobile)
       // check for mobile options
       if (isMobile) {
         //disable portis on mobile for now
@@ -247,7 +248,8 @@ export default function WalletModal({
           return null
         }
 
-        if (!window.web3 && !window.ethereum && option.mobile) {
+        // if (!window.web3 && !window.ethereum && option.mobile) {
+        if (1) {
           return (
             <Option
               onClick={() => {
@@ -381,7 +383,7 @@ export default function WalletModal({
               tryActivation={tryActivation}
             />
           ) : (
-            <OptionGrid>{getOptions()}</OptionGrid>
+            <OptionGrid>{getOptions()}</OptionGrid>            
           )}
           {walletView !== WALLET_VIEWS.PENDING && (
             <Blurb>

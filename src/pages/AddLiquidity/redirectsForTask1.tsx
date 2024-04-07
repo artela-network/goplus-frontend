@@ -11,7 +11,7 @@ const RedirectDuplicateTokenIds: React.FC<RedirectDuplicateTokenIdsProps> = ({ c
     return <Redirect to={`/add/${currencyIdA}`} />;
   }
   return (
-    <div style={{margin:'auto',width:'80%'}}>
+    <div style={{display:'flex',justifyContent:'center'}}>
       <AddLiquidity currencyIdA={currencyIdA} currencyIdB={currencyIdB} updateTaskStatus={updateTaskStatus} />
     </div>
   );

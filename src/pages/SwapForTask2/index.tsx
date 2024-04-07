@@ -104,7 +104,7 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
         {
           taskStatus == 0 || taskStatus == 1 || taskStatus == 2 || taskStatus == 5 ? (
             <>
-              <div style={{ textAlign: 'center', marginBottom: '10px' }}>兑换</div>
+              <div style={{ textAlign: 'center', marginBottom: '10px' }}>Swap</div>
               <Wrapper id="swap-page">
                 <AutoColumn gap={'md'}>
                   <CurrencyInputPanel

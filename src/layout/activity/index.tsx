@@ -158,7 +158,7 @@ export default function Activity() {
     }
   }
   const Footer = () => {
-    if (taskStatus === 3) {
+    if (taskStatus !== 3) {
       return (
         <div className="footerContainer">
           <div className="footerText">
@@ -197,10 +197,10 @@ export default function Activity() {
 
             </div>
           </div>
-          <div className="footerText" style={{ fontSize: '28px' }}>
+          <div className="footerText">
             Wish you a smooth, safe, and prosperous journey in Web3!
           </div>
-          <text style={{ fontSize: '22px', textAlign: 'center' }}>
+          <text className='footer_issue'>
             <text>
               ❓If the task status of SecWareX stays unfinished, please press to&nbsp;
               <a onClick={syncState} className='footerLink' style={{ cursor: 'pointer' }}>
