@@ -144,7 +144,7 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
           ) :
             (
               <div className='task2_box'>
-                <div style={{color:'white',fontSize:'28px',marginTop:'15px'}}>Aha, as a contract owner, You make 990 ART token by Rug Pull! Not bad. </div>
+                <div style={{color:'white',fontSize:'28px',marginTop:'15px'}}>Aha, as a contract owner, You make 990 ART token by Rug Pull! 👺Not bad. </div>
                 <div style={{margin:'25px 0'}}>Let’s see how it comes.</div>
                 <div style={{ fontSize: '24px' }}> Liquidity before Rug:</div>
                 <ul style={{ fontSize: '20px', marginTop: '10px' }}>

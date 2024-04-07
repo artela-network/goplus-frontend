@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Video from "../Common/RugPullVideo"
 import TaskBox from "../Common/TaskBox";
 import { ChainId } from 'artswap'
-import { Button, Spin } from "antd";
+import { Button } from "antd";
+import Loading from "../Common/Loading"
 import { TaskInfo } from '../../../utils/campaignClient'
 import { updateTask, getTaskListByAccount } from '../../../api/activity'
 import { useActiveWeb3React } from '../../../hooks'
@@ -127,7 +128,7 @@ const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
                                 </div></>
                         ) : (
                             ''
-                        )) : taskStatus == 1 || taskStatus == 2 ? <div className='subTitle mt-20'><Spin /></div> : ''
+                        )) : taskStatus == 1 || taskStatus == 2 ? <div className='subTitle mt-20'><Loading /></div> : ''
                     }
                     {
                         taskStatus == 3 && <>

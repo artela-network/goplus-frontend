@@ -240,16 +240,15 @@ export default function WalletModal({
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
     return Object.keys(SUPPORTED_WALLETS).map(key => {
       const option = SUPPORTED_WALLETS[key]
-      console.log(isMobile,'***',window.web3,'------',window.ethereum,'+++++',option.mobile)
+      console.log(isMobile, '***', window.web3, '------', window.ethereum, '+++++', option.mobile)
       // check for mobile options
       if (isMobile) {
         //disable portis on mobile for now
         if (option.connector === portis) {
           return null
         }
-
-        // if (!window.web3 && !window.ethereum && option.mobile) {
-        if (1) {
+        if (!window.web3 && !window.ethereum && option.mobile) {
+          // if (1) {
           return (
             <Option
               onClick={() => {
@@ -330,7 +329,7 @@ export default function WalletModal({
           <CloseIcon onClick={toggleWalletModal}>
             <CloseColor />
           </CloseIcon>
-          <HeaderRow style={{color:'white'}}>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
+          <HeaderRow style={{ color: 'white' }}>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
           <ContentWrapper >
             {error instanceof UnsupportedChainIdError ? (
               <h5 >please use Metamask Wallet to finish these tasks.</h5>
@@ -359,7 +358,7 @@ export default function WalletModal({
           <CloseColor />
         </CloseIcon>
         {walletView !== WALLET_VIEWS.ACCOUNT ? (
-          <HeaderRow style={{color:'white'}}>
+          <HeaderRow style={{ color: 'white' }}>
             <HoverText
               onClick={() => {
                 setPendingError(false)
@@ -371,7 +370,7 @@ export default function WalletModal({
           </HeaderRow>
         ) : (
           <HeaderRow>
-            <HoverText style={{color:'white'}}>Connect to a wallet</HoverText>
+            <HoverText style={{ color: 'white' }}>Connect to a wallet</HoverText>
           </HeaderRow>
         )}
         <ContentWrapper>
@@ -383,11 +382,11 @@ export default function WalletModal({
               tryActivation={tryActivation}
             />
           ) : (
-            <OptionGrid>{getOptions()}</OptionGrid>            
+            <OptionGrid>{getOptions()}</OptionGrid>
           )}
           {walletView !== WALLET_VIEWS.PENDING && (
             <Blurb>
-              <span style={{color:'white'}}>New to Ethereum? &nbsp;</span>{' '}
+              <span style={{ color: 'white' }}>New to Ethereum? &nbsp;</span>{' '}
               <ExternalLink href="https://ethereum.org/wallets/">Learn more about wallets</ExternalLink>
             </Blurb>
           )}
