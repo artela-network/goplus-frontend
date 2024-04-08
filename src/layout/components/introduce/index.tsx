@@ -15,6 +15,8 @@ import Loading from "../Common/Loading"
 import goPulusIcon from '../../../assets/icon/goplus.png';
 import artelaIcon from '../../../assets/icon/artela.png'
 import connectIcon from '../../../assets/icon/connect.svg'
+import { isMobile } from 'react-device-detect'
+import CryptoFraudSummary from '../Common/CryptoFraudInfo';
 interface IntroduceProps {
     getTaskList: () => void;
     taskInfo?: TaskInfo;
@@ -95,15 +97,18 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                 </div>
             </div>
             <div className='introduce_text mt-14'>
-                <div className='' style={{ fontSize: '24px', color: 'white',paddingBottom:'20px' }}>
+                <div className='' style={{ fontSize: '24px', color: 'white', paddingBottom: '20px' }}>
                     Come and experience the cutting-edge security technology of Web3!<br />
                     Become a pioneer in on-chain risk control, and gain your rewards!&nbsp; 🎁🎁🎁
                 </div>
-                <div>
-                    According to CipherTrace, rug pulls accounted for 99% of all crypto frauds in 2023, totaling $2.1 billion in losses.  <br />
-                    Faced with the Damocles sword hanging over everyone's head, who will be there to protect our security?<br />
-                    Artela & Goplus provide a new solution: An on-chain risk control module that can identifies rug-pull transactions and block them in real time.
-                </div>
+                {
+                    isMobile ? <CryptoFraudSummary /> : <div>
+                        According to CipherTrace, rug pulls accounted for 99% of all crypto frauds in 2023, totaling $2.1 billion in losses.  <br />
+                        Faced with the Damocles sword hanging over everyone's head, who will be there to protect our security?<br />
+                        Artela & Goplus provide a new solution: An on-chain risk control module that can identifies rug-pull transactions and block them in real time.
+                    </div>
+                }
+
             </div>
             <div className='head_title' style={{ marginTop: '60px' }}>
                 Connect Artela Testnet & Claim test tokens

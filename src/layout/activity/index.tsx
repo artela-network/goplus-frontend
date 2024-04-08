@@ -71,9 +71,11 @@ export default function Activity() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNewTaskModalOpen, setIsNewTaskModalOpen] = useState(false);
   const [newTaskError, setNewTaskError] = useState('')
+  const [modalTitle, setModalTitle] = useState('')
 
   const handleOpenNewTaskModal = () => {
     setIsNewTaskModalOpen(true);
+    setModalTitle('Error')
   };
 
   const handleCloseNewTaskModal = () => {
@@ -167,7 +169,19 @@ export default function Activity() {
   const syncState = async () => {
     if (account) {
       if (Array.isArray(taskInfos) && taskInfos.length > 0)
-        var res = syncTask(account, taskInfos[0].taskId)
+        var res = await syncTask(account, taskInfos[0].taskId)
+      if (res.success) {
+        setIsNewTaskModalOpen(true);
+        setModalTitle('Success')
+        setNewTaskError('Success to sync status to GoPlus.')
+
+      } else {
+        setIsNewTaskModalOpen(true);
+        setModalTitle('Error')
+        // setNewTaskError(res.error)
+        setNewTaskError('Failed to sync status to goplus! Sync task have been completed!')
+
+      }
     }
   }
   const Footer = () => {
@@ -182,7 +196,7 @@ export default function Activity() {
           </div>
           <div className="claim_rewords">
             <div className='rewords_box'>
-              <div style={{ fontSize: '26px' }}>SecWareX Block Energy</div>
+              <div style={{ fontSize: '26px' }}>Block Energy SecWareX</div>
               <div className='img_box'>
                 <img src={goplusPic}></img>
               </div>
@@ -236,7 +250,7 @@ export default function Activity() {
         </p>
       </CustomModal>
       <CustomModal isOpen={isNewTaskModalOpen} onClose={handleCloseNewTaskModal} >
-        <h3 style={{ width: '100%', textAlign: 'center', color: 'white', fontSize: '24px' }}>Error</h3>
+        <h3 style={{ width: '100%', textAlign: 'center', color: 'white', fontSize: '24px' }}>{modalTitle}</h3>
         <p style={{ fontSize: '18px' }}>
           {newTaskError}
         </p>
