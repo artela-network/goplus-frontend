@@ -94,7 +94,7 @@
 }
 
 .footerText {
-  font-size: 38px;
+  font-size: 28px;
   max-width: 1200px;
   text-align: center;
 }
@@ -104,6 +104,17 @@
   gap: 65px;
   justify-content: center;
   margin: 25px 0;
+}
+@media screen and (max-width: 960px) {
+ .claim_rewords{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
+ .rewords_box{
+  text-align: center;
+ }
 }
 .rewords_box{
   border: 2px solid gray;
@@ -131,6 +142,11 @@
   color: #059AD2;
   text-align: center;
 }
+.footer_issue{
+  margin-top: 15px;
+  font-size: 22px;
+  text-align: center;
+}
 
 /* 媒体查询适配最大宽度为350px的屏幕 */
 @media (max-width: 960px) {
@@ -142,10 +158,14 @@
   }
 
   .footerText {
-      font-size: 18px; /* 减小字体大小以适应屏幕 */
+      font-size: 22px; /* 减小字体大小以适应屏幕 */
   }
-
-  .footerLink, .footerText a {
-      font-size: 16px; /* 适应小屏幕的链接字体大小 */
+  .footer_issue{
+    margin-top: 15px;
+    font-size: 16px;
+    text-align: center;
   }
+}
+.custom-class{
+  color: white;
 }

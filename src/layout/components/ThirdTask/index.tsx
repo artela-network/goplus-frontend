@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Video from "../Common/RugPullVideo"
 import TaskBox from "../Common/TaskBox";
 import { ChainId } from 'artswap'
-import { Button, Spin } from "antd";
+import { Button } from "antd";
+import Loading from "../Common/Loading"
 import { TaskInfo } from '../../../utils/campaignClient'
 import { updateTask, getTaskListByAccount } from '../../../api/activity'
 import { useActiveWeb3React } from '../../../hooks'
@@ -110,9 +111,10 @@ const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
                     <div className='subTitle'>
                         Step1: Click 👇 button to send a real Rug-pull transaction
                     </div>
-                    <Button disabled={preTaskState != 0 && preTaskState != 4 && taskStatus !== 0}
-                        style={taskStatus == 0 && (preTaskState == 2 || preTaskState == 3) ? buttonStyle : buttonDisabledStyle}
+                    <Button disabled={preTaskState != 0 && preTaskState != 4 && taskStatus !== 0 && taskStatus !== 4}
+                        style={(taskStatus == 0 || taskStatus == 4) && (preTaskState == 2 || preTaskState == 3) ? buttonStyle : buttonDisabledStyle}
                         loading={loading} type="primary" onClick={doRugPull}> Do Rug-pull</Button>
+                    {taskStatus == 4 && <text style={{fontSize:'18px',color:'red'}}><br /> Please try again!</text>}
                     {taskStatus !== 0 && <div className='subTitle'>Rug-pull transaction:</div>}
                     {taskStatus == 3 ?
                         (txHash ? (
@@ -127,7 +129,7 @@ const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
                                 </div></>
                         ) : (
                             ''
-                        )) : taskStatus == 1 || taskStatus == 2 ? <div className='subTitle mt-20'><Spin /></div> : ''
+                        )) : taskStatus == 1 || taskStatus == 2 ? <div className='subTitle mt-20'><Loading /></div> : ''
                     }
                     {
                         taskStatus == 3 && <>
@@ -136,7 +138,7 @@ const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
                     }
                 </div>
                 <div className="task_swap" >
-                    <img src={galxe} style={{borderRadius:'35px'}}/>
+                    <img src={galxe} style={{ borderRadius: '35px' }} />
                 </div>
             </TaskBox>
         </>

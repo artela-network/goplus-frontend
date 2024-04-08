@@ -14,7 +14,9 @@ import { AutoColumn } from '../../../components/Column'
 import { useCurrency } from '../../../hooks/Tokens'
 import { useDerivedMintInfo } from '../../../state/mint/hooks'
 import SuccessCover from '../Common/SuccessCover'
-import { Spin } from 'antd'
+import Loading from "../Common/Loading"
+import { failed, ongoing, finish } from '../Common/StatusIcon';
+
 
 interface Props {
   taskInfo: TaskInfo;
@@ -103,13 +105,14 @@ const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
                   <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, txHash, 'transaction')}>
                     {formatAddress(txHash)}
                   </ExternalLink>
+                  {taskStatus == 4 ? failed() : taskStatus == 3 ? finish() : taskStatus == 2 ? ongoing() : ''}
                 </li>
               </ul>
             </>
           ) : (
             null
           )}
-          {taskStatus == 1 || taskStatus == 2 ? <Spin /> :
+          {taskStatus == 1 || taskStatus == 2 ? <Loading /> :
             taskStatus == 3 ? (
               <div>
                 {/* <AutoColumn style={{ minWidth: '20rem', marginTop: '1rem', marginRight: '1rem' }}>

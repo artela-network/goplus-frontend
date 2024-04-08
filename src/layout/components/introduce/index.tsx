@@ -11,7 +11,7 @@ import { TaskInfo } from '../../../utils/campaignClient';
 import { Button } from 'antd';
 import { failed, ongoing, finish } from '../Common/StatusIcon';
 import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
-import { Spin } from 'antd';
+import Loading from "../Common/Loading"
 import goPulusIcon from '../../../assets/icon/goplus.png';
 import artelaIcon from '../../../assets/icon/artela.png'
 import connectIcon from '../../../assets/icon/connect.svg'
@@ -121,7 +121,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                     </div>
                     <div className='claim_res'>
                         {taskStatus !== 0 && taskStatus !== 5 && <div className='subTitle'>Claim transactions</div>}
-                        {taskStatus == 1 || taskStatus == 2 ? <Spin /> : taskInfo ? (taskInfo.txs && (<>
+                        {taskStatus == 1 || taskStatus == 2 ? <Loading /> : taskInfo ? (taskInfo.txs && (<>
                             <div className='subTitle'>
                                 <div className='subDescribe'>
                                     <div>
