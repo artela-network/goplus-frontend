@@ -10,11 +10,12 @@ import Explain from '../components/Explain/index'
 import { useActiveWeb3React } from '../../hooks'
 import { getTaskListByAccount, initTaskListByAccount, syncTask } from '../../api/activity'
 import ReCAPTCHA from "react-google-recaptcha";
-import { Button } from 'antd'
+import { Button, message } from 'antd'
 import { TaskInfo } from '../../utils/campaignClient'
 import CustomModal from "../components/Common/Model"
 import goplusPic from '../../assets/footer/goplus.png'
 import artelaPic from '../../assets/footer/badge.png'
+import { backgrounds } from 'polished'
 
 export default function Activity() {
   const { account } = useActiveWeb3React()
@@ -68,7 +69,16 @@ export default function Activity() {
   const location = useLocation()
   const intervalId = useRef<NodeJS.Timeout | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isNewTaskModalOpen, setIsNewTaskModalOpen] = useState(false);
+  const [newTaskError, setNewTaskError] = useState('')
 
+  const handleOpenNewTaskModal = () => {
+    setIsNewTaskModalOpen(true);
+  };
+
+  const handleCloseNewTaskModal = () => {
+    setIsNewTaskModalOpen(false);
+  };
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -123,6 +133,9 @@ export default function Activity() {
         setLoading(false)
         if (initRes.success) {
           getTaskList()
+        } else {
+          setNewTaskError(initRes.error)
+          handleOpenNewTaskModal()
         }
       } else {
         handleOpenModal()
@@ -158,7 +171,7 @@ export default function Activity() {
     }
   }
   const Footer = () => {
-    if (taskStatus !== 3) {
+    if (taskStatus === 3) {
       return (
         <div className="footerContainer">
           <div className="footerText">
@@ -197,10 +210,10 @@ export default function Activity() {
 
             </div>
           </div>
-          <div className="footerText">
+          <div className="footerText" style={{ fontSize: '28px' }}>
             Wish you a smooth, safe, and prosperous journey in Web3!
           </div>
-          <text className='footer_issue'>
+          <text style={{ fontSize: '22px', textAlign: 'center' }}>
             <text>
               ❓If the task status of SecWareX stays unfinished, please press to&nbsp;
               <a onClick={syncState} className='footerLink' style={{ cursor: 'pointer' }}>
@@ -220,6 +233,12 @@ export default function Activity() {
       <CustomModal isOpen={isModalOpen} onClose={handleCloseModal} >
         <p style={{ fontSize: '18px' }}>
           Welcome to our task! This task is co-hosted by Artela and SecWareX. Please enter the event page through the <a href="https://SecWareX.io/img-task/81553" target="_blank" rel="noopener noreferrer" style={{ color: '#4E9CAF' }}>correct entrance</a>. Let's make this event a success together!
+        </p>
+      </CustomModal>
+      <CustomModal isOpen={isNewTaskModalOpen} onClose={handleCloseNewTaskModal} >
+        <h3 style={{ width: '100%', textAlign: 'center', color: 'white', fontSize: '24px' }}>Error</h3>
+        <p style={{ fontSize: '18px' }}>
+          {newTaskError}
         </p>
       </CustomModal>
       <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} captcha={captcha()} initLoading={loading} />
