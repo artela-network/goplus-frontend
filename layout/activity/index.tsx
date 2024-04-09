@@ -139,6 +139,7 @@ export default function Activity() {
   };
   useEffect(() => {
     if (!account) {
+      setTaskInfos(initialTaskInfos)
       return
     }
     getTaskList()
