@@ -3,7 +3,7 @@ import { Spin } from 'antd';
 const Loading = () => {
     return (
         <div style={{fontSize:'24px'}}>
-            <Spin/> quenceing...
+            <Spin/> queuing...
         </div>
     );
 };
