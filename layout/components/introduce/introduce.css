@@ -1,0 +1,88 @@
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+.icon-container .icon_connect {
+    height: 22px;
+}
+.icon-container img {
+    height: 36px;
+}
+
+.introduce {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 1200px;
+}
+
+.error-message {
+    color: #D8000C;
+    /* 错误信息的文字颜色为深红色 */
+    padding: 10px 20px;
+    /* 内填充确保文本与边框有足够间距 */
+    margin: 10px 0;
+    /* 与其他元素的间距 */
+    width: auto;
+    /* 宽度自动，根据内容调整 */
+    display: inline-block;
+    /* 使其作为内联块元素显示 */
+    font-family: Arial, sans-serif;
+    /* 字体 */
+    font-size: 14px;
+    /* 字体大小 */
+    text-align: center;
+    /* 文本居中对齐 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* 添加轻微的阴影，增加层次感 */
+}
+
+.bkimg {
+    margin-top: 100px;
+    background-image: url('https://framerusercontent.com/images/psUNd1YkdgM7aJ8yZzb55obuug.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    border-radius: 20px;
+}
+
+.img_container {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: #000000b3;
+    gap: 25px;
+}
+
+.introduce_text {
+    color: rgb(152, 160, 179);
+    display: flex;
+    flex-direction: column;
+    margin: 0 45px;
+    font-size: 20px;
+    justify-content: center;
+    line-height: 35px;
+}
+
+.claim_box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-around;
+    align-items: start;
+    margin-left: 55px;
+}
+
+.account_wallet {
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,47 @@
+@media screen and (max-width: 960px) {
+    .introduce {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        max-width: 350px;
+    }
+
+    .icon-container {
+        display: flex;
+        flex-direction: column;
+        padding: 15px 5px;
+    }
+
+    .my_card {
+        width: 100%;
+        align-content: center;
+        align-items: center;
+        background: radial-gradient(48.1% 69.39999999999999% at 49.3% 0%, #1a203d 0%, rgb(6, 15, 23) 100%);
+        border-radius: 28px;
+        display: flex;
+        flex: none;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 60px;
+        justify-content: center;
+        overflow: visible;
+        padding: 60px;
+        position: sticky;
+        z-index: 2;
+        border: 1px solid rgba(255, 255, 255, .1);
+    }
+    .claim_box {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .introduce_text {
+        color: rgb(152, 160, 179);
+        display: flex;
+        flex-direction: column;
+        margin: 0 45px;
+        font-size: 16px;
+        justify-content: center;
+        line-height: 35px;
+    }
+}
