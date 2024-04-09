@@ -56,6 +56,7 @@ const updateTask = async (account: string, id: number, taskStatus: string, txs?:
         })
     })
     const data = await response.json();
+    console.log(data)
     return data;
 }
 export { getTaskListByAccount, initTaskListByAccount, updateTask, syncTask };
