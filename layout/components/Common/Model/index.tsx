@@ -30,7 +30,7 @@ const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose, children }) 
         backgroundColor: '#333', // 暗色背景
         color: '#fff', // 文字用亮色以便于阅读
         margin: 'auto',
-        padding: '20px',
+        padding: '5px 20px',
         border: '1px solid #555', // 暗色边框
         width: '50%', // 根据需求调整宽度
         maxWidth: '600px', // 避免在大屏幕上过宽
@@ -39,14 +39,18 @@ const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose, children }) 
         <div>
           {children}
         </div>
-        <button onClick={onClose} style={{
-          backgroundColor: '#555', // 按钮暗色背景
-          color: '#fff', // 按钮亮色文字
-          padding: '10px 20px', // 按钮内边距
-          border: 'none', // 去除边框
-          cursor: 'pointer', // 鼠标指针形状
-          borderRadius: '5px', // 可选：按钮圆角
-        }}>Close</button>
+        <div style={{display:'flex',justifyContent:'end',marginBottom:'10px'}}>
+          <button onClick={onClose} style={{
+            backgroundColor: '#555', // 按钮暗色背景
+            color: '#fff', // 按钮亮色文字
+            padding: '10px 20px', // 按钮内边距
+            border: 'none', // 去除边框
+            cursor: 'pointer', // 鼠标指针形状
+            borderRadius: '5px', // 
+            marginLeft: 'auto'
+          }}>Close</button>
+        </div>
+
       </div>
     </div>
   );

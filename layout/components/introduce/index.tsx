@@ -104,7 +104,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                     isMobile ? <CryptoFraudSummary /> : <div>
                         According to CipherTrace, rug pulls accounted for 99% of all crypto frauds in 2023, totaling $2.1 billion in losses.  <br />
                         Faced with the Damocles sword hanging over everyone's head, who will be there to protect our security?<br />
-                        Artela & Goplus provide a new solution: An on-chain risk control module that can identifies rug-pull transactions and block them in real time.
+                        Artela & GoPlus provide a new solution: An on-chain risk control module that can identifies rug-pull transactions and block them in real time.
                     </div>
                 }
 
