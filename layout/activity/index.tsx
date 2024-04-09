@@ -205,7 +205,7 @@ export default function Activity() {
 
             </div>
             <div className="rewords_box">
-              <div style={{ fontSize: '26px' }}>Artela Security Guardian</div>
+              <div style={{ fontSize: '26px' }}>Artela Security Guardian OAT</div>
               <div className='img_box'>
                 <Image height={100} alt='artLogo' src={artelaPic}></Image>
               </div>
