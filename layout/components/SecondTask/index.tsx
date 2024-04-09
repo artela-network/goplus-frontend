@@ -114,7 +114,7 @@ const SecondTask = ({ taskInfo, getTaskList, preTaskState }: PropsType) => {
   return (
     <>
       <div className="head_title">
-        Task 2: &nbsp;Let’s say you own RUG token contract, now Rug Pull!
+        Task 2: &nbsp;Let's say you own RUG token contract, now Rug Pull!
       </div>
       <TaskBox taskStatus={taskStatus} footer={footerWords}>
         <div className="task_guide">

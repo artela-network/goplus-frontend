@@ -85,7 +85,7 @@ export default function AddLiquidity({ taskStatus, addLiquidity, swapLoading, di
                             <div className={styles.dtBQMW}>
                                 <div className={styles.QEkkJ}>
                                     <div className={styles.kfahSF}>
-                                        <div className={styles.css_1kt4f20}>998010</div>
+                                        <div className={styles.css_1kt4f20}>998009</div>
                                         <div className={styles.css_1ayx7yo}>RUG per ART</div>
                                     </div>
                                     <div className={styles.kfahSF}>
