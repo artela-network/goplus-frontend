@@ -143,6 +143,7 @@ export default function Activity() {
     }
     getTaskList()
     setIsCaptchaShow(false)
+    console.log("change account")
   }, [account])
 
   const captcha = () => {

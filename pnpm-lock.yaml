@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@ethersproject/bignumber':
+    specifier: ^5.7.0
+    version: 5.7.0
   '@rainbow-me/rainbowkit':
     specifier: ^2.0.5
     version: 2.0.5(@types/react@18.2.74)(react-dom@18.2.0)(react@18.2.0)(viem@2.9.13)(wagmi@2.5.19)

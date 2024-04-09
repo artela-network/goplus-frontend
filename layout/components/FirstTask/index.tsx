@@ -4,7 +4,6 @@ import { ExternalLink } from '../Common/ExternalLink'
 import { ChainId } from 'artswap'
 import { TaskInfo } from '../../../utils/campaignClient'
 import TaskBox from '../Common/TaskBox'
-import RedirectDuplicateTokenIds from './addLiquidity'
 
 import { getTaskListByAccount, updateTask } from '../../../api/index'
 import SuccessCover from '../Common/SuccessCover'
@@ -23,12 +22,12 @@ interface Props {
   getTaskList: () => void;
   preTaskState: number;
 }
-const FirstTask = ({ taskInfo, getTaskList }: Props) => {
+const FirstTask = ({ taskInfo, getTaskList, preTaskState }: Props) => {
   const { address: account, isConnected } = useAccount();
   const [taskStatus, setTaskStatus] = useState(0)
   const [txHash, setTxHash] = useState(taskInfo.txs)
 
-  const { data: hash , isPending,  writeContractAsync } = useWriteContract()
+  const { data: hash, isPending, writeContractAsync } = useWriteContract()
 
   const tokenAddress = '0xb8D2C890F1c3412dbFa992D03a4a36BbAF6B58D7'
 
@@ -38,6 +37,7 @@ const FirstTask = ({ taskInfo, getTaskList }: Props) => {
 
   const addLiquidity = useCallback(() => {
     console.log(account)
+    console.log(taskInfo)
     if (!account) {
       console.log('account not connected')
       return
@@ -58,18 +58,21 @@ const FirstTask = ({ taskInfo, getTaskList }: Props) => {
       ],
       value: BigNumber.from('1000000000000000000').toBigInt(),
       gas: BigNumber.from('4000000').toBigInt(),
-    }).then(console.log).catch(console.error)
-  }, [account, writeContractAsync])
-
-  useEffect(() => {
-    console.log('hash', hash)
-    console.log('isPending', isPending)
-    if (isPending && hash) {
-      // only trigger this when the transaction is pending and hash changed
-      console.log(`update task 1 status with hash: ${hash}`)
-      updateTaskStatus(hash, '').catch(console.error)
+    }).then((txs) => {
+      updateTaskStatus(txs, '1,998009')
     }
-  }, [isPending, hash])
+    ).catch(console.error)
+  }, [account, writeContractAsync,taskInfo])
+
+  // useEffect(() => {
+  //   console.log('hash', hash)
+  //   console.log('isPending', isPending)
+  //   if (isPending && hash) {
+  //     // only trigger this when the transaction is pending and hash changed
+  //     console.log(`update task 1 status with hash: ${hash}`)
+  //     updateTaskStatus(hash, '').catch(console.error)
+  //   }
+  // }, [isPending, hash])
 
   const formatAddress = (address: string | undefined | null): string => {
     if (!address) {
@@ -113,6 +116,8 @@ const FirstTask = ({ taskInfo, getTaskList }: Props) => {
   };
   useEffect(() => {
     if (taskInfo) {
+      console.log(taskInfo, '****-----****')
+
       setTaskStatus(taskInfo.taskStatus)
       setTxHash(taskInfo.txs)
     }
@@ -160,9 +165,9 @@ const FirstTask = ({ taskInfo, getTaskList }: Props) => {
         <div className="task_swap">
           <div style={{ position: 'relative' }}>
             {taskStatus == 3 && <SuccessCover />}
-            <AddLiquidity taskStatus={taskStatus} addLiquidity={addLiquidity} fromVal={'0'} toVal={'0'} swapLoading={isPending} disabled={taskStatus === 3}/>
+            <AddLiquidity taskStatus={taskStatus} addLiquidity={addLiquidity} swapLoading={isPending} disabled={preTaskState == 0 || preTaskState == 4 || preTaskState == 5 || taskStatus == 1 || taskStatus == 3} />
           </div>
-          <div style={{ textAlign: 'center', width: '100%', fontSize: '16px', marginTop: '10px' }}>©Power by <a style={{color:'#1890ff'}} href='https://www.ramenswap.xyz/' target='blank'> Ramenswap</a></div>
+          <div style={{ textAlign: 'center', width: '100%', fontSize: '16px', marginTop: '10px' }}>©Power by <a style={{ color: '#1890ff' }} href='https://www.ramenswap.xyz/' target='blank'> Ramenswap</a></div>
         </div>
       </TaskBox>
     </>

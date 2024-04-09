@@ -7,12 +7,10 @@ import Image from 'next/image'
 interface PropType {
     taskStatus: number,
     addLiquidity: any;
-    fromVal: string;
-    toVal: string;
     swapLoading: boolean;
     disabled: boolean;
 }
-export default function AddLiquidity({ taskStatus, addLiquidity, fromVal, toVal, swapLoading, disabled }: PropType) {
+export default function AddLiquidity({ taskStatus, addLiquidity, swapLoading, disabled }: PropType) {
 
     const buttonStyle = {
         display: 'inline-block',
@@ -53,7 +51,7 @@ export default function AddLiquidity({ taskStatus, addLiquidity, fromVal, toVal,
                             <div className={styles.hempoT}>
                                 <Image style={{ backgroundColor: 'white', borderRadius: '50%', margin: '0 15px' }} alt='logo' width={32} height={32} src={'/artLogo3.png'}></Image>
                                 <span>
-                                    Art
+                                    ART
                                 </span>
                             </div>
                         </div>
@@ -72,7 +70,7 @@ export default function AddLiquidity({ taskStatus, addLiquidity, fromVal, toVal,
                                     😈
                                 </div>
                                 <span>
-                                    Rug
+                                    RUG
                                 </span>
                             </div>
                         </div>

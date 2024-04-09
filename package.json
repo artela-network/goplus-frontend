@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ethersproject/bignumber": "^5.7.0",
     "@rainbow-me/rainbowkit": "^2.0.5",
     "@tanstack/react-query": "^5.28.4",
     "antd": "^5.16.1",

@@ -59,7 +59,7 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
                     <div className={styles.hempoT}>
                       <Image style={{ backgroundColor: 'white', borderRadius: '50%', margin: '0 15px' }} alt='logo' width={32} height={32} src={'/artLogo3.png'}></Image>
                       <span>
-                        Art
+                        ART
                       </span>
                     </div>
                   </div>
@@ -78,7 +78,7 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
                         😈
                       </div>
                       <span>
-                        Rug
+                        RUG
                       </span>
                     </div>
                   </div>
