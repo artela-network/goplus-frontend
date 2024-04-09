@@ -122,7 +122,6 @@
     flex-wrap: wrap;
     margin: -4px;
     justify-content: space-around;
-    flex-direction: column;
     gap: 10px;
 }
 .dtBQMW {
@@ -134,6 +133,7 @@
     box-sizing: border-box;
     margin: 0px;
     min-width: 0px;
+    text-align: center;
     font-weight: 500;
 }
 .css_1ayx7yo {

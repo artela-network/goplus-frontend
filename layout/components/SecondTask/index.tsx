@@ -121,7 +121,7 @@ const SecondTask = ({ taskInfo, getTaskList, preTaskState }: PropsType) => {
           <div className='subTitle'>Step1: Click to increase 99 Billion RUG token supply for you! </div>
           <Button loading={loading} disabled={preTaskState == 0 || preTaskState == 4 || taskStatus == 1 || taskStatus == 3}
             style={(preTaskState == 2 || preTaskState == 3) && (taskStatus == 0 || taskStatus == 4) ? buttonStyle : buttonDisabledStyle}
-            type="primary" onClick={inreaseRUG}> Increase </Button>
+            type="primary" onClick={inreaseRUG}> Mint </Button>
           <div className='subDescribe'>{supplyWords} </div>
           <div className='subTitle mt-20'>Step2: Use the newly added 99 Billion RUG token to swap for ART tokens in the pool.</div>
           <div className='subDescribe'>Click swap button to sell all Rug</div>

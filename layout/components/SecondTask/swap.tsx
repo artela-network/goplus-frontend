@@ -57,11 +57,14 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
                       {fromVal}
                     </div>
                     <div className={styles.hempoT}>
-                      <Image style={{ backgroundColor: 'white', borderRadius: '50%', margin: '0 15px' }} alt='logo' width={32} height={32} src={'/artLogo3.png'}></Image>
+                      <div style={{ width: '32px', height: '32px', fontSize: '25px', lineHeight: '32px', margin: '0px 10px' }}>
+                        😈
+                      </div>
                       <span>
-                        ART
+                        RUG
                       </span>
                     </div>
+
                   </div>
                 </div>
                 <div className={styles.iconBox}>
@@ -74,11 +77,9 @@ export default function Swap({ taskStatus, updateTaskStatus, fromVal, toVal, swa
                       {toVal}
                     </div>
                     <div className={styles.hempoT}>
-                      <div style={{ width: '32px', height: '32px', fontSize: '25px', lineHeight: '32px', margin: '0px 10px' }}>
-                        😈
-                      </div>
+                      <Image style={{ backgroundColor: 'white', borderRadius: '50%', margin: '0 15px' }} alt='logo' width={32} height={32} src={'/artLogo3.png'}></Image>
                       <span>
-                        RUG
+                        ART
                       </span>
                     </div>
                   </div>

@@ -88,7 +88,7 @@ export default function Activity() {
   };
   const getQueryParams = () => {
     const taskId = location.query.taskId;
-    if (taskId && !Array.isArray(taskId)) {
+    if (taskId && taskId == '891b8fbef81c43c7aec3e4bfeea2c752' && !Array.isArray(taskId)) {
       return taskId
     } else {
       return ''
@@ -191,7 +191,7 @@ export default function Activity() {
           </div>
           <div className="claim_rewords">
             <div className='rewords_box'>
-              <div style={{ fontSize: '26px' }}>Block Energy SecWareX</div>
+              <div style={{ fontSize: '26px' }}>SecWareX Engerg Block</div>
               <div className='img_box'>
                 <Image height={100} alt='goplusLogo' src={goplusPic}></Image>
               </div>
@@ -212,7 +212,7 @@ export default function Activity() {
               <div className='rewords_footer'>
                 <Button type='primary'>
                   <a target='blank' href="https://app.galxe.com/quest/Artela/GCEZwthhTx/">
-                    Claim in Galex
+                    Claim in Galxe
                   </a>
                 </Button>
               </div>
@@ -245,7 +245,7 @@ export default function Activity() {
         </p>
       </CustomModal>
       <CustomModal isOpen={isNewTaskModalOpen} onClose={handleCloseNewTaskModal} >
-        <h3 style={{ width: '100%', textAlign: 'center', color: 'white', fontSize: '24px' }}>{modalTitle}</h3>
+        <p style={{ width: '100%', textAlign: 'center', color: 'white', fontSize: '24px' }}>{modalTitle}</p>
         <p style={{ fontSize: '18px' }}>
           {newTaskError}
         </p>
