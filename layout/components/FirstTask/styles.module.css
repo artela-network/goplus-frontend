@@ -99,6 +99,7 @@
     min-width: 0px;
     font-weight: 500;
     font-size: 14px;
+    text-align: center;
 }
 .kRxDMJ {
     box-sizing: border-box;
@@ -121,6 +122,7 @@
     flex-wrap: wrap;
     margin: -4px;
     justify-content: space-around;
+    flex-direction: column;
     gap: 10px;
 }
 .dtBQMW {
@@ -142,4 +144,5 @@
     font-size: 14px;
     color: rgb(195, 197, 203);
     padding-top: 4px;
+    text-align: center;
 }
