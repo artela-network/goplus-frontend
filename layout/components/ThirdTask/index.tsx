@@ -21,7 +21,7 @@ interface PropsType {
     preTaskState: number;
 }
 const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
-    const { address: account, isConnected } = useAccount();    
+    const { address: account, isConnected } = useAccount();
     const [txHash, setTxHash] = useState('')
     const [loading, setLoading] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -109,13 +109,13 @@ const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
             <TaskBox taskStatus={taskStatus} footer={footer()}>
                 <div className="task_guide" style={{ minHeight: '457px' }}>
                     <div className='subTitle'>
-                        Step1: Click 👇 button to send a real Rug-pull transaction
+                        Click 👇 button to send a real Rug-pull transaction
                     </div>
                     <Button disabled={preTaskState != 0 && preTaskState != 4 && taskStatus !== 0 && taskStatus !== 4}
                         style={(taskStatus == 0 || taskStatus == 4) && (preTaskState == 2 || preTaskState == 3) ? buttonStyle : buttonDisabledStyle}
                         loading={loading} type="primary" onClick={doRugPull}> Do Rug-pull</Button>
-                    {taskStatus == 4 && <text style={{fontSize:'18px',color:'red'}}><br /> Please try again!</text>}
-                    {taskStatus !== 0 && <div className='subTitle'>Rug-pull transaction:</div>}
+                    {taskStatus == 4 && <text style={{ fontSize: '18px', color: 'red' }}><br /> Please try again!</text>}
+                    {taskStatus !== 0 && taskStatus !== 5 && <div className='subTitle'>Rug-pull transaction:</div>}
                     {taskStatus == 3 ?
                         (txHash ? (
                             <>
@@ -139,10 +139,10 @@ const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
                 </div>
                 <div className="task_swap" >
                     <Image alt=""
-                    //  width={600}
-                     width={isMobile?320:600}
-                     src={galxe} 
-                     style={{ borderRadius: '35px' }} />
+                        //  width={600}
+                        width={isMobile ? 320 : 600}
+                        src={galxe}
+                        style={{ borderRadius: '35px' }} />
                 </div>
             </TaskBox>
         </>
