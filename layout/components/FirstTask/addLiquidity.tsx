@@ -6,13 +6,13 @@ import Image from 'next/image'
 
 interface PropType {
     taskStatus: number,
-    updateTaskStatus: any;
+    addLiquidity: any;
     fromVal: string;
     toVal: string;
     swapLoading: boolean;
     disabled: boolean;
 }
-export default function AddLiquidity({ taskStatus, updateTaskStatus, fromVal, toVal, swapLoading, disabled }: PropType) {
+export default function AddLiquidity({ taskStatus, addLiquidity, fromVal, toVal, swapLoading, disabled }: PropType) {
 
     const buttonStyle = {
         display: 'inline-block',
@@ -79,7 +79,7 @@ export default function AddLiquidity({ taskStatus, updateTaskStatus, fromVal, to
                     </div>
                 </div>
                 <div className={styles.footer}>
-                    <Button disabled={disabled} style={disabled ? disButtonStyle : buttonStyle} onClick={updateTaskStatus} loading={swapLoading}>Supply</Button>
+                    <Button disabled={disabled} style={disabled ? disButtonStyle : buttonStyle} onClick={addLiquidity} loading={swapLoading}>Supply</Button>
                 </div>
             </div>
         </div>
