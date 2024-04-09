@@ -1,0 +1,109 @@
+.task_box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    align-content: center;
+    align-items: center;
+    background: radial-gradient(48.1% 69.39999999999999% at 49.3% 0%, #1a203d 0%, rgb(6, 15, 23) 100%);
+    border-radius: 28px;
+    gap: 20px;
+    justify-content: center;
+    overflow: visible;
+    padding: 60px;
+    position: sticky;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, .1);
+    line-height: 1.5715;
+}
+
+
+.task_footer {
+    color: #768391;
+    font-size: 18px;
+}
+
+.task_box .task_header {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.task_box .task_header .task_status {
+    font-size: 28px;
+}
+
+.task_box .task_main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    padding: 5px 0 5px 55px;
+    gap: 15px;
+}
+
+.task_swap {
+    flex: 4;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 15px;
+}
+
+.task_guide {
+    flex: 3;
+    height: 100%;
+}
+.to_task_guide {
+    margin-top: 8px;
+    /* width: 100%; */
+}
+@media screen and (max-width: 960px) {
+    .task_box {
+        max-width: 350px;
+        padding: 20px 10px;
+    }
+    .task_box .task_main{
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+    }
+    .task_box .task_header {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        /* width: 80%; */
+        justify-content: start;
+    }
+    .task_swap{
+        margin: 0;
+        width: 100%;
+    }
+    .to_task_guide {
+        margin-top: 8px;
+        text-align: center;
+        width: 100%;
+    }
+    .task_box_cover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(69, 70, 88, 0.5);
+        display: flex;
+        color: rgb(2, 97, 38);
+        font-size: 24px;
+        z-index: 2;
+        border-radius: 28px;
+    }
+    .complete_logo {
+        width:80px;
+        height: 80px;
+        margin-right: 10px;
+    }
+}
