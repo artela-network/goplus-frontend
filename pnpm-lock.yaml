@@ -29,6 +29,9 @@ dependencies:
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
+  react-feather:
+    specifier: 2.0.8
+    version: 2.0.8(react@18.2.0)
   react-google-recaptcha:
     specifier: ^3.1.0
     version: 3.1.0(react@18.2.0)
@@ -8854,6 +8857,15 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-feather@2.0.8(react@18.2.0):
+    resolution: {integrity: sha512-J0dCEOvOxpovHeOVj3+8mAhN3/UERTfX6rSxnV6x4E+0s+STY536jhSjRfpSvTQA0SSFjYr4KrpPfdsLmK+zZg==}
+    peerDependencies:
+      react: ^16.8.6
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
     dev: false
 
   /react-google-recaptcha@3.1.0(react@18.2.0):

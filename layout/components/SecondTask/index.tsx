@@ -102,7 +102,7 @@ const SecondTask = ({ taskInfo, getTaskList, preTaskState }: PropsType) => {
       setTaskStatus(taskInfo.taskStatus)
       if (taskInfo.taskStatus == 1 || taskInfo.taskStatus == 3) {
         setSupplyWords('Total supply: 1 Billion -> 99 Billion')
-        setFromVal('99,000,000,000 (99 Billion)')
+        setFromVal('99 Billion')
         setToVal('990')
       } else {
         setSupplyWords('Total supply: 1 Billion')

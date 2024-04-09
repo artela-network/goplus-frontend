@@ -4,6 +4,7 @@ import '../layout/components/introduce/introduce.css'
 import '../layout/components/introduce/mobile.css'
 import '../layout/styles.css'
 import '../layout/components/SecondTask/style.css'
+import '../layout/components/Common/TaskBox/taskBox.css'
 import '@rainbow-me/rainbowkit/styles.css';
 import type { AppProps } from 'next/app';
 

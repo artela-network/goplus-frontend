@@ -14,7 +14,7 @@ import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
 import CustomModal from "../../components/Common/Model"
 import galxe from '../../../assets/galxe.png'
 import Image from 'next/image';
-
+import { isMobile } from "react-device-detect";
 interface PropsType {
     getTaskList: () => void;
     taskInfo?: TaskInfo;
@@ -25,7 +25,6 @@ const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
     const [txHash, setTxHash] = useState('')
     const [loading, setLoading] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const handleOpenModal = () => {
         setIsModalOpen(true);
     };
@@ -139,7 +138,11 @@ const ThirdTask = ({ getTaskList, taskInfo, preTaskState }: PropsType) => {
                     }
                 </div>
                 <div className="task_swap" >
-                    <Image alt="" width={600} src={galxe} style={{ borderRadius: '35px' }} />
+                    <Image alt=""
+                    //  width={600}
+                     width={isMobile?320:600}
+                     src={galxe} 
+                     style={{ borderRadius: '35px' }} />
                 </div>
             </TaskBox>
         </>

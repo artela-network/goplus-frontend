@@ -14,6 +14,7 @@
     position: sticky;
     z-index: 2;
     border: 1px solid rgba(255, 255, 255, .1);
+    line-height: 1.5715;
 }
 
 

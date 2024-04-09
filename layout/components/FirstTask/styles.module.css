@@ -1,0 +1,72 @@
+.box {
+    background-color: #212429;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 420px;
+    padding: 15px;
+    border-radius: 25px;
+}
+.header {
+    margin: 10px 0;
+}
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.input {
+    border: 1px solid rgb(44,47,54);
+    border-radius: 20px;
+    width: 100%;
+}
+.iconBox {
+    display: flex;
+    margin: 15px auto;
+}
+.dJQRda {
+    display: flex;
+    flex-flow: row;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    padding: 0.75rem 1rem 0px;
+}
+.lldVYp {
+    display: flex;
+    flex-flow: row;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0.75rem 0.75rem 0.75rem 1rem;
+}
+.dKIWpo {
+    color: rgb(255, 255, 255);
+    width: 0px;
+    position: relative;
+    font-weight: 500;
+    outline: none;
+    border: none;
+    flex: 1 1 auto;
+    background-color: rgb(33, 36, 41);
+    font-size: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0px;
+    appearance: textfield;
+}
+.hempoT {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+.footer {
+    margin-top: 20px;
+    width: 100%;
+}

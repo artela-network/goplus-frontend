@@ -12,7 +12,7 @@ const CryptoFraudSummary = () => {
                     <p>Artela & Goplus provide a new solution: An on-chain risk control module that can identify rug-pull transactions and block them in real time.</p>
                 </div>
             )}
-            <a type='link' onClick={() => setIsExpanded(!isExpanded)}>
+            <a type='link' style={{color:'#1890ff'}} onClick={() => setIsExpanded(!isExpanded)}>
                 {isExpanded ? 'Read less...' : 'Read more...'}
             </a>
         </div>
