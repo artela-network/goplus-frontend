@@ -16,6 +16,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 .input {
     border: 1px solid rgb(44,47,54);
@@ -24,7 +25,7 @@
 }
 .iconBox {
     display: flex;
-    margin: 15px auto;
+    margin: auto;
 }
 .dJQRda {
     display: flex;
@@ -69,4 +70,76 @@
 .footer {
     margin-top: 20px;
     width: 100%;
+}
+
+.llxtyD {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    width: 100%;
+    padding: 0px;
+    border-radius: 20px;
+    background-color: rgb(64, 68, 79);
+}
+.eBPIUF {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    width: 100%;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 1rem;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+.css_1aekuku {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-weight: 500;
+    font-size: 14px;
+}
+.kRxDMJ {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 20px;
+    border: 1px solid rgb(44, 47, 54);
+    background-color: rgb(33, 36, 41);
+}
+.QEkkJ {
+    box-sizing: border-box;
+    min-width: 0px;
+    width: 100%;
+    display: flex;
+    padding: 0px;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: -4px;
+    justify-content: space-around;
+    gap: 10px;
+}
+.dtBQMW {
+    display: grid;
+    grid-auto-rows: auto;
+    row-gap: 12px;
+}
+.css_1kt4f20 {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-weight: 500;
+}
+.css_1ayx7yo {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-weight: 500;
+    font-size: 14px;
+    color: rgb(195, 197, 203);
+    padding-top: 4px;
 }

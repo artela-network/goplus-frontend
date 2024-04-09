@@ -46,7 +46,7 @@ const TaskBox = ({ children, taskStatus, footer }: Props) => {
             Task status: <text style={{ fontSize: '24px' }}>{statusList[taskStatus ? taskStatus : 0]()}</text>
           </div>
           <div className={'to_task_guide'}>
-            <a type="link">Task guide</a>
+            <a style={{color:'#1890ff'}} type="link" target='blank' href='https://www.notion.so/Your-Guide-to-Artela-x-Go-Plus-Anti-Rug-Campaign-c053132f7a4c455e90bf229405440b09?pvs=4'>Task guide</a>
           </div>
         </div>
         <div className={`task_main text-24px`}>{children}</div>

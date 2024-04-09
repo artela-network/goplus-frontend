@@ -7,12 +7,12 @@ import Image from 'next/image'
 interface PropType {
     taskStatus: number,
     updateTaskStatus: any;
-    fromVal: string;
-    toVal: string;
+    currencyIdA: string;
+    currencyIdB: string;
     swapLoading: boolean;
     disabled: boolean;
 }
-export default function AddLiquidity({ taskStatus, updateTaskStatus, fromVal, toVal, swapLoading, disabled }: PropType) {
+export default function AddLiquidity({ taskStatus, updateTaskStatus, swapLoading, disabled }: PropType) {
 
     const buttonStyle = {
         display: 'inline-block',
@@ -51,7 +51,7 @@ export default function AddLiquidity({ taskStatus, updateTaskStatus, fromVal, to
                                 1
                             </div>
                             <div className={styles.hempoT}>
-                            <Image style={{backgroundColor:'white',borderRadius:'50%',margin:'0 15px'}} alt='logo' width={32} height={32} src={'/artLogo3.png'}></Image>
+                                <Image style={{ backgroundColor: 'white', borderRadius: '50%', margin: '0 15px' }} alt='logo' width={32} height={32} src={'/artLogo3.png'}></Image>
                                 <span>
                                     Art
                                 </span>
@@ -76,6 +76,33 @@ export default function AddLiquidity({ taskStatus, updateTaskStatus, fromVal, to
                                 </span>
                             </div>
                         </div>
+                    </div>
+                    <div className={styles.llxtyD}>
+                        <div className={styles.eBPIUF}>
+                            <div className={styles.css_1aekuku}>
+                                Price and pool share
+                            </div>
+                        </div>
+                        <div className={styles.kRxDMJ}>
+                            <div className={styles.dtBQMW}>
+                                <div className={styles.QEkkJ}>
+                                    <div className={styles.kfahSF}>
+                                        <div className={styles.css_1kt4f20}>998010</div>
+                                        <div className={styles.css_1ayx7yo}>RUG per ART</div>
+                                    </div>
+                                    <div className={styles.kfahSF}>
+                                        <div className={styles.css_1kt4f20}>0.00000100199</div>
+                                        <div className={styles.css_1ayx7yo}>ART per RUG</div>
+                                    </div>
+                                    <div className={styles.kfahSF}>
+                                        <div className={styles.css_1kt4f20}>0.10%</div>
+                                        <div className={styles.css_1ayx7yo}>Share of Pool</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div className={styles.footer}>

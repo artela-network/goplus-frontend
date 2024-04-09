@@ -16,9 +16,9 @@ import { useAccount } from 'wagmi';
 interface Props {
   taskInfo: TaskInfo;
   getTaskList: () => void;
-  preTaskState:number;
+  preTaskState: number;
 }
-const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
+const FirstTask = ({ taskInfo, getTaskList }: Props) => {
   const { address: account, isConnected } = useAccount();
   const [taskStatus, setTaskStatus] = useState(0)
   const [txHash, setTxHash] = useState(taskInfo.txs)
@@ -51,26 +51,26 @@ const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
       if (res.success) {
         if (res.success) {
           fetchTaskInfo()
-      }
+        }
       }
     }
   }
   const fetchTaskInfo = async () => {
     if (account && taskInfo) {
-        const taskInfoRes = await getTaskListByAccount(account, taskInfo.id);
-        if (taskInfoRes.success) {
-            const newTaskStatus = taskInfoRes.data.taskInfos[0].taskStatus;
-            setTaskStatus(newTaskStatus);
-            setTxHash(taskInfoRes.data.taskInfos[0].txs);
-            if (newTaskStatus === 1 || newTaskStatus === 2) {
-                setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
-            } else if (newTaskStatus === 3) {
-                getTaskList()
-            }
+      const taskInfoRes = await getTaskListByAccount(account, taskInfo.id);
+      if (taskInfoRes.success) {
+        const newTaskStatus = taskInfoRes.data.taskInfos[0].taskStatus;
+        setTaskStatus(newTaskStatus);
+        setTxHash(taskInfoRes.data.taskInfos[0].txs);
+        if (newTaskStatus === 1 || newTaskStatus === 2) {
+          setTimeout(fetchTaskInfo, 1000); // 如果状态是1或2，1秒后再次查询
+        } else if (newTaskStatus === 3) {
+          getTaskList()
         }
+      }
     }
 
-};
+  };
   useEffect(() => {
     if (taskInfo) {
       setTaskStatus(taskInfo.taskStatus)
@@ -80,7 +80,7 @@ const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
   return (
     <>
       <div className="head_title">
-        Task 1: &nbsp;Provide Liquidity for a Meme token called RUG 
+        Task 1: &nbsp;Provide Liquidity for a Meme token called RUG
       </div>
       <TaskBox taskStatus={taskStatus}>
         <div className="task_guide">
@@ -118,15 +118,18 @@ const FirstTask = ({ taskInfo ,getTaskList }: Props) => {
           }
         </div>
         <div className="task_swap">
-          <div style={{position: 'relative'}}>
+          <div style={{ position: 'relative' }}>
             {taskStatus == 3 && <SuccessCover />}
             <RedirectDuplicateTokenIds
-              // currencyIdA={currencyIdA}
-              // currencyIdB={currencyIdB}
-              // updateTaskStatus={updateTaskStatus}
+              currencyIdA={currencyIdA}
+              currencyIdB={currencyIdB}
+              updateTaskStatus={updateTaskStatus}
+              taskStatus={taskStatus}
+              swapLoading
+              disabled
             />
           </div>
-          <div style={{ textAlign: 'center', width: '100%', fontSize: '16px',marginTop:'10px' }}>©Power by <a href='https://www.ramenswap.xyz/' target='blank'> Ramenswap</a></div>
+          <div style={{ textAlign: 'center', width: '100%', fontSize: '16px', marginTop: '10px' }}>©Power by <a style={{color:'#1890ff'}} href='https://www.ramenswap.xyz/' target='blank'> Ramenswap</a></div>
         </div>
       </TaskBox>
     </>
