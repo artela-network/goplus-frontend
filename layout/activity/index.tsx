@@ -1,26 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 import Introduce from '../components/introduce/index'
 import FirstTask from '../components/FirstTask/index'
 import SecondTask from '../components/SecondTask/index'
 import ThirdTask from '../components/ThirdTask/index'
 import { getTaskListByAccount, initTaskListByAccount, syncTask } from '../../api/index'
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from 'react-google-recaptcha'
 import { Button, message } from 'antd'
 import { TaskInfo } from '../../utils/campaignClient'
-import CustomModal from "../components/Common/Model"
+import CustomModal from '../components/Common/Model'
 import goplusPic from '../../assets/footer/goplus.png'
 import artelaPic from '../../assets/footer/badge.png'
-import { useAccount } from 'wagmi';
-import Image from 'next/image';
+import { useAccount } from 'wagmi'
+import Image from 'next/image'
 
 
 export default function Activity() {
-  const { address: account, isConnected } = useAccount();
+  const { address: account, isConnected } = useAccount()
   const [loading, setLoading] = useState(false)
   const [isCaptchaShow, setIsCaptchaShow] = useState(false)
   // const sitkey: string = process.env.REACT_APP_SIT_KEY || '';
-  const sitkey: string = '6LcrZqgpAAAAAD8L2W-XJE7CR2xmI-nC76HNxqsb';
+  const sitkey: string = '6LcrZqgpAAAAAD8L2W-XJE7CR2xmI-nC76HNxqsb'
 
   const initialTaskInfos: TaskInfo[] = [
     {
@@ -58,36 +58,38 @@ export default function Activity() {
       title: '',
       txs: '',
       taskId: ''
-    },
+    }
   ]
 
-  const recaptchaRef = React.createRef<ReCAPTCHA>();
+  const recaptchaRef = React.createRef<ReCAPTCHA>()
   const [taskStatus, setTaskStatus] = useState(0)
+  const [syncCompiled, setSyncCompiled] = useState(false)
+
   const [taskInfos, setTaskInfos] = useState<TaskInfo[]>(initialTaskInfos)
-  const location = useRouter();
+  const location = useRouter()
   const intervalId = useRef<NodeJS.Timeout | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isNewTaskModalOpen, setIsNewTaskModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isNewTaskModalOpen, setIsNewTaskModalOpen] = useState(false)
   const [newTaskError, setNewTaskError] = useState('')
   const [modalTitle, setModalTitle] = useState('')
 
   const handleOpenNewTaskModal = () => {
-    setIsNewTaskModalOpen(true);
+    setIsNewTaskModalOpen(true)
     setModalTitle('Error')
-  };
+  }
 
   const handleCloseNewTaskModal = () => {
-    setIsNewTaskModalOpen(false);
-  };
+    setIsNewTaskModalOpen(false)
+  }
   const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
+    setIsModalOpen(true)
+  }
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+    setIsModalOpen(false)
+  }
   const getQueryParams = () => {
-    const taskId = location.query.taskId;
+    const taskId = location.query.taskId
     if (taskId && taskId == '891b8fbef81c43c7aec3e4bfeea2c752' && !Array.isArray(taskId)) {
       return taskId
     } else {
@@ -98,6 +100,7 @@ export default function Activity() {
     if (account) {
       const res = await getTaskListByAccount(account)
       if (res.success) {
+        setSyncCompiled(res.data.syncCompiled)
         setTaskStatus(res.data.status)
         if (res.data.taskInfos) {
           setTaskInfos(res.data.taskInfos)
@@ -136,7 +139,7 @@ export default function Activity() {
         handleOpenModal()
       }
     }
-  };
+  }
   useEffect(() => {
     if (!account) {
       setTaskInfos(initialTaskInfos)
@@ -144,7 +147,7 @@ export default function Activity() {
     }
     getTaskList()
     setIsCaptchaShow(false)
-    console.log("change account")
+    console.log('change account')
   }, [account])
 
   const captcha = () => {
@@ -166,12 +169,12 @@ export default function Activity() {
       if (Array.isArray(taskInfos) && taskInfos.length > 0)
         var res = await syncTask(account, taskInfos[0].taskId)
       if (res.success) {
-        setIsNewTaskModalOpen(true);
+        setIsNewTaskModalOpen(true)
         setModalTitle('Success')
         setNewTaskError('Success to sync status to GoPlus.')
 
       } else {
-        setIsNewTaskModalOpen(true);
+        setIsNewTaskModalOpen(true)
         setModalTitle('Error')
         // setNewTaskError(res.error)
         setNewTaskError('Failed to sync status to goplus! Sync task have been completed!')
@@ -190,14 +193,14 @@ export default function Activity() {
             Claim your rewards here and stay tuned!
           </div>
           <div className="claim_rewords">
-            <div className='rewords_box'>
-              <div style={{ fontSize: '26px' }}>SecWareX Engerg Block</div>
-              <div className='img_box'>
-                <Image height={100} alt='goplusLogo' src={goplusPic}></Image>
+            <div className="rewords_box">
+              <div style={{ fontSize: '26px' }}>SecWareX Energy Block</div>
+              <div className="img_box">
+                <Image height={100} alt="goplusLogo" src={goplusPic}></Image>
               </div>
-              <div className='rewords_footer'>
-                <Button type='primary'>
-                  <a target='blank' href="https://SecWareX.io/">
+              <div className="rewords_footer">
+                <Button type="primary">
+                  <a target="blank" href="https://SecWareX.io/">
                     Go to SecWareX
                   </a>
                 </Button>
@@ -206,12 +209,12 @@ export default function Activity() {
             </div>
             <div className="rewords_box">
               <div style={{ fontSize: '26px' }}>Artela Security Guardian OAT</div>
-              <div className='img_box'>
-                <Image height={100} alt='artLogo' src={artelaPic}></Image>
+              <div className="img_box">
+                <Image height={100} alt="artLogo" src={artelaPic}></Image>
               </div>
-              <div className='rewords_footer'>
-                <Button type='primary'>
-                  <a target='blank' href="https://app.galxe.com/quest/Artela/GCzNwthPgV">
+              <div className="rewords_footer">
+                <Button type="primary">
+                  <a target="blank" href="https://app.galxe.com/quest/Artela/GCzNwthPgV">
                     Claim in Galxe
                   </a>
                 </Button>
@@ -222,29 +225,33 @@ export default function Activity() {
           <div className="footerText" style={{ fontSize: '28px' }}>
             Wish you a smooth, safe, and prosperous journey in Web3!
           </div>
-          <text style={{ fontSize: '22px', textAlign: 'center' }}>
-            <text>
-              ❓If the task status of SecWareX stays unfinished, please press to&nbsp;
-              <a onClick={syncState} className='footerLink' style={{ cursor: 'pointer' }}>
-                Synchronize task status
-              </a> manually.
-            </text>
-          </text>
 
+          {!syncCompiled &&
+            <text style={{ fontSize: '22px', textAlign: 'center' }}>
+              <text>
+                ❓If the task status of SecWareX stays unfinished, please press to&nbsp;
+                <a onClick={syncState} className="footerLink" style={{ cursor: 'pointer' }}>
+                  Synchronize task status
+                </a> manually.
+              </text>
+            </text>
+          }
         </div>
       )
     } else {
-      return null;
+      return null
     }
-  };
+  }
   return (
     <div className="activity">
-      <CustomModal isOpen={isModalOpen} onClose={handleCloseModal} >
+      <CustomModal isOpen={isModalOpen} onClose={handleCloseModal}>
         <p style={{ fontSize: '18px' }}>
-          Welcome to our task! This task is co-hosted by Artela and SecWareX. Please enter the event page through the <a href="https://SecWareX.io/img-task/81553" target="_blank" rel="noopener noreferrer" style={{ color: '#4E9CAF' }}>correct entrance</a>. Let's make this event a success together!
+          Welcome to our task! This task is co-hosted by Artela and SecWareX. Please enter the event page through the <a
+          href="https://SecWareX.io/img-task/81553" target="_blank" rel="noopener noreferrer"
+          style={{ color: '#4E9CAF' }}>correct entrance</a>. Let's make this event a success together!
         </p>
       </CustomModal>
-      <CustomModal isOpen={isNewTaskModalOpen} onClose={handleCloseNewTaskModal} >
+      <CustomModal isOpen={isNewTaskModalOpen} onClose={handleCloseNewTaskModal}>
         <p style={{ width: '100%', textAlign: 'center', color: 'white', fontSize: '24px' }}>{modalTitle}</p>
         <p style={{ fontSize: '18px' }}>
           {newTaskError}
