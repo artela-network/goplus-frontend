@@ -200,7 +200,7 @@ export default function Activity() {
               </div>
               <div className="rewords_footer">
                 <Button type="primary">
-                  <a target="blank" href="https://SecWareX.io/">
+                  <a target="blank" href="https://secwarex.io/task-detail/95">
                     Go to SecWareX
                   </a>
                 </Button>
@@ -247,7 +247,7 @@ export default function Activity() {
       <CustomModal isOpen={isModalOpen} onClose={handleCloseModal}>
         <p style={{ fontSize: '18px' }}>
           Welcome to our task! This task is co-hosted by Artela and SecWareX. Please enter the event page through the <a
-          href="https://SecWareX.io/img-task/81553" target="_blank" rel="noopener noreferrer"
+          href="https://secwarex.io/task-detail/95" target="_blank" rel="noopener noreferrer"
           style={{ color: '#4E9CAF' }}>correct entrance</a>. Let's make this event a success together!
         </p>
       </CustomModal>
