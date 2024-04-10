@@ -211,7 +211,7 @@ export default function Activity() {
               </div>
               <div className='rewords_footer'>
                 <Button type='primary'>
-                  <a target='blank' href="https://app.galxe.com/quest/Artela/GCEZwthhTx/">
+                  <a target='blank' href="https://app.galxe.com/quest/Artela/GCzNwthPgV">
                     Claim in Galxe
                   </a>
                 </Button>
