@@ -62,7 +62,7 @@ const FirstTask = ({ taskInfo, getTaskList, preTaskState }: Props) => {
       updateTaskStatus(txs, '1,998009')
     }
     ).catch(console.error)
-  }, [account, writeContractAsync,taskInfo])
+  }, [account, writeContractAsync, taskInfo])
 
   // useEffect(() => {
   //   console.log('hash', hash)
@@ -130,10 +130,10 @@ const FirstTask = ({ taskInfo, getTaskList, preTaskState }: Props) => {
       <TaskBox taskStatus={taskStatus}>
         <div className="task_guide">
           <div>Add Liquidity</div>
-          
-            <div className="subDescribe">After clicking the “Supply” button, you will add 1 ART token and 998,009 RUG tokens to the liquidity pool. Feel free to click the transaction to check in Artela Explorer.</div>
-            {/* <li className="subDescribe">Add ART/RUG liquidity to the pool</li> */}
-          
+
+          <div className="subDescribe">After clicking the “Supply” button, you will add 1 ART token and 998,009 RUG tokens to the liquidity pool. Feel free to click the transaction to check in Artela Explorer.</div>
+          {/* <li className="subDescribe">Add ART/RUG liquidity to the pool</li> */}
+
           {txHash ? (
             <>
               <div className="subTitle">Transaction</div>
@@ -165,7 +165,7 @@ const FirstTask = ({ taskInfo, getTaskList, preTaskState }: Props) => {
         <div className="task_swap">
           <div style={{ position: 'relative' }}>
             {taskStatus == 3 && <SuccessCover />}
-            <AddLiquidity taskStatus={taskStatus} addLiquidity={addLiquidity} swapLoading={isPending} disabled={preTaskState == 0 || preTaskState == 4 || preTaskState == 5 || taskStatus == 1 ||taskStatus == 2 || taskStatus == 3} />
+            <AddLiquidity taskStatus={taskStatus} addLiquidity={addLiquidity} swapLoading={isPending} disabled={preTaskState !== 3 || taskStatus == 1 || taskStatus == 2 || taskStatus == 3} />
           </div>
           <div style={{ textAlign: 'center', width: '100%', fontSize: '16px', marginTop: '10px' }}>©Power by <a style={{ color: '#1890ff' }} href='https://www.ramenswap.xyz/' target='blank'> Ramenswap</a></div>
         </div>
