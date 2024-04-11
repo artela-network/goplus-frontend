@@ -5,7 +5,7 @@ import { ChainId } from 'artswap'
 import { getEtherscanLink } from '../../../utils'
 import { ExternalLink } from '../Common/ExternalLink'
 import { TaskInfo } from '../../../utils/campaignClient';
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
 import { failed, ongoing, finish } from '../Common/StatusIcon';
 import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
 import Loading from "../Common/Loading"
@@ -125,7 +125,12 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                     </div>
                     <div className='claim_res'>
                         {taskStatus !== 0 && taskStatus !== 5 && <div className='subTitle'>Claim transactions</div>}
-                        {taskStatus == 1 || taskStatus == 2 ? <Loading /> : taskInfo ? (taskInfo.txs && (<>
+
+                        {taskStatus == 1 || taskStatus == 2 ? <>
+                            <div style={{ fontSize: '24px' }}>
+                                <Spin /> {`Queueing... (> 5 mins. Network busy, please check back later☕)`}
+                            </div>
+                        </> : taskInfo ? (taskInfo.txs && (<>
                             <div className='subTitle'>
                                 <div className='subDescribe'>
                                     <div>
