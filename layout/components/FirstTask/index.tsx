@@ -150,7 +150,7 @@ const FirstTask = ({ taskInfo, getTaskList, preTaskState }: Props) => {
             null
           )}
           {taskStatus == 1 || taskStatus == 2 ? <div style={{ fontSize: '24px' }}>
-            <Spin /> ...Processing
+            <Spin /> Processing ...
           </div> :
             taskStatus == 3 ? (
               <div>

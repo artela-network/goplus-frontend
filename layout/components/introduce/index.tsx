@@ -128,7 +128,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
 
                         {taskStatus == 1 || taskStatus == 2 ? <>
                             <div style={{ fontSize: '24px' }}>
-                                <Spin /> {`Queueing... (> 10 mins. Network busy, please check back later☕)`}
+                                <Spin /> {`Queueing...`}
                             </div>
                         </> : taskInfo ? (taskInfo.txs && (<>
                             <div className='subTitle'>
