@@ -15,7 +15,7 @@ import { abi } from '../../../api/uniswap/IUniswapV2Router02.json';
 import { RouterV02 } from '../../../api/uniswap/UniswapConfig.json';
 import { BigNumber } from '@ethersproject/bignumber'
 import AddLiquidity from './addLiquidity'
-
+import { Spin } from 'antd'
 
 interface Props {
   taskInfo: TaskInfo;
@@ -149,7 +149,9 @@ const FirstTask = ({ taskInfo, getTaskList, preTaskState }: Props) => {
           ) : (
             null
           )}
-          {taskStatus == 1 || taskStatus == 2 ? <Loading /> :
+          {taskStatus == 1 || taskStatus == 2 ? <div style={{ fontSize: '24px' }}>
+            <Spin /> ...Processing
+          </div> :
             taskStatus == 3 ? (
               <div>
                 <hr />
