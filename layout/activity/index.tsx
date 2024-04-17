@@ -125,9 +125,8 @@ export default function Activity() {
   const onSubmit = async (token: any) => {
     setIsCaptchaShow(false)
     if (account) {
-      if (getQueryParams()) {
         setLoading(true)
-        const initRes = await initTaskListByAccount(account, getQueryParams(), token, sitkey)
+        const initRes = await initTaskListByAccount(account, 'ff33f0d706434bf4881eb29554f86e34', token, sitkey)
         setLoading(false)
         if (initRes.success) {
           getTaskList()
@@ -135,9 +134,6 @@ export default function Activity() {
           setNewTaskError(initRes.error)
           handleOpenNewTaskModal()
         }
-      } else {
-        handleOpenModal()
-      }
     }
   }
   useEffect(() => {
@@ -194,20 +190,6 @@ export default function Activity() {
           </div>
           <div className="claim_rewords">
             <div className="rewords_box">
-              <div style={{ fontSize: '26px' }}>SecWareX Energy Block</div>
-              <div className="img_box">
-                <Image height={100} alt="goplusLogo" src={goplusPic}></Image>
-              </div>
-              <div className="rewords_footer">
-                <Button type="primary">
-                  <a target="blank" href="https://secwarex.io/task-detail/95">
-                    Go to SecWareX
-                  </a>
-                </Button>
-              </div>
-
-            </div>
-            <div className="rewords_box">
               <div style={{ fontSize: '26px' }}>Artela Security Guardian OAT</div>
               <div className="img_box">
                 <Image height={100} alt="artLogo" src={artelaPic}></Image>
@@ -225,17 +207,6 @@ export default function Activity() {
           <div className="footerText" style={{ fontSize: '28px' }}>
             Wish you a smooth, safe, and prosperous journey in Web3!
           </div>
-
-          {!syncCompiled &&
-            <text style={{ fontSize: '22px', textAlign: 'center' }}>
-              <text>
-                ❓If the task status of SecWareX stays unfinished, please press to&nbsp;
-                <a onClick={syncState} className="footerLink" style={{ cursor: 'pointer' }}>
-                  Synchronize task status
-                </a> manually.
-              </text>
-            </text>
-          }
         </div>
       )
     } else {

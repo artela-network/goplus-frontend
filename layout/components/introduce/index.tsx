@@ -9,7 +9,7 @@ import { Button, Spin } from 'antd';
 import { failed, ongoing, finish } from '../Common/StatusIcon';
 import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
 import Loading from "../Common/Loading"
-import goPulusIcon from '../../../assets/icon/goplus.png';
+import goPulusIcon from '../../../assets/icon/galxe.png';
 import artelaIcon from '../../../assets/icon/artela.png'
 import connectIcon from '../../../assets/icon/connect.svg'
 import { isMobile } from 'react-device-detect'
@@ -89,9 +89,9 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                         Experience on-chain security against Rug Pull in AMM Swap<br />
                     </text>
                     <div className="icon-container">
-                        <Image alt='img' height={36} src={goPulusIcon} ></Image>
+                        <Image alt='img' height={32} src={goPulusIcon} ></Image>
                         <Image alt='img' width={25} className='icon_connect' src={connectIcon} ></Image>
-                        <Image alt='img' height={30} style={{ height: '30px' }} src={artelaIcon} ></Image>
+                        <Image alt='img' height={32} style={{ height: '30px' }} src={artelaIcon} ></Image>
                     </div>
                 </div>
             </div>
