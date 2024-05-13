@@ -20,7 +20,7 @@ export default function Activity() {
   const [loading, setLoading] = useState(false)
   const [isCaptchaShow, setIsCaptchaShow] = useState(false)
   // const sitkey: string = process.env.REACT_APP_SIT_KEY || '';
-  const sitkey: string = '6LcrZqgpAAAAAD8L2W-XJE7CR2xmI-nC76HNxqsb'
+  const sitkey: string = '6LduCNspAAAAAKvGfcsSHTOcFkiDJMkpiooHfhOn'
 
   const initialTaskInfos: TaskInfo[] = [
     {
