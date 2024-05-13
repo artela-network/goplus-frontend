@@ -86,7 +86,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
             <div className='bkimg'>
                 <div className="img_container text-48px text-bold">
                     <text>
-                        Artela Faucet Center <br/>
+                        Testnet Faucet <br/>
                     </text>
                     <div className="icon-container">
                         <Image alt='img' height={32} style={{ height: '30px' }} src={artelaIcon} ></Image>
@@ -95,13 +95,13 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
             </div>
 
             <div className='head_title' style={{ marginTop: '60px' }}>
-                Connect Artela Testnet & Claim test tokens
+                Connect Artela Testnet & Claim Test Tokens
             </div>
             <div className='my_card'>
                 <div className='claim_box'>
                     <div className='subTitle'>Step1: Connect to Artela Testnet<br /> <text style={{ color: 'gray ', fontSize: '16px' }}>please use Metamask Wallet to finish these tasks.</text></div>
                     <ConnectButton />
-                    <div className='subTitle'>Step2: Claim test tokens</div>
+                    <div className='subTitle'>Step2: Claim Test Tokens</div>
                     {
                         captcha
                     }
@@ -109,7 +109,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                         <Button type='primary' disabled={taskStatus !== 0 && taskStatus !== 4} style={taskStatus == 0 || taskStatus === 4 ? buttonStyle : buttonDisabledStyle} loading={loading || initLoading} onClick={() => getFaucet()} className='my_button' >claim tokens</Button>
                     </div>
                     <div className='claim_res'>
-                        {taskStatus !== 0 && taskStatus !== 5 && <div className='subTitle'>Claim transactions</div>}
+                        {taskStatus !== 0 && taskStatus !== 5 && <div className='subTitle'>Claim Transactions</div>}
 
                         {taskStatus == 1 || taskStatus == 2 ? <>
                             <div style={{ fontSize: '24px' }}>
