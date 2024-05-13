@@ -86,29 +86,14 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
             <div className='bkimg'>
                 <div className="img_container text-48px text-bold">
                     <text>
-                        Experience on-chain security against Rug Pull in AMM Swap<br />
+                        Artela Faucet Center <br/>
                     </text>
                     <div className="icon-container">
-                        <Image alt='img' height={32} src={goPulusIcon} ></Image>
-                        <Image alt='img' width={25} className='icon_connect' src={connectIcon} ></Image>
                         <Image alt='img' height={32} style={{ height: '30px' }} src={artelaIcon} ></Image>
                     </div>
                 </div>
             </div>
-            <div className='introduce_text mt-14'>
-                <div className='' style={{ fontSize: '24px', color: 'white', paddingBottom: '20px' }}>
-                    Come and experience the cutting-edge security technology of Web3!<br />
-                    Become a pioneer in on-chain risk control, and gain your rewards!&nbsp; 🎁🎁🎁
-                </div>
-                {
-                    isMobile ? <CryptoFraudSummary /> : <div>
-                        According to CipherTrace, rug pulls accounted for 99% of all crypto frauds in 2023, totaling $2.1 billion in losses.  <br />
-                        Faced with the Damocles sword hanging over everyone's head, who will be there to protect our security?<br />
-                        Artela & GoPlus provide a new solution: An on-chain risk control module that can identifies rug-pull transactions and block them in real time.
-                    </div>
-                }
 
-            </div>
             <div className='head_title' style={{ marginTop: '60px' }}>
                 Connect Artela Testnet & Claim test tokens
             </div>

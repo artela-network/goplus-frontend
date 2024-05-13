@@ -229,9 +229,9 @@ export default function Activity() {
         </p>
       </CustomModal>
       <Introduce getTaskList={getTaskList} taskInfo={taskInfos[0]} captcha={captcha()} initLoading={loading} />
-      <FirstTask getTaskList={getTaskList} taskInfo={taskInfos[1]} preTaskState={taskInfos[0].taskStatus} />
-      <SecondTask getTaskList={getTaskList} taskInfo={taskInfos[2]} preTaskState={taskInfos[1].taskStatus} />
-      <ThirdTask getTaskList={getTaskList} taskInfo={taskInfos[3]} preTaskState={taskInfos[2].taskStatus} />
+      {/*<FirstTask getTaskList={getTaskList} taskInfo={taskInfos[1]} preTaskState={taskInfos[0].taskStatus} />*/}
+      {/*<SecondTask getTaskList={getTaskList} taskInfo={taskInfos[2]} preTaskState={taskInfos[1].taskStatus} />*/}
+      {/*<ThirdTask getTaskList={getTaskList} taskInfo={taskInfos[3]} preTaskState={taskInfos[2].taskStatus} />*/}
       <Footer />
     </div>
   )
