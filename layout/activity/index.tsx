@@ -89,12 +89,12 @@ export default function Activity() {
     setIsModalOpen(false)
   }
   const getQueryParams = () => {
-    const taskId = location.query.taskId
-    if (taskId && taskId == 'ff33f0d706434bf4881eb29554f86e34' && !Array.isArray(taskId)) {
-      return taskId
+    if (Array.isArray(location.query.taskId)) {
+      return location.query.taskId[0]
     } else {
-      return ''
+      return location.query.taskId || ''
     }
+
   }
   const getTaskList = async (attempt = 0): Promise<boolean> => {
     if (account) {
@@ -125,15 +125,15 @@ export default function Activity() {
   const onSubmit = async (token: any) => {
     setIsCaptchaShow(false)
     if (account) {
-        setLoading(true)
-        const initRes = await initTaskListByAccount(account, getQueryParams(), token, sitkey)
-        setLoading(false)
-        if (initRes.success) {
-          getTaskList()
-        } else {
-          setNewTaskError(initRes.error)
-          handleOpenNewTaskModal()
-        }
+      setLoading(true)
+      const initRes = await initTaskListByAccount(account, getQueryParams(), token, sitkey)
+      setLoading(false)
+      if (initRes.success) {
+        getTaskList()
+      } else {
+        setNewTaskError(initRes.error)
+        handleOpenNewTaskModal()
+      }
     }
   }
   useEffect(() => {
@@ -218,8 +218,8 @@ export default function Activity() {
       <CustomModal isOpen={isModalOpen} onClose={handleCloseModal}>
         <p style={{ fontSize: '18px' }}>
           Welcome to our task! This task is co-hosted by Artela and SecWareX. Please enter the event page through the <a
-          href="https://secwarex.io/task-detail/95" target="_blank" rel="noopener noreferrer"
-          style={{ color: '#4E9CAF' }}>correct entrance</a>. Let's make this event a success together!
+            href="https://secwarex.io/task-detail/95" target="_blank" rel="noopener noreferrer"
+            style={{ color: '#4E9CAF' }}>correct entrance</a>. Let's make this event a success together!
         </p>
       </CustomModal>
       <CustomModal isOpen={isNewTaskModalOpen} onClose={handleCloseNewTaskModal}>
