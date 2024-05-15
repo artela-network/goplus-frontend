@@ -1,6 +1,9 @@
 import constructGetUrl from '../utils/constructGetUrl'
+const host = "http://127.0.0.1:9211"
+// const host = "https://campaign.artela.network"
+
 const getTaskListByAccount = async (account: string, id?: number) => {
-    const response = await fetch(constructGetUrl(`https://campaign.artela.network/api/goplus/tasks`, { accountAddress: account, id }), {
+    const response = await fetch(constructGetUrl(`${host}/api/goplus/tasks`, { accountAddress: account, id }), {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -11,7 +14,7 @@ const getTaskListByAccount = async (account: string, id?: number) => {
 }
 
 const initTaskListByAccount = async (account: string, taskId: string, token: string, secret: string) => {
-    const response = await fetch('https://campaign.artela.network/api/goplus/new-task', {
+    const response = await fetch(`${host}/api/goplus/new-task`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -26,8 +29,8 @@ const initTaskListByAccount = async (account: string, taskId: string, token: str
     const data = await response.json();
     return data;
 }
-const syncTask = async (account: string,taskId:string) => {
-    const response = await fetch('https://campaign.artela.network/api/goplus/sync', {
+const syncTask = async (account: string, taskId: string) => {
+    const response = await fetch(`${host}/api/goplus/sync`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -42,7 +45,7 @@ const syncTask = async (account: string,taskId:string) => {
 }
 
 const updateTask = async (account: string, id: number, taskStatus: string, txs?: string, memo?: string) => {
-    const response = await fetch('https://campaign.artela.network/api/goplus/update-task', {
+    const response = await fetch(`${host}/api/goplus/update-task`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

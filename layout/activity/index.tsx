@@ -126,7 +126,7 @@ export default function Activity() {
     setIsCaptchaShow(false)
     if (account) {
         setLoading(true)
-        const initRes = await initTaskListByAccount(account, 'ff33f0d706434bf4881eb29554f86e34', token, sitkey)
+        const initRes = await initTaskListByAccount(account, getQueryParams(), token, sitkey)
         setLoading(false)
         if (initRes.success) {
           getTaskList()
