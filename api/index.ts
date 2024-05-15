@@ -1,5 +1,5 @@
 import constructGetUrl from '../utils/constructGetUrl'
-const host = "http://127.0.0.1:9211"
+const host = "https://faucet-center.artela.network"
 // const host = "https://campaign.artela.network"
 
 const getTaskListByAccount = async (account: string, id?: number) => {
