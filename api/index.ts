@@ -1,9 +1,10 @@
 import constructGetUrl from '../utils/constructGetUrl'
-const host = "https://faucet-center.artela.network"
+
+const host = process.env.FAUCET_URL ? process.env.FAUCET_URL : "https://faucet-center.artela.network"
 // const host = "https://campaign.artela.network"
 
 const getTaskListByAccount = async (account: string, id?: number) => {
-    const response = await fetch(constructGetUrl(`${host}/api/goplus/tasks`, { accountAddress: account, id }), {
+    const response = await fetch(constructGetUrl(`${host}/api/goplus/tasks`, {accountAddress: account, id}), {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -62,4 +63,4 @@ const updateTask = async (account: string, id: number, taskStatus: string, txs?:
     console.log(data)
     return data;
 }
-export { getTaskListByAccount, initTaskListByAccount, updateTask, syncTask };
+export {getTaskListByAccount, initTaskListByAccount, updateTask, syncTask};
