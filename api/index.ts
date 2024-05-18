@@ -1,6 +1,6 @@
 import constructGetUrl from '../utils/constructGetUrl'
 
-const host = process.env.Faucet_Url || "https://faucet-center.artela.network"
+const host = process.env.FAUCET_URL ? process.env.FAUCET_URL : "https://faucet-center.artela.network"
 // const host = "https://campaign.artela.network"
 
 const getTaskListByAccount = async (account: string, id?: number) => {
