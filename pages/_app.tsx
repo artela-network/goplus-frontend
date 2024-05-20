@@ -50,7 +50,7 @@ const artela = {
 const artelanet = defineChain(artela)
 
 const config = getDefaultConfig({
-  appName: 'GoPlus',
+  appName: 'Faucet',
   projectId: '080999b35ff4ade22e595b9aeb16db24',
   chains: [
     artelanet
