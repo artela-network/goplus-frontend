@@ -16,6 +16,7 @@ import { isMobile } from 'react-device-detect'
 import CryptoFraudSummary from '../Common/CryptoFraudInfo';
 import { useAccount } from 'wagmi';
 import Image from 'next/image';
+import Link from 'next/link';
 interface IntroduceProps {
     getTaskList: () => void;
     taskInfo?: TaskInfo;
@@ -26,7 +27,16 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
     const { address: account, isConnected } = useAccount();
     const [taskStatus, setTaskStatus] = useState(5)
     const [loading, setLoading] = useState(false)
+    const linkStyle = {
+        color: '#2f6eeb', // 链接文本颜色
+        textDecoration: 'underline', // 鼠标悬停时显示下划线
+     
+    };
 
+    const hoverStyle = {
+    };
+
+    const [isHovered, setIsHovered] = React.useState(false);
     const formatAddress = (address: string | undefined | null): string => {
         if (!address) {
             return ''
@@ -86,7 +96,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
             <div className='bkimg'>
                 <div className="img_container text-48px text-bold">
                     <text>
-                        Testnet Faucet <br/>
+                        Testnet Faucet <br />
                     </text>
                     <div className="icon-container">
                         <Image alt='img' height={32} style={{ height: '30px' }} src={artelaIcon} ></Image>
@@ -122,6 +132,11 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                                         ART: 2 &nbsp;
                                         <ExternalLink href={getEtherscanLink(ChainId.ARTELATESTNET, taskInfo?.txs?.split(',')[0], 'transaction')}> {formatAddress(taskInfo?.txs?.split(',')[0])} </ExternalLink><text style={{ color: '#2F9E44' }}>{taskStatus == 4 ? failed() : taskStatus == 3 ? finish() : taskStatus == 2 ? ongoing() : ''}</text>
                                         {taskStatus == 4 && <text className='error-message'>Claim token failed, please claim again</text>}
+                                    </div>
+                                    <div>
+                                        To claim more faucets, please Join 🚰 <ExternalLink href='https://docs.artela.network/develop/resources/faucet'>
+                                            Artela Discord
+                                        </ExternalLink>
                                     </div>
                                 </div>
                             </div>
