@@ -7,8 +7,8 @@ import {
 } from '@rainbow-me/rainbowkit';
 import { SiweMessage } from 'siwe';
 import { useAccount } from "wagmi";
-const hostUrl = process.env.NEXT_PUBLIC_FAUCET_URL ? process.env.NEXT_PUBLIC_FAUCET_URL : "http://192.168.3.247:9211"
-// const hostUrl = process.env.NEXT_PUBLIC_FAUCET_URL ? process.env.NEXT_PUBLIC_FAUCET_URL : "https://faucet-center.artela.network"
+// const hostUrl = process.env.NEXT_PUBLIC_FAUCET_URL ? process.env.NEXT_PUBLIC_FAUCET_URL : "http://192.168.3.247:9211"
+const hostUrl = process.env.NEXT_PUBLIC_FAUCET_URL ? process.env.NEXT_PUBLIC_FAUCET_URL : "https://faucet-center.artela.network"
 
 const Dymic = ({ children }: { children: ReactNode }) => {
     const { address } = useAccount()
@@ -62,7 +62,10 @@ const Dymic = ({ children }: { children: ReactNode }) => {
         signOut: async () => {
             setAUTHENTICATION_STATUS('unauthenticated')
             localStorage.removeItem('jwt');
-            window.location.href = '/';
+            // 获取当前 URL 的查询参数
+            const queryParams = window.location.search;
+            // 跳转到首页，并保留查询参数
+            window.location.href = `/${queryParams}`;
             // await fetch('/api/logout');
         },
     });

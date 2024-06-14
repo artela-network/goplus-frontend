@@ -1,7 +1,7 @@
 import constructGetUrl from '../utils/constructGetUrl'
 import xfetch from '../utils/xfetch';
-const host = process.env.NEXT_PUBLIC_FAUCET_URL ? process.env.NEXT_PUBLIC_FAUCET_URL : "http://192.168.3.247:9211"
-// const host = process.env.NEXT_PUBLIC_FAUCET_URL ? process.env.NEXT_PUBLIC_FAUCET_URL : "https://faucet-center.artela.network"
+// const host = process.env.NEXT_PUBLIC_FAUCET_URL ? process.env.NEXT_PUBLIC_FAUCET_URL : "http://192.168.3.247:9211"
+const host = process.env.NEXT_PUBLIC_FAUCET_URL ? process.env.NEXT_PUBLIC_FAUCET_URL : "https://faucet-center.artela.network"
 
 // const host = "https://campaign.artela.network"
 
