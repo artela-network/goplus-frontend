@@ -1,5 +1,5 @@
-import React, { useState, useEffect, ReactNode } from 'react';
-import { updateTask, getTaskListByAccount } from '../../../api/index'
+import React, { useState, useEffect, ReactNode, FC, useRef } from 'react';
+import { updateTask, getTaskListByAccount, getCaptchaData, initTaskListByAccount } from '../../../api/index'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { ChainId } from 'artswap'
 import { getEtherscanLink } from '../../../utils'
@@ -8,35 +8,67 @@ import { TaskInfo } from '../../../utils/campaignClient';
 import { Button, Spin } from 'antd';
 import { failed, ongoing, finish } from '../Common/StatusIcon';
 import { buttonStyle, buttonDisabledStyle } from '../Common/Button'
-import Loading from "../Common/Loading"
-import goPulusIcon from '../../../assets/icon/galxe.png';
 import artelaIcon from '../../../assets/icon/artela.png'
-import connectIcon from '../../../assets/icon/connect.svg'
-import { isMobile } from 'react-device-detect'
-import CryptoFraudSummary from '../Common/CryptoFraudInfo';
+import { useRouter } from 'next/router'
 import { useAccount } from 'wagmi';
 import Image from 'next/image';
-import Link from 'next/link';
+import GoCaptcha from 'go-captcha-react';
+import { useMutation } from '@tanstack/react-query';
+import { message } from "antd"
+
 interface IntroduceProps {
     getTaskList: () => void;
     taskInfo?: TaskInfo;
     captcha: ReactNode;
     initLoading: boolean;
 }
+// types.ts
+export interface Thumbnail {
+    thumbX: number;
+    thumbY: number;
+    thumbWidth: number;
+    thumbHeight: number;
+    image: string;
+    thumb: string;
+}
 export default function Introduce({ getTaskList, taskInfo, captcha, initLoading }: IntroduceProps) {
     const { address: account, isConnected } = useAccount();
     const [taskStatus, setTaskStatus] = useState(5)
+    const [captcha_key, setCaptcha_key] = useState('')
+    const location = useRouter()
+    const [messageApi, contextHolder] = message.useMessage();
+    const captchaRef = useRef<HTMLDivElement>(null);
+
+    const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false)
-    const linkStyle = {
-        color: '#2f6eeb', // 链接文本颜色
-        textDecoration: 'underline', // 鼠标悬停时显示下划线
-     
+    const initialThumbnail: Thumbnail = {
+        thumbX: 50,
+        thumbY: 50,
+        thumbWidth: 100,
+        thumbHeight: 100,
+        image: '/artLogo3.png',
+        thumb: '/completed.svg',
     };
+    const newTaskQuery = useMutation({
+        mutationFn: (variables: { account: string, taskId: string, captPoint: string, captKey: string }) => {
+            return initTaskListByAccount(variables.account, variables.taskId, variables.captPoint, variables.captKey);
+        },
+        onSuccess: (data) => {
 
-    const hoverStyle = {
-    };
+        },
+        onError: (error) => {
+            console.log(88888, error)
+        }
+    })
+    const [thumbnail, setThumbnail] = useState<Thumbnail>(initialThumbnail);
+    const getQueryParams = () => {
+        if (Array.isArray(location.query.taskId)) {
+            return location.query.taskId[0]
+        } else {
+            return location.query.taskId || ''
+        }
 
-    const [isHovered, setIsHovered] = React.useState(false);
+    }
     const formatAddress = (address: string | undefined | null): string => {
         if (!address) {
             return ''
@@ -84,15 +116,111 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
             }
         }
 
-    };
-
+    }
+    const getCaptcha = async () => {
+        const res = await getCaptchaData();
+        setCaptcha_key(res.captcha_key)
+        setThumbnail({
+            thumbX: res.tile_x,
+            thumbY: res.tile_y,
+            thumbWidth: res.tile_width,
+            thumbHeight: res.tile_height,
+            image: res.image_base64,
+            thumb: res.tile_base64
+        })
+    }
+    useEffect(() => {
+        getCaptcha()
+    }, [])
     useEffect(() => {
         if (taskInfo) {
             setTaskStatus(taskInfo.taskStatus)
         }
     }, [taskInfo])
+    useEffect(() => {
+        if (captchaRef.current) {
+            // 使用 MutationObserver 监听 DOM 变化，确保目标元素已经渲染完成
+            const observer = new MutationObserver(() => {
+                const targetElement = captchaRef.current?.querySelector('.gocaptcha-module_header__LjDUC span');
+                if (targetElement && targetElement.textContent === '请拖动滑块完成拼图') {
+                    targetElement.textContent = 'Please drag the slider to complete the puzzle';
+                    observer.disconnect(); // 修改完成后断开观察器
+                }
+            });
+
+            observer.observe(captchaRef.current, { childList: true, subtree: true });
+
+            // 在组件卸载时断开观察器
+            return () => observer.disconnect();
+        }
+    }, [captchaRef.current]);
+    interface SlideCaptchaModalProps {
+        show: boolean;
+        onClose: () => void;
+        account: string;
+        newTaskQuery: { mutate: (data: any) => void };
+        getCaptcha: () => void;
+        thumbnail: {
+            thumbX: number;
+            thumbY: number;
+            thumbWidth: number;
+            thumbHeight: number;
+            image: string;
+            thumb: string;
+        };
+        captcha_key: string;
+    }
+
+    const SlideCaptchaModal: FC<SlideCaptchaModalProps> = ({ show, onClose, account, newTaskQuery, getCaptcha, thumbnail, captcha_key }) => {
+        if (!show) {
+            return null;
+        }
+
+        return (
+            <div style={modalBackgroundStyle} ref={captchaRef}>
+                <GoCaptcha.Slide
+                    config={{
+                        showTheme: true,
+                        verticalPadding: 15,
+                        horizontalPadding: 10,
+                        thumbWidth: 1,
+                        width: 300,
+                        height: 220,
+                    }}
+                    data={thumbnail}
+                    events={{
+                        confirm(point) {
+                            if (account) {
+                                newTaskQuery.mutate({ account, taskId: getQueryParams(), captPoint: `${point.x},${point.y - 7}`, captKey: captcha_key });
+                            }
+                        },
+                        close() {
+                            setShowModal(false)
+                        },
+                        refresh() {
+                            getCaptcha();
+                        },
+                    }}
+                />
+            </div>
+        );
+    };
+
+    const modalBackgroundStyle: React.CSSProperties = {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000,
+    };
     return (
         <div className="introduce">
+            {contextHolder}
             <div className='bkimg'>
                 <div className="img_container text-48px text-bold">
                     <text>
@@ -112,11 +240,19 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                     <div className='subTitle'>Step1: Connect to Artela Testnet<br /> <text style={{ color: 'gray ', fontSize: '16px' }}>please use Metamask Wallet to finish these tasks.</text></div>
                     <ConnectButton />
                     <div className='subTitle'>Step2: Claim Test Tokens</div>
-                    {
-                        captcha
-                    }
+                    <button onClick={() => setShowModal(true)}>Show Captcha</button>
+                    <SlideCaptchaModal
+                        show={showModal}
+                        onClose={() => setShowModal(false)}
+                        account={account || ''}
+                        newTaskQuery={newTaskQuery}
+                        getCaptcha={getCaptcha}
+                        thumbnail={thumbnail}
+                        captcha_key={captcha_key}
+                    />
+
                     <div style={{ width: '600px' }}>
-                        <Button type='primary' disabled={taskStatus !== 0 && taskStatus !== 4} style={taskStatus == 0 || taskStatus === 4 ? buttonStyle : buttonDisabledStyle} loading={loading || initLoading} onClick={() => getFaucet()} className='my_button' >claim tokens</Button>
+                        <Button type='primary' disabled={taskStatus !== 0 && taskStatus !== 4&& taskStatus !== 5} style={taskStatus == 5 || taskStatus == 0 || taskStatus === 4 ? buttonStyle : buttonDisabledStyle} loading={loading || initLoading} onClick={() => getFaucet()} className='my_button'>claim tokens</Button>
                     </div>
                     <div className='claim_res'>
                         {taskStatus !== 0 && taskStatus !== 5 && <div className='subTitle'>Claim Transactions</div>}

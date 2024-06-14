@@ -7,12 +7,11 @@ import '../layout/components/SecondTask/style.css'
 import '../layout/components/Common/TaskBox/taskBox.css'
 import '@rainbow-me/rainbowkit/styles.css';
 import type { AppProps } from 'next/app';
+import Dymic from './dymic';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider } from 'wagmi';
 import { getDefaultConfig, RainbowKitProvider,darkTheme  } from '@rainbow-me/rainbowkit';
-
-
 
 import { defineChain } from 'viem'
 
@@ -61,12 +60,20 @@ const config = getDefaultConfig({
 const client = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={client}>
-        <RainbowKitProvider modalSize="compact" locale="en-US" theme={darkTheme()}>
+        {/* <RainbowKitAuthenticationProvider
+          adapter={authenticationAdapter}
+          status={AUTHENTICATION_STATUS}
+        >
+          <RainbowKitProvider > */}
+        <Dymic>
           <Component {...pageProps} />
-        </RainbowKitProvider>
+        </Dymic>
+        {/* </RainbowKitProvider>
+        </RainbowKitAuthenticationProvider> */}
       </QueryClientProvider>
     </WagmiProvider>
   );

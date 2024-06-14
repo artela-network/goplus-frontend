@@ -14,3 +14,9 @@ a {
 * {
   box-sizing: border-box;
 }
+:root {
+  --go-captcha-theme-text-color: #ff1616 !important;; 
+  --go-captcha-theme-bg-color: #211414 !important;; 
+  --go-captcha-theme-drag-icon-color: #ffffff !important;; 
+  
+}
