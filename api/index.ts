@@ -26,7 +26,7 @@ const getCaptchaData = async () => {
     return data;
 }
 
-const initTaskListByAccount = async (account: string, taskId: string, captPoint: string, captKey: string) => {
+const initTaskListByAccount = async (account: string, taskId: string, captPoint: string, captKey: string,disconnect:()=>void) => {
     const response = await xfetch(`${host}/api/goplus/new-task`, {
         method: 'POST',
         headers: {
@@ -39,6 +39,10 @@ const initTaskListByAccount = async (account: string, taskId: string, captPoint:
             captKey
         })
     })
+    console.log(response)
+    if(response.status == 401){
+        disconnect()
+    }
     const data = await response.json();
     return data;
 }

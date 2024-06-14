@@ -62,6 +62,7 @@ const Dymic = ({ children }: { children: ReactNode }) => {
         signOut: async () => {
             setAUTHENTICATION_STATUS('unauthenticated')
             localStorage.removeItem('jwt');
+            window.location.href = '/';
             // await fetch('/api/logout');
         },
     });

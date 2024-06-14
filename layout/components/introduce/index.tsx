@@ -15,6 +15,7 @@ import Image from 'next/image';
 import GoCaptcha from 'go-captcha-react';
 import { useMutation } from '@tanstack/react-query';
 import { message } from "antd"
+import { useDisconnect } from 'wagmi';
 
 interface IntroduceProps {
     getTaskList: () => void;
@@ -38,7 +39,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
     const location = useRouter()
     const [messageApi, contextHolder] = message.useMessage();
     const captchaRef = useRef<HTMLDivElement>(null);
-
+    const { disconnect } = useDisconnect()
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false)
     const initialThumbnail: Thumbnail = {
@@ -50,14 +51,21 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
         thumb: '/completed.svg',
     };
     const newTaskQuery = useMutation({
-        mutationFn: (variables: { account: string, taskId: string, captPoint: string, captKey: string }) => {
-            return initTaskListByAccount(variables.account, variables.taskId, variables.captPoint, variables.captKey);
+        mutationFn: (variables: { account: string, taskId: string, captPoint: string, captKey: string, disconnect: () => void }) => {
+            return initTaskListByAccount(variables.account, variables.taskId, variables.captPoint, variables.captKey, variables.disconnect);
         },
         onSuccess: (data) => {
-
+            if (data.success) {
+                setShowModal(false)
+                setTaskStatus(1)
+                getFaucetPass
+            } else {
+                messageApi.error(data.error)
+                getCaptcha()
+            }
         },
-        onError: (error) => {
-            console.log(88888, error)
+        onError: (error, s) => {
+            console.log(88888, error, s)
         }
     })
     const [thumbnail, setThumbnail] = useState<Thumbnail>(initialThumbnail);
@@ -83,7 +91,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
         // 返回格式化后的字符串
         return `${first11}...${last9}`;
     }
-    const getFaucet = async () => {
+    const getFaucetPass = async () => {
         setLoading(true)
         try {
             if (account && taskInfo) {
@@ -101,6 +109,30 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
         } finally {
             setLoading(false); // 在这里统一停止加载状态
         }
+    }
+    const getFaucet = async () => {
+        if (taskStatus == 5) {
+            setShowModal(true)
+        } else {
+            setLoading(true)
+            try {
+                if (account && taskInfo) {
+                    const res = await updateTask(account, taskInfo.id, '1');
+                    if (res.success) {
+                        const taskInfoRes = await getTaskListByAccount(account, taskInfo.id);
+                        if (taskInfoRes.success) {
+                            setTaskStatus(taskInfoRes.data.taskInfos[0].taskStatus);
+                            fetchTaskInfo();
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error(error); // 处理或记录错误
+            } finally {
+                setLoading(false); // 在这里统一停止加载状态
+            }
+        }
+
     }
     const fetchTaskInfo = async () => {
         if (account && taskInfo) {
@@ -139,13 +171,19 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
     }, [taskInfo])
     useEffect(() => {
         if (captchaRef.current) {
-            // 使用 MutationObserver 监听 DOM 变化，确保目标元素已经渲染完成
-            const observer = new MutationObserver(() => {
+            const removeTargetElement = () => {
                 const targetElement = captchaRef.current?.querySelector('.gocaptcha-module_header__LjDUC span');
                 if (targetElement && targetElement.textContent === '请拖动滑块完成拼图') {
-                    targetElement.textContent = 'Please drag the slider to complete the puzzle';
-                    observer.disconnect(); // 修改完成后断开观察器
+                    targetElement.remove();
                 }
+            };
+
+            // 立即检查并移除目标元素
+            removeTargetElement();
+
+            // 使用 MutationObserver 监听 DOM 变化，确保目标元素已经渲染完成
+            const observer = new MutationObserver(() => {
+                removeTargetElement();
             });
 
             observer.observe(captchaRef.current, { childList: true, subtree: true });
@@ -191,7 +229,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                     events={{
                         confirm(point) {
                             if (account) {
-                                newTaskQuery.mutate({ account, taskId: getQueryParams(), captPoint: `${point.x},${point.y - 7}`, captKey: captcha_key });
+                                newTaskQuery.mutate({ account, taskId: getQueryParams(), captPoint: `${point.x},${point.y}`, captKey: captcha_key, disconnect });
                             }
                         },
                         close() {
@@ -240,7 +278,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                     <div className='subTitle'>Step1: Connect to Artela Testnet<br /> <text style={{ color: 'gray ', fontSize: '16px' }}>please use Metamask Wallet to finish these tasks.</text></div>
                     <ConnectButton />
                     <div className='subTitle'>Step2: Claim Test Tokens</div>
-                    <button onClick={() => setShowModal(true)}>Show Captcha</button>
+                    {/* <button onClick={() => setShowModal(true)}>Show Captcha</button> */}
                     <SlideCaptchaModal
                         show={showModal}
                         onClose={() => setShowModal(false)}
@@ -252,7 +290,7 @@ export default function Introduce({ getTaskList, taskInfo, captcha, initLoading 
                     />
 
                     <div style={{ width: '600px' }}>
-                        <Button type='primary' disabled={taskStatus !== 0 && taskStatus !== 4&& taskStatus !== 5} style={taskStatus == 5 || taskStatus == 0 || taskStatus === 4 ? buttonStyle : buttonDisabledStyle} loading={loading || initLoading} onClick={() => getFaucet()} className='my_button'>claim tokens</Button>
+                        <Button type='primary' disabled={taskStatus !== 0 && taskStatus !== 4 && taskStatus !== 5} style={taskStatus == 5 || taskStatus == 0 || taskStatus === 4 ? buttonStyle : buttonDisabledStyle} loading={loading || initLoading} onClick={() => getFaucet()} className='my_button'>claim tokens</Button>
                     </div>
                     <div className='claim_res'>
                         {taskStatus !== 0 && taskStatus !== 5 && <div className='subTitle'>Claim Transactions</div>}
