@@ -122,20 +122,20 @@ export default function Activity() {
 
     return false
   }
-  const onSubmit = async (token: any) => {
-    setIsCaptchaShow(false)
-    if (account) {
-      setLoading(true)
-      const initRes = await initTaskListByAccount(account, getQueryParams(), token, sitkey)
-      setLoading(false)
-      if (initRes.success) {
-        getTaskList()
-      } else {
-        setNewTaskError(initRes.error)
-        handleOpenNewTaskModal()
-      }
-    }
-  }
+  // const onSubmit = async (token: any) => {
+  //   setIsCaptchaShow(false)
+  //   if (account) {
+  //     setLoading(true)
+  //     const initRes = await initTaskListByAccount(account, getQueryParams(), token, sitkey)
+  //     setLoading(false)
+  //     if (initRes.success) {
+  //       getTaskList()
+  //     } else {
+  //       setNewTaskError(initRes.error)
+  //       handleOpenNewTaskModal()
+  //     }
+  //   }
+  // }
   useEffect(() => {
     if (!account) {
       setTaskInfos(initialTaskInfos)
@@ -147,17 +147,17 @@ export default function Activity() {
   }, [account])
 
   const captcha = () => {
-    if (isCaptchaShow) {
-      return (
-        <ReCAPTCHA
-          ref={recaptchaRef}
-          sitekey={sitkey}
-          onChange={onSubmit}
-        />
-      )
-    } else {
+    // if (isCaptchaShow) {
+    //   return (
+    //     <ReCAPTCHA
+    //       ref={recaptchaRef}
+    //       sitekey={sitkey}
+    //       onChange={onSubmit}
+    //     />
+    //   )
+    // } else {
       return ''
-    }
+    // }
 
   }
   const syncState = async () => {
